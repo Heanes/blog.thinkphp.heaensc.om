@@ -1,0 +1,3 @@
+[submodule "public/static/libs"]
+	path = public/static/libs
+	url = https://github.com/Heanes/cdn.heanes.com.git
