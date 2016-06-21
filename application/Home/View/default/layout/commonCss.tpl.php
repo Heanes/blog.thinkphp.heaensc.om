@@ -4,6 +4,7 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 13:19:58 周二
  */
+defined('inHeanes') or die('Access denied!');
 ?>
 <link rel="stylesheet" type="text/css" href="/public/static/libs/css/reset/reset.css"/>
 <link rel="stylesheet" type="text/css" href="/public/static/libs/css/base/base.css"/>

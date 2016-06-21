@@ -5,7 +5,7 @@
  * @time 2016-06-21 14:44:18 周二
  */
 namespace Home\Controller;
-class ArticleController extends BaseHomeController {
+class ArticleCategoryController extends BaseHomeController {
 
     /**
      * @doc 默认页面
@@ -17,7 +17,7 @@ class ArticleController extends BaseHomeController {
     }
 
     /**
-     * @doc 显示文章列表
+     * @doc 显示文章分类列表
      * @author Heanes fang <heaens@163.com>
      * @time 2016-06-21 14:45:47 周二
      */
@@ -26,7 +26,7 @@ class ArticleController extends BaseHomeController {
     }
 
     /**
-     * @doc 显示文章内容
+     * @doc 显示文章分类详情
      * @author Heanes fang <heaens@163.com>
      * @time 2016-06-21 14:46:05 周二
      */

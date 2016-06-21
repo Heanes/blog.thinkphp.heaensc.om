@@ -20,7 +20,10 @@ define('APP_DEBUG', true);
 // 定义应用目录
 define('APP_PATH', './application/');
 
+// 定义入口变量，防止模版文件直接访问
+define('inHeanes', true);
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
+
 
 // 亲^_^ 后面不需要任何代码了 就是如此简单

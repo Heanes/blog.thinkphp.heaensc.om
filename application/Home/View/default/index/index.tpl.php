@@ -4,6 +4,7 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 11:59:55 周二
  */
+defined('inHeanes') or die('Access denied!');
 ?>
 
 <!DOCTYPE html>

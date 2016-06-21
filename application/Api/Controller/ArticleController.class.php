@@ -7,16 +7,25 @@
 namespace Api\Controller;
 
 use Common\Model\ArticleModel;
+use Common\Model\ArticleCategoryModel;
 
 class ArticleController extends BaseAPIController {
 
+    /**
+     * @var ArticleModel 文章模型
+     */
     private $articleModel;
 
-    private $commonExceptFields = 'is_enable,is_deleted,access_password,insert_time,update_time,create_user,update_user';
+    /**
+     * @var ArticleModel 文章分类模型
+     */
+    private $articleCategoryModel;
+
 
     function __construct() {
         parent::__construct();
         $this->articleModel = new ArticleModel();
+        $this->articleCategoryModel = new ArticleCategoryModel();
     }
 
     /**
