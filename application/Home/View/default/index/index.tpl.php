@@ -41,23 +41,23 @@ defined('inHeanes') or die('Access denied!');
             <div class="center-block center-wrap float-block">
                 <!-- 首页文章列表模块 -->
                 <div class="index-article-list-block">
-                    <div class="article-list-block">
-                        <div class="article-list-row">
+                    <div class="article-list-block" id="indexArticleList">
+                        <div class="article-list-row" v-for="article in indexArticleList">
                             <div class="article-title">
-                                <h1 class="title"><a href="detail.html">未来CSS文件加载方式</a></h1>
+                                <h1 class="title"><a href="/article/detail/{{article.id}}">{{article.title}}</a></h1>
                             </div>
                             <div class="article-info">
                                 <dl>
                                     <dt>作者:</dt>
-                                    <dd>Heanes</dd>
+                                    <dd>{{article.author}}</dd>
                                 </dl>
                                 <dl>
                                     <dt>日期:</dt>
-                                    <dd>2016-02-22 12:20:15</dd>
+                                    <dd>{{article.publicatio'n_time}}</dd>
                                 </dl>
                                 <dl>
                                     <dt>评论:</dt>
-                                    <dd>83</dd>
+                                    <dd>{{article.comment_num}}</dd>
                                 </dl>
                                 <dl class="article-tags">
                                     <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>
@@ -103,12 +103,20 @@ defined('inHeanes') or die('Access denied!');
 <cite>
     <!-- S js S -->
     <include file="layout/commonJs"/>
+    <script type="text/javascript" src="/public/static/libs/js/vue/1.0.20/vue.js"></script>
     <script type="text/javascript">
         $(function () {
             var API = {
                 'articleList':'/api/article/list',
                 'articleDetail':'/api/article/detail'
             };
+
+            var indexArticleList = new Vue({
+                el: '#indexArticleList',
+                data: {
+                    indexArticleList: []
+                }
+            });
 
             // 获取首页文章列表
             $.ajax({
@@ -117,8 +125,10 @@ defined('inHeanes') or die('Access denied!');
                 data: {'id':1},
                 dataType: "json",
                 success: function (result) {
+                    indexArticleList.indexArticleList = result;
                 },
                 fail: function (result) {
+                    alert('数据异常！');
                 }
             });
             $.ajax({
@@ -127,10 +137,12 @@ defined('inHeanes') or die('Access denied!');
                 data: {'id':1},
                 dataType: "json",
                 success: function (result) {
+
                 },
                 fail: function (result) {
                 }
             });
+
         });
     </script>
     <!-- E js E -->
