@@ -53,11 +53,11 @@ defined('inHeanes') or die('Access denied!');
                                 </dl>
                                 <dl>
                                     <dt>日期:</dt>
-                                    <dd>{{article.publicatio'n_time}}</dd>
+                                    <dd>{{article.publishTime}}</dd>
                                 </dl>
                                 <dl>
                                     <dt>评论:</dt>
-                                    <dd>{{article.comment_num}}</dd>
+                                    <dd>{{article.commentNum}}</dd>
                                 </dl>
                                 <dl class="article-tags">
                                     <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>
@@ -129,17 +129,6 @@ defined('inHeanes') or die('Access denied!');
                 },
                 fail: function (result) {
                     alert('数据异常！');
-                }
-            });
-            $.ajax({
-                url:API.articleDetail,
-                method:'POST',
-                data: {'id':1},
-                dataType: "json",
-                success: function (result) {
-
-                },
-                fail: function (result) {
                 }
             });
 

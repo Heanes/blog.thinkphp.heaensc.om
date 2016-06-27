@@ -39,60 +39,9 @@ defined('inHeanes') or die('Access denied!');
             <div class="left-block left-wrap float-block"></div>
             <!-- 中心区域 -->
             <div class="center-block center-wrap float-block">
-                <!-- 首页文章列表模块 -->
-                <div class="index-article-list-block">
-                    <div class="article-list-block" id="indexArticleList">
-                        <div class="article-list-row" v-for="article in indexArticleList">
-                            <div class="article-title">
-                                <h1 class="title"><a href="/article/detail/{{article.id}}">{{article.title}}</a></h1>
-                            </div>
-                            <div class="article-info">
-                                <dl>
-                                    <dt>作者:</dt>
-                                    <dd>{{article.author}}</dd>
-                                </dl>
-                                <dl>
-                                    <dt>日期:</dt>
-                                    <dd>{{article.publicatio'n_time}}</dd>
-                                </dl>
-                                <dl>
-                                    <dt>评论:</dt>
-                                    <dd>{{article.comment_num}}</dd>
-                                </dl>
-                                <dl class="article-tags">
-                                    <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>
-                                    <dd><a href="javascript:">前端</a></dd>
-                                    <dd><a href="javascript:">CSS</a></dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- 右侧区域 -->
             <div class="right-block right-wrap float-block"></div>
-        </div>
-        <!-- 底部区域 -->
-        <div class="main-bottom-content main-wrap">
-            <!-- 底部推荐文章列表 -->
-            <div class="recommend-article">
-                <div class="should-be-see">
-                    <ul class="recommend-list-ul">
-                        <li>
-                            <h3 class="title">不容错过</h3>
-                        </li>
-                        <li>
-                            <div class="recommend-one">
-                                <a class="title-href" href="javascript:void(0);">移动APP背后的秘密：间谍APP大阅兵</a>
-                                <p class="meta">
-                                    <span class="author"><a href="javascript:void(0);" title="由 heanes 发布" rel="author">heanes</a></span>
-                                    <span class="time">2015-11-26</span>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
     <!-- E 主要内容 E -->
@@ -111,33 +60,20 @@ defined('inHeanes') or die('Access denied!');
                 'articleDetail':'/api/article/detail'
             };
 
-            var indexArticleList = new Vue({
+            var articleDetail = new Vue({
                 el: '#indexArticleList',
                 data: {
-                    indexArticleList: []
+                    article: {}
                 }
             });
 
-            // 获取首页文章列表
-            $.ajax({
-                url:API.articleList,
-                method:'POST',
-                data: {'id':1},
-                dataType: "json",
-                success: function (result) {
-                    indexArticleList.indexArticleList = result;
-                },
-                fail: function (result) {
-                    alert('数据异常！');
-                }
-            });
             $.ajax({
                 url:API.articleDetail,
                 method:'POST',
-                data: {'id':1},
+                data: {'id': <?php echo $bData['id'];?>},
                 dataType: "json",
                 success: function (result) {
-
+                    articleDetail.article = result;
                 },
                 fail: function (result) {
                 }

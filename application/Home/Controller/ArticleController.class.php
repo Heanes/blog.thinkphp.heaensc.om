@@ -5,6 +5,7 @@
  * @time 2016-06-21 14:44:18 周二
  */
 namespace Home\Controller;
+defined('inHeanes') or die('Access denied!');
 class ArticleController extends BaseHomeController {
 
     /**
@@ -31,6 +32,8 @@ class ArticleController extends BaseHomeController {
      * @time 2016-06-21 14:46:05 周二
      */
     public function detailOp() {
+        $data['id'] = $_REQUEST['id'];
+        $this->assign('bData', $data);
         $this->display('detail');
     }
 }

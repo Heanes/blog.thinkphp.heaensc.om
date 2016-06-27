@@ -5,27 +5,19 @@
  * @time 2016-06-21 14:55:09 周二
  */
 namespace Api\Controller;
-defined('inHeanes') or die('Access denied!');
-use Common\Model\ArticleModel;
-use Common\Model\ArticleCategoryModel;
 
-class ArticleController extends BaseAPIController {
+use Common\Model\UserModel;
 
-    /**
-     * @var ArticleModel 文章模型
-     */
-    private $articleModel;
+class UserController extends BaseAPIController {
 
     /**
-     * @var ArticleModel 文章分类模型
+     * @var UserModel 文章模型
      */
-    private $articleCategoryModel;
-
+    private $userModel;
 
     function __construct() {
         parent::__construct();
-        $this->articleModel = new ArticleModel();
-        $this->articleCategoryModel = new ArticleCategoryModel();
+        $this->userModel = new UserModel();
     }
 
     /**
@@ -43,29 +35,28 @@ class ArticleController extends BaseAPIController {
      * @time 2016-06-21 14:56:00 周二
      */
     public function listOp(){
-        $articleListRaw = $this->articleModel
+        $userListRaw = $this->userModel
             ->where('is_enable = 1 and is_deleted = 0')
             ->limit('0,20')
             ->select();
-        $articleListHumpStyle = convertToHumpStyle($articleListRaw);
-        returnJson($articleListHumpStyle);
+        $userListHumpStyle = convertToHumpStyle($userListRaw);
+        returnJson($userListHumpStyle);
     }
 
     /**
-     * @doc 获取文章详情
+     * @doc 获取用户详情
      * @author Heanes fang <heaens@163.com>
-     * @time 2016-06-21 18:15:42 周二
+     * @time 2016-06-27 11:57:10 周一
      */
     public function detailOp() {
         $id = $_REQUEST['id'];
         if(!$id){
             returnJson('id不能为空');
         }
-        $articleRaw = $this->articleModel
+        $userRaw = $this->userModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
-        $articleHumpStyle = convertToHumpStyle($articleRaw);
-        returnJson($articleHumpStyle);
+        $userHumpStyle = convertToHumpStyle($userRaw);
+        returnJson($userHumpStyle);
     }
-
 }
