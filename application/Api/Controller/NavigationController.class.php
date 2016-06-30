@@ -1,32 +1,25 @@
 <?php
 /**
- * @doc 文章部分
+ * @doc 导航菜单相关控制器
  * @author Heanes fang <heanes@163.com>
- * @time 2016-06-21 14:55:09 周二
+ * @time 2016-06-30 15:44:37 周四
  */
 namespace Api\Controller;
 defined('inHeanes') or die('Access denied!');
 
-use Common\Model\ArticleModel;
-use Common\Model\ArticleCategoryModel;
+use Common\Model\NavigationModel;
 
-class ArticleController extends BaseAPIController {
-
-    /**
-     * @var ArticleModel 文章模型
-     */
-    private $articleModel;
+class NavigationController extends BaseAPIController {
 
     /**
-     * @var ArticleModel 文章分类模型
+     * @var NavigationModel 导航模型
      */
-    private $articleCategoryModel;
+    private $navigationModel;
 
 
     function __construct() {
         parent::__construct();
-        $this->articleModel = new ArticleModel();
-        $this->articleCategoryModel = new ArticleCategoryModel();
+        $this->navigationModel = new NavigationModel();
     }
 
     /**
@@ -44,13 +37,13 @@ class ArticleController extends BaseAPIController {
      * @time 2016-06-21 14:56:00 周二
      */
     public function listOp(){
-        $articleListRaw = $this->articleModel
+        $navigationListRaw = $this->navigationModel
             ->where('is_enable = 1 and is_deleted = 0')
             ->limit('0,20')
             ->select();
-        $articleListHumpStyle = convertToHumpStyle($articleListRaw);
+        $navigationListHumpStyle = convertToHumpStyle($navigationListRaw);
         $result = [
-            'body' => $articleListHumpStyle,
+            'body' => $navigationListHumpStyle,
             'message' => 'success',
             'errorCode' => 0,
             'success' => true
@@ -68,17 +61,16 @@ class ArticleController extends BaseAPIController {
         if(!$id){
             returnJson('id不能为空');
         }
-        $articleRaw = $this->articleModel
+        $navigationRaw = $this->navigationModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
-        $articleHumpStyle = convertToHumpStyle($articleRaw);
+        $navigationHumpStyle = convertToHumpStyle($navigationRaw);
         $result = [
-            'body' => $articleHumpStyle,
+            'body' => $navigationHumpStyle,
             'message' => 'success',
             'errorCode' => 0,
             'success' => true
         ];
         returnJson($result);
     }
-
 }

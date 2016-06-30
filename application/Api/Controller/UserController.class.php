@@ -40,7 +40,13 @@ class UserController extends BaseAPIController {
             ->limit('0,20')
             ->select();
         $userListHumpStyle = convertToHumpStyle($userListRaw);
-        returnJson($userListHumpStyle);
+        $result = [
+            'body' => $userListHumpStyle,
+            'message' => 'success',
+            'errorCode' => 0,
+            'success' => true
+        ];
+        returnJson($result);
     }
 
     /**
@@ -57,6 +63,12 @@ class UserController extends BaseAPIController {
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
         $userHumpStyle = convertToHumpStyle($userRaw);
-        returnJson($userHumpStyle);
+        $result = [
+            'body' => $userHumpStyle,
+            'message' => 'success',
+            'errorCode' => 0,
+            'success' => true
+        ];
+        returnJson($result);
     }
 }

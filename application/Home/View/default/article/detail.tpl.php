@@ -73,7 +73,7 @@ defined('inHeanes') or die('Access denied!');
                 data: {'id': <?php echo $bData['id'];?>},
                 dataType: "json",
                 success: function (result) {
-                    articleDetail.article = result;
+                    articleDetail.article = result.body;
                 },
                 fail: function (result) {
                 }

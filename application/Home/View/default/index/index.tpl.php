@@ -125,7 +125,7 @@ defined('inHeanes') or die('Access denied!');
                 data: {'id':1},
                 dataType: "json",
                 success: function (result) {
-                    indexArticleList.indexArticleList = result;
+                    indexArticleList.indexArticleList = result.body;
                 },
                 fail: function (result) {
                     alert('数据异常！');
