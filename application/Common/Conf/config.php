@@ -1,7 +1,16 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
-    'module_allow_list' => array('Home','Admin','api'),
+
+    // 允许访问的模块
+    'module_allow_list' => array('Home','Admin','Api'),
+
+    // 路由相关
+    'url_router_on'     => true,            // 开启路由
+    'url_route_rules'=>array(
+        'article/:id\d'=>'Home/article/detail',
+        'api/article/:id\d'=>'Api/article/detail',
+    ),
 
     // 数据库
     'db_type'   => 'mysqli',                // 数据库类型
