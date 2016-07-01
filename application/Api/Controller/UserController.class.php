@@ -39,7 +39,7 @@ class UserController extends BaseAPIController {
             ->where('is_enable = 1 and is_deleted = 0')
             ->limit('0,20')
             ->select();
-        $userListHumpStyle = convertToHumpStyle($userListRaw);
+        $userListHumpStyle = convertToCamelStyle($userListRaw);
         $result = [
             'body' => $userListHumpStyle,
             'message' => 'success',
@@ -62,7 +62,7 @@ class UserController extends BaseAPIController {
         $userRaw = $this->userModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
-        $userHumpStyle = convertToHumpStyle($userRaw);
+        $userHumpStyle = convertToCamelStyle($userRaw);
         $result = [
             'body' => $userHumpStyle,
             'message' => 'success',

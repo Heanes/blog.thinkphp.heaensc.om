@@ -19,38 +19,82 @@ function returnJson($anything, $option = JSON_UNESCAPED_SLASHES ){
 
 /**
  * @doc 将数组或字符串转为驼峰风格
- * @param $array string|array
+ * @param string|array $mix 要被转化的字符或数组，将会递归更改
+ * @param string $type key|value|all 转换位置，key代表数组的键，value代表数组的值，all代表都转换
  * @return null|string|array
  * @author Heanes fang <heaens@163.com>
  * @time 2016-06-27 11:25:29 周一
  */
-function convertToHumpStyle($array){
-    if(!isset($array)){
-        return null;
+function convertToCamelStyle($mix, $type = 'key'){
+    if(!isset($mix)){
+        return '';
     }
-    if(!is_array($array)){
-        $words = explode('_', $array);
+    if(!is_array($mix)){
+        $words = explode('_', trim($mix));
         $str = '';
         foreach ($words as $word) {
             $str .= ucfirst($word);
         }
         return lcfirst($str);
     }
-    if(is_array($array)){
+    if(is_array($mix)){
         $newArray = [];
-        foreach ($array as $index => &$item) {
+        foreach ($mix as $index => &$item) {
             if(is_array($item)){
-                $item = convertToHumpStyle($item);
+                $item = convertToCamelStyle($item, $type);
             }
-            $indexStr = '';
-            $indexArr = explode('_', $index);
-            foreach ($indexArr as $indexTemp) {
-                $indexStr .= ucfirst($indexTemp);
+            if($type == 'key' || $type == 'all'){
+                $indexStr = '';
+                $indexArr = explode('_', trim($index));
+                foreach ($indexArr as $indexTemp) {
+                    $indexStr .= ucfirst($indexTemp);
+                }
+                $index = lcfirst($indexStr);
             }
-            $index = lcfirst($indexStr);
+            if(!is_array($item)){
+                if($type == 'value' || $type == 'all'){
+                    $itemStr = '';
+                    $itemArr = explode('_', trim($item));
+                    foreach ($itemArr as $itemTemp) {
+                        $itemStr .= ucfirst($itemTemp);
+                    }
+                    $item = lcfirst($itemStr);
+                }
+            }
             $newArray[$index] = $item;
         }
         return $newArray;
     }
-    return null;
+    return '';
+}
+
+/**
+ * @doc 将驼峰风格转为下划线分隔，正则方式
+ * @param string $string 欲被转化的字符串
+ * @return string
+ * @author Heanes fang <heaens@163.com>
+ * @time 2016-07-01 11:30:46 周五
+ */
+function convertCamelToUnderlineStyleByPreg($string){
+    return strtolower(preg_replace('/((?<=[a-z])(?=[A-Z]))/', '_', $string));
+}
+
+/**
+ * @doc 将驼峰风格转为下划线分隔，遍历字符对比是否为大写字符模式
+ * @param string $string 欲被转化的字符串
+ * @return string
+ * @author Heanes fang <heaens@163.com>
+ * @time 2016-07-01 12:15:08 周五
+ */
+function convertCamelToUnderlineStyle($string){
+    $newString = '';
+    for($i = 0, $length = strlen($string); $i < $length; $i++){
+        $alphabetLower = strtolower($string[$i]);
+        if($string[$i] != $alphabetLower){
+            $newString .= '_' . $alphabetLower;
+        }else{
+            $newString .= $string[$i];
+        }
+    }
+    return $newString;
 }

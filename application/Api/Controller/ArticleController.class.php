@@ -48,7 +48,7 @@ class ArticleController extends BaseAPIController {
             ->where('is_enable = 1 and is_deleted = 0')
             ->limit('0,20')
             ->select();
-        $articleListHumpStyle = convertToHumpStyle($articleListRaw);
+        $articleListHumpStyle = convertToCamelStyle($articleListRaw);
         $result = [
             'body' => $articleListHumpStyle,
             'message' => 'success',
@@ -71,7 +71,7 @@ class ArticleController extends BaseAPIController {
         $articleRaw = $this->articleModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
-        $articleHumpStyle = convertToHumpStyle($articleRaw);
+        $articleHumpStyle = convertToCamelStyle($articleRaw);
         $result = [
             'body' => $articleHumpStyle,
             'message' => 'success',
