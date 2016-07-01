@@ -6,6 +6,7 @@
  */
 namespace Home\Controller;
 defined('inHeanes') or die('Access denied!');
+
 class ArticleController extends BaseHomeController {
 
     /**

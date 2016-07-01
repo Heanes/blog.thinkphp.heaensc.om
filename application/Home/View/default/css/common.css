@@ -63,7 +63,7 @@
 .top-toolbar .top-handle-block .handle-block.font-setting:hover{background-color:#fff;}
 
 
-.header-nav-bar{height:80px;background-color:#fff;}
+.header-nav-bar{height:80px;background-color:rgba(255,255,255,.61);}
 
 /* header-style1 */
 .header-nav-bar .header-logo{padding:10px;float:left;}
@@ -75,7 +75,8 @@
 .header-nav-bar .header-nav .nav .nav-a{font-size:14px;color:#233;padding:10px 14px;}
 .header-nav-bar .header-nav .nav .nav-a.current{color:#57adfd;}
 .header-nav-bar .header-nav .nav .nav-a:hover,
-.header-nav-bar .header-nav .nav .nav-a.nav-login{color:#fff;background-color:#57adfd;border-radius:20px;}
+.header-nav-bar .header-nav .nav .nav-a.current{color:#fff;background-color:#57adfd;border-radius:20px;}
+.header-nav-bar .header-nav .nav .nav-a.nav-login{color:#fff;background-color:#48a57d;border-radius:20px;}
 .header-nav-bar .header-nav .nav .nav-a .icon-nav{font-size:14px;}
 .header-nav-bar .header-nav .nav .nav-a .icon-nav.icon-web-home{font-size:18px;}
 .header-nav-bar .header-search{float:left;height:80px;line-height:80px;}
