@@ -124,6 +124,11 @@ defined('inHeanes') or die('Access denied!');
                 el: '#navigationList',
                 data: {
                     navigationList: []
+                },
+                methods: {
+                    isCurrentPath: function(data) {
+                        return window.location.pathname == data;
+                    }
                 }
             });
 
@@ -134,11 +139,6 @@ defined('inHeanes') or die('Access denied!');
                 data: {},
                 dataType: "json",
                 success: function (result) {
-                    $.each(result.body, function (i, item) {
-                        if(item.aHref == pathName){
-                            item.styleClass += ' current';
-                        }
-                    });
                     navigationList.navigationList = result.body || [];
                 },
                 fail: function (result) {

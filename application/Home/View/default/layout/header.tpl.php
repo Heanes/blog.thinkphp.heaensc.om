@@ -26,7 +26,7 @@ defined('inHeanes') or die('Access denied!');
         </div>
     </div>
     <!-- 顶部导航栏 -->
-    <div class="header-nav-bar">
+    <div class="header-nav-bar" id="headerNavBar">
         <div class="main-wrap clearfix">
             <!-- 头部logo区域 -->
             <div class="header-logo">
@@ -38,7 +38,11 @@ defined('inHeanes') or die('Access denied!');
             <div class="header-nav">
                 <ul class="nav" id="navigationList">
                     <li v-for="navigation in navigationList">
-                        <a href="{{navigation.aHref}}" class="nav-a {{navigation.styleClass}}">
+                        <a href="{{navigation.aHref}}" class="nav-a {{navigation.styleClass}} current" v-if="isCurrentPath(navigation.aHref)">
+                            <i class="{{navigation.iconClass}}"></i>
+                            <span>{{navigation.name}}</span>
+                        </a>
+                        <a href="{{navigation.aHref}}" class="nav-a {{navigation.styleClass}}" v-else>
                             <i class="{{navigation.iconClass}}"></i>
                             <span>{{navigation.name}}</span>
                         </a>

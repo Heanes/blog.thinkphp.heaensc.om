@@ -83,7 +83,7 @@ class ArticleCategoryController extends BaseAPIController {
                 ->where('code = '. $code .' and is_enable = 1 and is_deleted = 0')
                 ->find();
             $articleCategoryWhereStr = ' category_id = ' . $articleCategory['id'];
-        }g
+        }
         if(isset($_REQUEST['id'])){
             $code = $_REQUEST['id'];
             $articleCategory = $this->articleCategoryModel

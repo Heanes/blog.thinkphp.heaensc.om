@@ -20,6 +20,9 @@ define('APP_DEBUG', true);
 // 定义应用目录
 define('APP_PATH', './application/');
 
+// 绑定Admin模块到当前入口文件，自动生成代码用
+//define('BIND_MODULE','Admin');
+
 // 定义入口变量，防止模版文件直接访问
 define('inHeanes', true);
 // 引入ThinkPHP入口文件
