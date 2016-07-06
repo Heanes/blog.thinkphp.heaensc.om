@@ -109,40 +109,13 @@ defined('inHeanes') or die('Access denied!');
             Vue.config.debug = true;
             var pathName = window.location.pathname;
             var API = {
-                'navigationList':'/api/navigation/list',
-                'articleList':'/api/article/list',
-                'articleDetail':'/api/article/detail'
+                'articleList':'/api/article/list'
             };
 
             var indexArticleList = new Vue({
                 el: '#indexArticleList',
                 data: {
                     indexArticleList: []
-                }
-            });
-            var navigationList = new Vue({
-                el: '#navigationList',
-                data: {
-                    navigationList: []
-                },
-                methods: {
-                    isCurrentPath: function(data) {
-                        return window.location.pathname == data;
-                    }
-                }
-            });
-
-            // 获取导航列表
-            $.ajax({
-                url: API.navigationList,
-                method: 'POST',
-                data: {},
-                dataType: "json",
-                success: function (result) {
-                    navigationList.navigationList = result.body || [];
-                },
-                fail: function (result) {
-                    alert('数据异常！');
                 }
             });
 

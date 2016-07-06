@@ -8,7 +8,7 @@ defined('inHeanes') or die('Access denied!');
 ?>
 
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html lang="zh-cmn-Hans" id="articleDetailHtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta charset="UTF-8"/>
@@ -39,6 +39,152 @@ defined('inHeanes') or die('Access denied!');
             <div class="left-block left-wrap float-block"></div>
             <!-- 中心区域 -->
             <div class="center-block center-wrap float-block">
+                <div class="page-content">
+                    <div class="article-page">
+                        <!-- 文章分类 -->
+                        <div class="article-category">
+                            <a href="">首页</a>
+                            <span class="nav-sub"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                            <a href="">资讯</a>
+                            <span class="nav-sub"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                            <a href="">网络</a>
+                        </div>
+                        <!-- 单篇文章 -->
+                        <div class="article-block">
+                            <div class="article-title-block">
+                                <!-- 文章标题 -->
+                                <div class="article-title">
+                                    <h1 class="entry-title">{{article.title}}</h1>
+                                </div>
+                                <!-- 文章相关属性信息 -->
+                                <div class="article-info">
+                                    <p>
+                                        人气：{{article.clickCount}} <a href="#comment-list" class="comment-num">评论：{{article.commentNum}}</a>
+                                        作者：{{article.author}} 责编：{{article.editor}}
+                                        {{article.publishTimeFormative}} 来源：{{article.originSource}}
+                                    </p>
+                                </div>
+                                <div class="article-operate">
+                                    <span class="op-to-small-text" id="opToSmallTextBtn">A</span>
+                                    <span class="op-to-large-text" id="opToLargeTextBtn">A</span>
+                                    <span class="op-share-btn"><i class="fa fa-share-alt"></i></span>
+                                </div>
+                            </div>
+                            <div class="article-title-block-placeholder" id="articleTitleBlockPlaceholder"></div>
+                            <!-- 文章摘要 -->
+                            <!--<div class="article-abstract">
+                                <strong>摘要：</strong>摘要内容....
+                            </div>-->
+                            <!-- 文章主体 -->
+                            <div class="article-content">
+                                <div class="main-content" id="mainContent">{{article.content}}</div>
+                            </div>
+                            <div class="article-meta">
+                                <p class="article-tags">本文关键词：<strong><a href="">漫画</a></strong>，<strong><a href="">友情</a></strong></p>
+                            </div>
+                        </div>
+                        <!-- 文章相关交互 -->
+                        <div class="article-handle">
+                            <div class="article-vote">
+                                <span><a href="" class="count-read-num">阅读数({{article.readCount}})</a></span>
+                                <i class="border-separate"></i>
+                                <span><a href="" class="vote-up">点赞({{article.thumbsUpCount}})</a></span>
+                            </div>
+                            <!-- 文章分享按钮 -->
+                            <div class="article-share-block">
+                                <div class="share-title">
+                                    <span class="share-title-text">分享给小伙伴</span>
+                                </div>
+                                <!-- 百度分享 -->
+                                <div class="bdsharebuttonbox">
+                                    <a href="#" class="bds_more" data-cmd="more"></a>
+                                    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣"></a>
+                                    <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+                                    <a class="bds_more" data-cmd="more"></a>
+                                    <a class="bds_count" data-cmd="count"></a>
+                                </div>
+                                <script>
+                                    window._bd_share_config = {
+                                        "common": {"bdSnsKey": {},"bdText": "","bdMini": "2","bdMiniList": false,"bdPic": "","bdStyle": "0","bdSize": "24"},
+                                        "share": {}
+                                    };
+                                    with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
+                                        'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                                </script>
+                            </div>
+                        </div>
+                        <!-- 前后文章 -->
+                        <div class="article-preview-forward">
+                            <p>» 上一条：没有啦！</p>
+                            <p>» 下一条：<a href="/news/show-444.html">大学毕业季，校园学生搬家怎么办？</a></p>
+                        </div>
+                        <!-- 相关文章 -->
+                        <div class="article-relate-block">
+                            <div class="article-relate-text">
+                                <h1 class="relate-title"><a id="relate-article">相关文章</a></h1>
+                                <ul class="relate-text-ul">
+                                    <li>
+                                        <a href="" class="relate-li-a">腾讯旗下微众银行推出首款小额贷款产品“微粒贷”</a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="relate-li-a">腾讯旗下微众银行推出首款小额贷款产品“微粒贷”</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="article-relate-img">
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 评论区域 -->
+                        <div class="article-comment-block" id="comment">
+                            <div class="add-comment-block">
+                                <h1 class="add-comment-title"><a id="add-comment">发表评论</a></h1>
+                                <p class="add-comment-remind">愿您的每句评论，都能给大家的生活添色彩，带来共鸣，带来思索，带来快乐。</p>
+                                <div class="add-comment">
+                                    <form action="" method="post">
+                                        <textarea rows="8" class="comment-textarea"></textarea>
+                                        <div class="add-comment-handle">
+                                            <input type="submit" class="submit-button button-normal" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="comment-list">
+                                <h3 class="comment-list-title"><a id="comment-list">评论列表</a></h3>
+                                <ul class="comment-list-ul">
+                                    <li>
+                                        <div class="comment-info">
+                                            <span class="comment-floor"><a id="comment-floor-4" class="comment-floor-a">4楼</a></span>
+                                            <span class="comment-user-name"><a href="" class="user-name-a">蒲常莹</a></span>
+                                            <span class="comment-user-ip">北京海淀</span>
+                                            <span>2015-05-19 17:26:28</span>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>楼下的一看就是小白。阿里微贷的1年利息接近10%。是工行的2倍，至于广发 平安更是高达17%-20%</p>
+                                        </div>
+                                        <div class="comment-handle">
+                                            <span class="comment-complain"><a href="">举报</a></span>
+                                            <i class="border-separate"></i>
+                                            <span class="comment-vote-up"><a href="">支持(46)</a></span>
+                                            <i class="border-separate"></i>
+                                            <span class="comment-vote-down"><a href="">反对(0)</a></span>
+                                            <i class="border-separate"></i>
+                                            <span class="comment-reply"><a href="">回复</a></span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- 右侧区域 -->
             <div class="right-block right-wrap float-block"></div>
@@ -61,14 +207,15 @@ defined('inHeanes') or die('Access denied!');
             };
 
             var articleDetail = new Vue({
-                el: '#indexArticleList',
+                el: '#articleDetailHtml',
                 data: {
                     article: {}
                 }
             });
-
+            var rootUrl = window.location.origin;
+            var queryUrl = rootUrl + '/api' + window.location.pathname;
             $.ajax({
-                url:API.articleDetail,
+                url: queryUrl,
                 method:'POST',
                 data: {'id': <?php echo $bData['id'];?>},
                 dataType: "json",
@@ -78,6 +225,9 @@ defined('inHeanes') or die('Access denied!');
                 fail: function (result) {
                 }
             });
+            // @todo 文章关键词
+            // @todo 相关文章算法
+            // @todo 文章评论
 
         });
     </script>

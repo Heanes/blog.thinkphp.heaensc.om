@@ -71,6 +71,7 @@ class ArticleController extends BaseAPIController {
         $articleRaw = $this->articleModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
+        $articleRaw['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
         $articleCamelStyle = convertToCamelStyle($articleRaw);
         $result = [
             'body' => $articleCamelStyle,
