@@ -26,7 +26,7 @@ defined('inHeanes') or die('Access denied!');
         </div>
     </div>
     <!-- 顶部导航栏 -->
-    <div class="header-nav-bar">
+    <div class="header-nav-bar" id="headerNavBar">
         <div class="main-wrap clearfix">
             <!-- 头部logo区域 -->
             <div class="header-logo">
@@ -36,59 +36,15 @@ defined('inHeanes') or die('Access denied!');
             </div>
             <!-- 头部导航菜单区域 -->
             <div class="header-nav">
-                <ul class="nav">
-                    <li>
-                        <a href="javascript:" class="nav-a current">
-                            <i class="fa fa-home icon-nav icon-web-home"></i>
-                            <span>首页</span>
+                <ul class="nav" id="navigationList">
+                    <li v-for="navigation in navigationList">
+                        <a href="{{navigation.aHref}}" class="nav-a {{navigation.styleClass}} current" v-if="isCurrentPath(navigation.aHref)">
+                            <i class="{{navigation.iconClass}}"></i>
+                            <span>{{navigation.name}}</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a">
-                            <i class="fa fa-modx icon-nav icon-great"></i>
-                            <span>精选推荐</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a">
-                            <i class="fa fa-hashtag icon-nav icon-special"></i>
-                            <span>技术专题</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a">
-                            <i class="fa fa-edit icon-nav icon-write"></i>
-                            <span>文字专栏</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a">
-                            <i class="fa fa-diamond icon-nav icon-self"></i>
-                            <span>原创作品</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a">
-                            <i class="fa fa-info-circle icon-nav icon-about"></i>
-                            <span>关于博客</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a">
-                            <i class="fa fa-github icon-nav icon-github"></i>
-                            <span>GitHub</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a nav-login">
-                            <i class="fa fa-user icon-nav icon-login"></i>
-                            <span>登录</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:" class="nav-a">
-                            <i class="fa fa-user-plus icon-nav icon-register"></i>
-                            <span>注册</span>
+                        <a href="{{navigation.aHref}}" class="nav-a {{navigation.styleClass}}" v-else>
+                            <i class="{{navigation.iconClass}}"></i>
+                            <span>{{navigation.name}}</span>
                         </a>
                     </li>
                 </ul>

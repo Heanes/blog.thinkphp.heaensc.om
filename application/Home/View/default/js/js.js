@@ -13,7 +13,7 @@ $(function () {
      */
     var $mainContent = $('.center .main .main-content');
     var $articleTitleBlock = $('.article-title-block');
-    var articleTitleBlockTop = $articleTitleBlock.offset().top;
+    var articleTitleBlockTop = $articleTitleBlock.length > 0 ? $articleTitleBlock.offset().top : null;
     var $articleTitleBlockPlaceholder = $('#articleTitleBlockPlaceholder');
     var articleTitleBlockWidth = $articleTitleBlock.width();
     var articleTitleBlockHeight = $articleTitleBlock.height();
@@ -22,7 +22,7 @@ $(function () {
 
     var $rightFixLittleCat = $('#rightFixLittleCat');
     var $iframeFooter = $('.iframe-footer');
-    var iframeFooterTop = $iframeFooter.offset().top;
+    var iframeFooterTop = $iframeFooter.length > 0 ? $iframeFooter.offset().top : null;
     var $window = $(window);
     $window.on('resize', function () {
         /**
@@ -33,13 +33,29 @@ $(function () {
             'margin-left': mainContentWidth / 2
         });
     });
+
+
+    var $headerNavBar = $('#headerNavBar');
+    var headerNavBarTop = $headerNavBar.length > 0 ? $headerNavBar.offset().top : null;
     $window.on('scroll', function () {
+
+        /**
+         * @doc 导航栏钉住，变色
+         * @author fanggang
+         * @time 2016-07-04 15:48:20 周一
+         */
+        if(headerNavBarTop && headerNavBarTop < $window.scrollTop()){
+            $headerNavBar.addClass('nav-fix');
+        }else{
+            $headerNavBar.removeClass('nav-fix');
+        }
+
         /**
          * @doc 文章详情页面滚动时,标题随之钉住在页面顶部显示
          * @author fanggang
          * @time 2016-05-24 01:56:00
          */
-        if($window.scrollTop() > articleTitleBlockTop){
+        if(articleTitleBlockTop && articleTitleBlockTop < $window.scrollTop()){
             // 填充高度
             $articleTitleBlockPlaceholder.css('height', articleTitleBlockHeight);
             $articleTitleBlock.css({
@@ -65,7 +81,7 @@ $(function () {
          * @author fanggang
          * @time 2016-05-30 22:24:10
          */
-        if($window.scrollTop() > (iframeFooterTop -1000)){
+        if(iframeFooterTop && $window.scrollTop() > (iframeFooterTop -1000)){
             $rightFixLittleCat.css('visibility', 'hidden');
         }else{
             $rightFixLittleCat.css('visibility', '');

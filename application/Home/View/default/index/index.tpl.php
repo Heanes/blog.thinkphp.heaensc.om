@@ -106,7 +106,10 @@ defined('inHeanes') or die('Access denied!');
     <script type="text/javascript" src="/public/static/libs/js/vue/1.0.20/vue.js"></script>
     <script type="text/javascript">
         $(function () {
+            Vue.config.debug = true;
+            var pathName = window.location.pathname;
             var API = {
+                'navigationList':'/api/navigation/list',
                 'articleList':'/api/article/list',
                 'articleDetail':'/api/article/detail'
             };
@@ -117,12 +120,37 @@ defined('inHeanes') or die('Access denied!');
                     indexArticleList: []
                 }
             });
+            var navigationList = new Vue({
+                el: '#navigationList',
+                data: {
+                    navigationList: []
+                },
+                methods: {
+                    isCurrentPath: function(data) {
+                        return window.location.pathname == data;
+                    }
+                }
+            });
+
+            // 获取导航列表
+            $.ajax({
+                url: API.navigationList,
+                method: 'POST',
+                data: {},
+                dataType: "json",
+                success: function (result) {
+                    navigationList.navigationList = result.body || [];
+                },
+                fail: function (result) {
+                    alert('数据异常！');
+                }
+            });
 
             // 获取首页文章列表
             $.ajax({
-                url:API.articleList,
-                method:'POST',
-                data: {'id':1},
+                url: API.articleList,
+                method: 'POST',
+                data: {},
                 dataType: "json",
                 success: function (result) {
                     indexArticleList.indexArticleList = result.body || [];

@@ -40,9 +40,9 @@ class NavigationController extends BaseAPIController {
             ->where('is_enable = 1 and is_deleted = 0')
             ->limit('0,20')
             ->select();
-        $navigationListHumpStyle = convertToCamelStyle($navigationListRaw);
+        $navigationListCamelStyle = convertToCamelStyle($navigationListRaw);
         $result = [
-            'body' => $navigationListHumpStyle,
+            'body' => $navigationListCamelStyle,
             'message' => 'success',
             'errorCode' => 0,
             'success' => true
@@ -63,9 +63,9 @@ class NavigationController extends BaseAPIController {
         $navigationRaw = $this->navigationModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
-        $navigationHumpStyle = convertToCamelStyle($navigationRaw);
+        $navigationCamelStyle = convertToCamelStyle($navigationRaw);
         $result = [
-            'body' => $navigationHumpStyle,
+            'body' => $navigationCamelStyle,
             'message' => 'success',
             'errorCode' => 0,
             'success' => true
