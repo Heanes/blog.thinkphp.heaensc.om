@@ -58,7 +58,7 @@ class NavigationController extends BaseAPIController {
     public function detailOp() {
         $id = $_REQUEST['id'];
         if(!$id){
-            returnJson('id不能为空');
+            returnJsonMessage('id不能为空', 'error');
         }
         $navigationRaw = $this->navigationModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
@@ -97,14 +97,12 @@ class NavigationController extends BaseAPIController {
      */
     public function updateOp() {
         $updateNavigation = $_REQUEST['updateNavigation'];
-        $saveResult = $this->navigationModel->save($updateNavigation);
-        $result = [
-            'body' => $saveResult,
-            'message' => 'success',
-            'errorCode' => 0,
-            'success' => true
-        ];
-        returnJson($result);
+        $updateResult = $this->navigationModel->save($updateNavigation);
+        if($updateResult){
+            returnJsonMessage('更新成功');
+        }else{
+            returnJsonMessage('更新失败', 'error');
+        }
     }
 
     /**
@@ -118,12 +116,10 @@ class NavigationController extends BaseAPIController {
             'is_deleted' => 1,
         ];
         $deleteResult = $this->navigationModel->save($deleteNavigation);
-        $result = [
-            'body' => $deleteResult,
-            'message' => 'success',
-            'errorCode' => 0,
-            'success' => true
-        ];
-        returnJson($result);
+        if($deleteResult){
+            returnJsonMessage('删除成功');
+        }else{
+            returnJsonMessage('删除失败', 'error');
+        }
     }
 }

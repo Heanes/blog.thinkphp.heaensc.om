@@ -28,7 +28,7 @@ defined('inHeanes') or die('Access denied!');
     <style>
         .header-nav-bar.nav-fix{position:inherit;}
     </style>
-    <title>{{article.title + ' - '}}文章详情}</title>
+    <title>{{article.title + ' - '}}文章详情</title>
 </head>
 <body>
 <div class="center wrap">
@@ -150,10 +150,10 @@ defined('inHeanes') or die('Access denied!');
                                 <h1 class="add-comment-title"><a id="add-comment">发表评论</a></h1>
                                 <p class="add-comment-remind">愿您的每句评论，都能给大家的生活添色彩，带来共鸣，带来思索，带来快乐。</p>
                                 <div class="add-comment">
-                                    <form action="" method="post">
-                                        <textarea rows="8" class="comment-textarea"></textarea>
+                                    <form action="" method="post" id="commentAddForm">
+                                        <textarea rows="8" name="commentAddContent" class="comment-textarea"></textarea>
                                         <div class="add-comment-handle">
-                                            <input type="submit" class="submit-button button-normal" />
+                                            <input type="submit" class="submit-button button-normal" id="commentAddSubmit"/>
                                         </div>
                                     </form>
                                 </div>
@@ -300,14 +300,23 @@ defined('inHeanes') or die('Access denied!');
     <script type="text/javascript">
         $(function () {
             var API = {
+                // 文章列表
                 'articleList':'/api/article/list',
-                'articleDetail':'/api/article/detail'
+                // 文章详情
+                'articleDetail':'/api/article/detail',
+                // 文章点击数更新
+                'articleClickCountUpdate':'/api/article/updateClickCount',
+                // 文章评论列表
+                'articleCommentList':'/api/articleComment/list',
+                // 添加文章评论
+                'articleCommentAdd':'/api/articleComment/add'
             };
 
             var rootUrl = window.location.origin;
-            var queryUrl = rootUrl + '/api' + window.location.pathname;
+            var queryUrlDetail = rootUrl + '/api' + window.location.pathname;
+            var queryUrlClickCountUpdate = API.articleClickCountUpdate;
             $.ajax({
-                url: queryUrl,
+                url: queryUrlDetail,
                 method:'POST',
                 data: {'id': <?php echo $bData['id'];?>},
                 dataType: "json",
@@ -334,10 +343,69 @@ defined('inHeanes') or die('Access denied!');
                 fail: function (result) {
                 }
             });
-            // @todo 点击一次文章点击数更新
+            /**
+             * @doc 点击一次文章点击数更新
+             * @author Heanes
+             * @time 2016-07-07 17:16:59 周四
+             */
+            $.ajax({
+                url: queryUrlClickCountUpdate,
+                method:'POST',
+                data: {'id': <?php echo $bData['id'];?>},
+                dataType: "json",
+                success: function (result) {
+                    //;
+                },
+                fail: function (result) {
+                }
+            });
             // @todo 文章关键词
             // @todo 相关文章算法
             // @todo 文章评论
+            /**
+             * @doc 获取文章评论
+             * @author Heanes
+             * @time 2016-07-07 17:37:09 周四
+             */
+            $.ajax({
+                url: API.articleCommentList,
+                method:'POST',
+                data: {'id': <?php echo $bData['id'];?>},
+                dataType: "json",
+                success: function (result) {
+                    //;
+                },
+                fail: function (result) {
+                }
+            });
+
+            /**
+             * @doc 添加文章评论
+             * @author Heanes
+             * @time 2016-07-07 17:56:10 周四
+             */
+            var $commentAddForm = $('#commentAddForm');
+            var $commentAddSubmit = $('#commentAddSubmit');
+            $commentAddSubmit.on('click', function () {
+                var $commentAddContent = $commentAddForm.find('textarea[name="commentAddContent"]');
+                var commentAddContent = $commentAddContent.val();
+                if(commentAddContent == ''){
+                    alert('请输入文字');
+                    return false;
+                }
+                var commentData = {};
+                $.ajax({
+                    url: API.articleCommentAdd,
+                    method:'POST',
+                    data: {'id': <?php echo $bData['id'];?>},
+                    dataType: "json",
+                    success: function (result) {
+                        //@todo 评论成功，ajax刷新评论列表，并将刚刚评论的添加到顶部
+                    },
+                    fail: function (result) {
+                    }
+                });
+            });
 
         });
     </script>

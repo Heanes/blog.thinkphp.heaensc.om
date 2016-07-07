@@ -8,14 +8,14 @@ namespace Api\Controller;
 defined('inHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
-use Common\Model\ArticleCommentModel;
+use Common\Model\ArticleTagModel;
 
-class ArticleCommentController extends BaseAPIController {
+class ArticleTagController extends BaseAPIController {
 
     /**
-     * @var ArticleCommentModel 文章模型
+     * @var ArticleTagModel 文章模型
      */
-    private $articleCommentModel;
+    private $articleTagModel;
 
     /**
      * @var ArticleModel 文章分类模型
@@ -25,7 +25,7 @@ class ArticleCommentController extends BaseAPIController {
 
     function __construct() {
         parent::__construct();
-        $this->articleCommentModel = new ArticleCommentModel();
+        $this->articleTagModel = new ArticleTagModel();
         $this->articleModel = new ArticleModel();
     }
 
@@ -50,13 +50,13 @@ class ArticleCommentController extends BaseAPIController {
             $articleId = intval($_REQUEST['articleId']);
             $whereStr = 'article_id = '.$articleId . ' and ';
         }
-        $articleCommentListRaw = $this->articleCommentModel
+        $articleTagListRaw = $this->articleTagModel
             ->where($whereStr . 'is_enable = 1 and is_deleted = 0')
             ->limit('0,20')
             ->select();
-        $articleCommentListCamelStyle = convertToCamelStyle($articleCommentListRaw);
+        $articleTagListCamelStyle = convertToCamelStyle($articleTagListRaw);
         $result = [
-            'body' => $articleCommentListCamelStyle,
+            'body' => $articleTagListCamelStyle,
             'message' => 'success',
             'errorCode' => 0,
             'success' => true
@@ -74,12 +74,12 @@ class ArticleCommentController extends BaseAPIController {
         if(!$id){
             returnJson('id不能为空');
         }
-        $articleCommentRaw = $this->articleCommentModel
+        $articleTagRaw = $this->articleTagModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
-        $articleCommentCamelStyle = convertToCamelStyle($articleCommentRaw);
+        $articleTagCamelStyle = convertToCamelStyle($articleTagRaw);
         $result = [
-            'body' => $articleCommentCamelStyle,
+            'body' => $articleTagCamelStyle,
             'message' => 'success',
             'errorCode' => 0,
             'success' => true

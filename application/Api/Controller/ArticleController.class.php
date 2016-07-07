@@ -69,7 +69,7 @@ class ArticleController extends BaseAPIController {
     public function detailOp() {
         $id = $_REQUEST['id'];
         if(!$id){
-            returnJson('id不能为空');
+            returnJsonMessage('id不能为空', 'error');
         }
         $articleRaw = $this->articleModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
@@ -83,6 +83,26 @@ class ArticleController extends BaseAPIController {
             'success' => true
         ];
         returnJson($result);
+    }
+
+    /**
+     * @doc 更新文章点击数
+     * @author Heanes fang <heanes@163.com>
+     * @time 2016-07-07 16:53:09 周四
+     */
+    public function updateClickCountOp() {
+        $id = $_REQUEST['id'];
+        if(!$id){
+            returnJsonMessage('id不能为空', 'error');
+        }
+        $updateResult = $this->articleModel
+            ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
+            ->setInc('click_count');
+        if($updateResult == 1){
+            returnJsonMessage('点击数更新成功');
+        }else{
+            returnJsonMessage('点击数更新成功', 'error');
+        }
     }
 
 }

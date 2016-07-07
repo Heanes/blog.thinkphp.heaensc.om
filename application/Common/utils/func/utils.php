@@ -13,8 +13,31 @@ defined('inHeanes') or die('Access denied!');
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 14:39:45 周二
  */
-function returnJson($anything, $option = JSON_UNESCAPED_SLASHES ){
+function returnJson($anything, $option = JSON_UNESCAPED_SLASHES){
     echo json_encode($anything, $option);
+}
+
+function returnJsonMessage($anything, $type = 'success', $option = JSON_UNESCAPED_SLASHES ){
+    switch ($type){
+        case 'success':
+            $success = true;
+            $errorCode = 0;
+            break;
+        case 'error':
+            $success = false;
+            $errorCode = -1;
+            break;
+        default :
+            $success = false;
+            $errorCode = -1;
+    }
+    $result = [
+        'body' => '',
+        'message' => $anything,
+        'errorCode' => $errorCode,
+        'success' => $success,
+    ];
+    echo json_encode($result, $option);
 }
 
 /**

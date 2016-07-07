@@ -8,14 +8,14 @@ namespace Api\Controller;
 defined('inHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
-use Common\Model\ArticleTagModel;
+use Common\Model\ArticleCommentModel;
 
-class ArticleTagController extends BaseAPIController {
+class ArticleCommentController extends BaseAPIController {
 
     /**
-     * @var ArticleTagModel 文章模型
+     * @var ArticleCommentModel 文章模型
      */
-    private $articleTagModel;
+    private $articleCommentModel;
 
     /**
      * @var ArticleModel 文章分类模型
@@ -25,7 +25,7 @@ class ArticleTagController extends BaseAPIController {
 
     function __construct() {
         parent::__construct();
-        $this->articleTagModel = new ArticleTagModel();
+        $this->articleCommentModel = new ArticleCommentModel();
         $this->articleModel = new ArticleModel();
     }
 
@@ -50,7 +50,7 @@ class ArticleTagController extends BaseAPIController {
             $articleId = intval($_REQUEST['articleId']);
             $whereStr = 'article_id = '.$articleId . ' and ';
         }
-        $articleTagListRaw = $this->articleTagModel
+        $articleTagListRaw = $this->articleCommentModel
             ->where($whereStr . 'is_enable = 1 and is_deleted = 0')
             ->limit('0,20')
             ->select();
@@ -74,7 +74,7 @@ class ArticleTagController extends BaseAPIController {
         if(!$id){
             returnJson('id不能为空');
         }
-        $articleTagRaw = $this->articleTagModel
+        $articleTagRaw = $this->articleCommentModel
             ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
             ->find();
         $articleTagCamelStyle = convertToCamelStyle($articleTagRaw);
@@ -85,6 +85,30 @@ class ArticleTagController extends BaseAPIController {
             'success' => true
         ];
         returnJson($result);
+    }
+
+    /**
+     * @doc 添加一条文章评论
+     * @author Heanes fang <heaens@163.com>
+     * @time 2016-07-07 17:39:29 周四
+     */
+    public function addOp() {
+        $id = $_REQUEST['id'];
+        if(!$id){
+            returnJson('id不能为空');
+        }
+        // 先查一次文章是否存在
+        $articleRawData = $this->articleCommentModel
+            ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
+            ->find();
+        if($articleRawData){
+            returnJsonMessage('文章不存在', 'error');
+        }
+        $articleCommentData = [];
+        $addResult = 1;//$this->articleCommentModel->add($articleCommentData);
+        if($addResult){
+            returnJsonMessage('评论成功');
+        }
     }
 
 }
