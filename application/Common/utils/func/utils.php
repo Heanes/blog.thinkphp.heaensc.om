@@ -22,7 +22,7 @@ function returnJson($anything, $option = JSON_UNESCAPED_SLASHES ){
  * @param string|array $mix 要被转化的字符或数组，将会递归更改
  * @param string $type key|value|all 转换位置，key代表数组的键，value代表数组的值，all代表都转换
  * @return null|string|array
- * @author Heanes fang <heaens@163.com>
+ * @author Heanes fang <heanes@163.com>
  * @time 2016-06-27 11:25:29 周一
  */
 function convertToCamelStyle($mix, $type = 'key'){
@@ -72,7 +72,7 @@ function convertToCamelStyle($mix, $type = 'key'){
  * @doc 将驼峰风格转为下划线分隔，正则方式
  * @param string $string 欲被转化的字符串
  * @return string
- * @author Heanes fang <heaens@163.com>
+ * @author Heanes fang <heanes@163.com>
  * @time 2016-07-01 11:30:46 周五
  */
 function convertCamelToUnderlineStyleByPreg($string){
@@ -83,7 +83,7 @@ function convertCamelToUnderlineStyleByPreg($string){
  * @doc 将驼峰风格转为下划线分隔，遍历字符对比是否为大写字符模式
  * @param string $string 欲被转化的字符串
  * @return string
- * @author Heanes fang <heaens@163.com>
+ * @author Heanes fang <heanes@163.com>
  * @time 2016-07-01 12:15:08 周五
  */
 function convertCamelToUnderlineStyle($string){

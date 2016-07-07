@@ -36,7 +36,7 @@ class BaseAPIController extends Controller{
 
     /**
      * @doc 获取公共设置
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-23 12:26:07 周四
      */
     protected function getSettingCommon() {
@@ -46,7 +46,7 @@ class BaseAPIController extends Controller{
 
     /**
      * @doc 获取设置里的分页大小
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-23 10:30:33 周四
      */
     protected function getPageCondition() {

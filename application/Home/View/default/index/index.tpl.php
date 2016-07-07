@@ -44,7 +44,7 @@ defined('inHeanes') or die('Access denied!');
                     <div class="article-list-block" id="indexArticleList">
                         <div class="article-list-row" v-for="article in indexArticleList">
                             <div class="article-title">
-                                <h1 class="title"><a href="/article/detail/{{article.id}}">{{article.title}}</a></h1>
+                                <h1 class="title"><a href="/article/{{article.id}}">{{article.title}}</a></h1>
                             </div>
                             <div class="article-info">
                                 <dl>
@@ -53,11 +53,15 @@ defined('inHeanes') or die('Access denied!');
                                 </dl>
                                 <dl>
                                     <dt>日期:</dt>
-                                    <dd>{{article.publishTime}}</dd>
+                                    <dd>{{article.publishTimeFormative}}</dd>
+                                </dl>
+                                <dl>
+                                    <dt>人气:</dt>
+                                    <dd>{{article.clickCount}}</dd>
                                 </dl>
                                 <dl>
                                     <dt>评论:</dt>
-                                    <dd>{{article.commentNum}}</dd>
+                                    <dd>{{article.commentCount}}</dd>
                                 </dl>
                                 <dl class="article-tags">
                                     <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>

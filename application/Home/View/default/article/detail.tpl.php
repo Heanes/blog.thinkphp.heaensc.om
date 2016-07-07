@@ -24,7 +24,11 @@ defined('inHeanes') or die('Access denied!');
     <link rel="bookmark" href="/public/static/image/favicon/favicon.ico"/>
     <!-- style -->
     <include file="layout/commonCss"/>
-    <title>{{article.title}} - 文章详情</title>
+    <link rel="stylesheet" type="text/css" href="/public/static/libs/js/autoCatalog/1.0/css/autoCatalog.css">
+    <style>
+        .header-nav-bar.nav-fix{position:inherit;}
+    </style>
+    <title>{{article.title + ' - '}}文章详情}</title>
 </head>
 <body>
 <div class="center wrap">
@@ -76,9 +80,7 @@ defined('inHeanes') or die('Access denied!');
                                 <strong>摘要：</strong>摘要内容....
                             </div>-->
                             <!-- 文章主体 -->
-                            <div class="article-content">
-                                <div class="main-content" id="mainContent">{{article.content}}</div>
-                            </div>
+                            <div class="article-content" id="articleContent">{{{article.content}}}</div>
                             <div class="article-meta">
                                 <p class="article-tags">本文关键词：<strong><a href="">漫画</a></strong>，<strong><a href="">友情</a></strong></p>
                             </div>
@@ -187,7 +189,102 @@ defined('inHeanes') or die('Access denied!');
                 </div>
             </div>
             <!-- 右侧区域 -->
-            <div class="right-block right-wrap float-block"></div>
+            <div class="right-block right-wrap float-block">
+                <!-- 文章目录导航 -->
+                <div class="side-content" id="articleCatalog"></div>
+                <!-- 右侧钉住样式 -->
+                <div class="right-fix-block">
+                    <div class="right-corner">
+                        <div class="handle-block hover-change-block">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-angle-down" aria-hidden="true" style="font-size:54px;padding-top:5px;"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon go-to-bottom">去底部</a>
+                            </div>
+                        </div>
+                        <div class="handle-block hover-change-block">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-home" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon go-to-home" href="/">回首页</a>
+                            </div>
+                        </div>
+                        <div class="handle-block hover-change-block">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon refresh" onclick="window.location.reload();">刷新</a>
+                            </div>
+                        </div>
+                        <div class="handle-block hover-change-block" id="goToArticleCommentBtn">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-comments-o" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon comment" href="#comment">评论</a>
+                            </div>
+                        </div>
+                        <div class="handle-block hover-change-block">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon share">分享</a>
+                            </div>
+                            <div class="hover-change-content qr-code-content">
+                                <!-- 百度分享 -->
+                                <div class="bdsharebuttonbox" style="width:72px;background-color:#fff;padding-left:10px;">
+                                    <a href="#" class="bds_more" data-cmd="more"></a>
+                                    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣"></a>
+                                    <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+                                    <a class="bds_more" data-cmd="more"></a>
+                                    <a class="bds_count" data-cmd="count"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="handle-block hover-change-block">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-qrcode" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon qr-code">二维码</a>
+                            </div>
+                            <div class="hover-change-content qr-code-content">
+                                <img src="<?php echo TPL?>/image/rightFixCorner/style1/qr-150.png">
+                            </div>
+                        </div>
+                        <!-- 关灯（背景黑） -->
+                        <div class="handle-block hover-change-block none">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon turn-off-light">关灯</a>
+                            </div>
+                        </div>
+                        <div class="handle-block hover-change-block">
+                            <div class="handle-content front">
+                                <a class="handle handle-icon"><i class="fa fa-angle-up" aria-hidden="true" style="font-size:54px;padding-top:0"></i></a>
+                            </div>
+                            <div class="handle-content backend">
+                                <a class="handle handle-icon go-to-top">回顶部</a>
+                            </div>
+                        </div>
+                        <div class="handle-block decorate-cat">
+                            <div class="handle-content front" id="rightFixLittleCat">
+                                <img src="<?php echo TPL?>/image/footer/other/little-cat.png"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- E 主要内容 E -->
@@ -199,6 +296,7 @@ defined('inHeanes') or die('Access denied!');
     <!-- S js S -->
     <include file="layout/commonJs"/>
     <script type="text/javascript" src="/public/static/libs/js/vue/1.0.20/vue.js"></script>
+    <script type="text/javascript" src="/public/static/libs/js/autoCatalog/1.0/js/autoCatalog.js"></script>
     <script type="text/javascript">
         $(function () {
             var API = {
@@ -206,12 +304,6 @@ defined('inHeanes') or die('Access denied!');
                 'articleDetail':'/api/article/detail'
             };
 
-            var articleDetail = new Vue({
-                el: '#articleDetailHtml',
-                data: {
-                    article: {}
-                }
-            });
             var rootUrl = window.location.origin;
             var queryUrl = rootUrl + '/api' + window.location.pathname;
             $.ajax({
@@ -220,11 +312,29 @@ defined('inHeanes') or die('Access denied!');
                 data: {'id': <?php echo $bData['id'];?>},
                 dataType: "json",
                 success: function (result) {
-                    articleDetail.article = result.body;
+                    var articleDetail = new Vue({
+                        el: '#articleDetailHtml',
+                        data: {
+                            article: result.body
+                        },
+                        ready: function () {
+                            var $articleContent = $('#articleContent');
+                            /**
+                             * @doc 仿百度百科自动生成文章目录导航
+                             * @author Heanes
+                             * @time 2016-04-13 18:07:26
+                             */
+                            $articleContent.autoCatalog({
+                                step: 90,
+                                alwaysShow: true
+                            });
+                        }
+                    });
                 },
                 fail: function (result) {
                 }
             });
+            // @todo 点击一次文章点击数更新
             // @todo 文章关键词
             // @todo 相关文章算法
             // @todo 文章评论

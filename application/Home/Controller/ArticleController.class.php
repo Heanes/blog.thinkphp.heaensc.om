@@ -20,7 +20,7 @@ class ArticleController extends BaseHomeController {
 
     /**
      * @doc 显示文章列表
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:45:47 周二
      */
     public function listOp() {
@@ -29,7 +29,7 @@ class ArticleController extends BaseHomeController {
 
     /**
      * @doc 显示文章内容
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:46:05 周二
      */
     public function detailOp() {

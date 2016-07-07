@@ -12,3 +12,5 @@ defined('inHeanes') or die('Access denied!');
 <link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/style/style-2015.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/css.css"/>
+<!-- vue.js加载页面避免闪现{{}}花括号 -->
+<style>[v-cloak]{display:none;}</style>

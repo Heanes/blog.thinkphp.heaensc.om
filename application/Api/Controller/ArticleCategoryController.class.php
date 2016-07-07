@@ -18,7 +18,7 @@ class ArticleCategoryController extends BaseAPIController {
     private $articleModel;
 
     /**
-     * @var ArticleModel 文章分类模型
+     * @var ArticleCategoryModel 文章分类模型
      */
     private $articleCategoryModel;
 
@@ -31,7 +31,7 @@ class ArticleCategoryController extends BaseAPIController {
 
     /**
      * @doc 默认方法，转到列表方法
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:56:33 周二
      */
     public function indexOp() {
@@ -60,7 +60,7 @@ class ArticleCategoryController extends BaseAPIController {
 
     /**
      * @doc 获取文章详情
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 18:15:42 周二
      */
     public function detailOp() {

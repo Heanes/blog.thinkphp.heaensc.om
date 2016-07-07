@@ -9,7 +9,7 @@ class IndexController extends BaseAdminController {
 
     /**
      * @doc Admin默认方法
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:52:32 周二
      */
     public function indexOp(){

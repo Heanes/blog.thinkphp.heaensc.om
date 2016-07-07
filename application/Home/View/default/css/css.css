@@ -28,6 +28,7 @@
 .article-page .article-block{padding-top:20px;}
 .article-page .article-category{padding:10px 5px;border-bottom:3px solid #57adfd;line-height:24px;}
 .article-page .article-block .article-title-block{position:relative;border-bottom:1px #ddd dashed;color:#222;}
+.article-page .article-block .article-title-block.fixed{position:fixed;top:0;z-index:2;width:900px;background-color:rgb(255, 255, 255);}
 .article-page .article-block .article-title-block-placeholder{}
 /* 右侧文章目录导航 */
 #articleCatalog{background-color:#fff;}

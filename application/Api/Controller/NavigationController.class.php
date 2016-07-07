@@ -23,7 +23,7 @@ class NavigationController extends BaseAPIController {
 
     /**
      * @doc 默认方法，转到列表方法
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:56:33 周二
      */
     public function indexOp() {
@@ -52,7 +52,7 @@ class NavigationController extends BaseAPIController {
 
     /**
      * @doc 获取导航详情
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 18:15:42 周二
      */
     public function detailOp() {
@@ -75,7 +75,7 @@ class NavigationController extends BaseAPIController {
 
     /**
      * @doc 添加导航
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-07-01 11:24:25 周五
      */
     public function addOp() {
@@ -92,7 +92,7 @@ class NavigationController extends BaseAPIController {
 
     /**
      * @doc 更新导航
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-07-01 10:54:43 周五
      */
     public function updateOp() {
@@ -109,7 +109,7 @@ class NavigationController extends BaseAPIController {
 
     /**
      * @doc 删除导航
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-07-01 11:27:07 周五
      */
     public function deleteOp() {

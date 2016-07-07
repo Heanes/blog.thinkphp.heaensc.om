@@ -22,7 +22,7 @@ class UserController extends BaseAPIController {
 
     /**
      * @doc 默认方法，转到列表方法
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:56:33 周二
      */
     public function indexOp() {
@@ -51,7 +51,7 @@ class UserController extends BaseAPIController {
 
     /**
      * @doc 获取用户详情
-     * @author Heanes fang <heaens@163.com>
+     * @author Heanes fang <heanes@163.com>
      * @time 2016-06-27 11:57:10 周一
      */
     public function detailOp() {
