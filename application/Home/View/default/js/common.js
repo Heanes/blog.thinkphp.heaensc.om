@@ -62,7 +62,6 @@ $(function () {
     }
 
 
-
     var navigationList = new Vue({
         el: '#navigationList',
         data: {

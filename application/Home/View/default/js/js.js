@@ -15,14 +15,13 @@ $(function () {
     var $articleTitleBlock = $('.article-title-block');
     var articleTitleBlockTop = $articleTitleBlock.length > 0 ? $articleTitleBlock.offset().top : null;
     var $articleTitleBlockPlaceholder = $('#articleTitleBlockPlaceholder');
-    var articleTitleBlockWidth = $articleTitleBlock.width();
     var articleTitleBlockHeight = $articleTitleBlock.height();
 
     var $rightFixBlockRightCorner = $('.right-fix-block .right-corner');
 
     var $rightFixLittleCat = $('#rightFixLittleCat');
-    var $iframeFooter = $('.footer-content');
-    var iframeFooterTop = $iframeFooter.length > 0 ? $iframeFooter.offset().top : null;
+    var $footer = $('.footer');
+    var footerTop = $footer.length > 0 ? $footer.offset().top : null;
     var $window = $(window);
     $window.on('resize', function () {
         /**
@@ -36,6 +35,7 @@ $(function () {
 
 
     var $headerNavBar = $('#headerNavBar');
+    var $headerNavBarPlaceholder = $('#headerNavBarPlaceholder');
     var headerNavBarTop = $headerNavBar.length > 0 ? $headerNavBar.offset().top : null;
     $window.on('scroll', function () {
 
@@ -46,8 +46,10 @@ $(function () {
          */
         if(headerNavBarTop != null && headerNavBarTop < $window.scrollTop()){
             $headerNavBar.addClass('nav-fix');
+            $headerNavBarPlaceholder.show();
         }else{
             $headerNavBar.removeClass('nav-fix');
+            $headerNavBarPlaceholder.hide();
         }
 
         /**
@@ -69,14 +71,14 @@ $(function () {
          * @author fanggang
          * @time 2016-05-30 22:24:10
          */
-        if(iframeFooterTop != null && $window.scrollTop() > iframeFooterTop){
+        if(footerTop != null && $window.scrollTop() > footerTop ){
             $rightFixLittleCat.css('visibility', 'hidden');
         }else{
             $rightFixLittleCat.css('visibility', '');
         }
         // console.log($window.scrollTop());
         // console.log(articleTitleBlockTop);
-        // console.log(iframeFooterTop);
+        // console.log(footerTop);
     });
 
     /**
@@ -84,24 +86,38 @@ $(function () {
      * @author fanggang
      * @time 2016-05-25 14:27:37
      */
-    var $articleMainContent = $('#mainContent');
+    var $articleContent = $('#articleContent');
+    if($.cookie != null && $.cookie('article-content-font-size') != null){
+        var cookieArticleContentFontSize = $.cookie('article-content-font-size');
+        $articleContent.css({'font-size': cookieArticleContentFontSize});
+    }
     var fontChangeStep = 10;
     $('#opToLargeTextBtn').on('click', function () {
-        var $articleMainContentAll = $articleMainContent.find('*');
+        var $articleContentAll = $articleContent.find('*');
         if(fontChangeStep <= 20){
-            $articleMainContentAll.each( function (i, item) {
+            $articleContentAll.each( function (i, item) {
                 $(item).css('font-size', parseInt($(item).css('font-size')) + 1);
             });
             fontChangeStep++;
         }
+        // 保存字体大小到cookie中
+        if($.cookie != null){
+            // 操作cookie
+            $.cookie('article-content-font-size', $(item).css('font-size'), {expires: 365});
+        }
     });
     $('#opToSmallTextBtn').on('click', function () {
-        var $articleMainContentAll = $articleMainContent.find('*');
+        var $articleContentAll = $articleContent.find('*');
         if(fontChangeStep >= 0){
-            $articleMainContentAll.each( function (i, item) {
+            $articleContentAll.each( function (i, item) {
                 $(item).css('font-size', parseInt($(item).css('font-size')) - 1);
             });
             fontChangeStep--;
+        }
+        // 保存字体大小到cookie中
+        if($.cookie != null){
+            // 操作cookie
+            $.cookie('article-content-font-size', $(item).css('font-size'), {expires: 365});
         }
     });
 

@@ -26,7 +26,8 @@ defined('inHeanes') or die('Access denied!');
     <include file="layout/commonCss"/>
     <link rel="stylesheet" type="text/css" href="/public/static/libs/js/autoCatalog/1.0/css/autoCatalog.css">
     <style>
-        .header-nav-bar.nav-fix{position:inherit;}
+        .header-nav-bar.nav-fix{position:inherit;height:80px;}
+        .header-nav-bar-placeholder{display:none !important;}
     </style>
     <title>{{article.title + ' - '}}文章详情</title>
 </head>
@@ -69,9 +70,8 @@ defined('inHeanes') or die('Access denied!');
                                     </p>
                                 </div>
                                 <div class="article-operate">
-                                    <span class="op-to-small-text" id="opToSmallTextBtn">A</span>
-                                    <span class="op-to-large-text" id="opToLargeTextBtn">A</span>
-                                    <span class="op-share-btn"><i class="fa fa-share-alt"></i></span>
+                                    <span class="op-to-small-text" id="opToSmallTextBtn">T</span>
+                                    <span class="op-to-large-text" id="opToLargeTextBtn">T</span>
                                 </div>
                             </div>
                             <div class="article-title-block-placeholder" id="articleTitleBlockPlaceholder"></div>
@@ -150,7 +150,7 @@ defined('inHeanes') or die('Access denied!');
                                 <h1 class="add-comment-title"><a id="add-comment">发表评论</a></h1>
                                 <p class="add-comment-remind">愿您的每句评论，都能给大家的生活添色彩，带来共鸣，带来思索，带来快乐。</p>
                                 <div class="add-comment">
-                                    <form action="" method="post" id="commentAddForm">
+                                    <form id="commentAddForm">
                                         <textarea rows="8" name="commentAddContent" class="comment-textarea"></textarea>
                                         <div class="add-comment-handle">
                                             <input type="submit" class="submit-button button-normal" id="commentAddSubmit"/>

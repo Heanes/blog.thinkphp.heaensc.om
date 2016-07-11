@@ -56,4 +56,5 @@ defined('inHeanes') or die('Access denied!');
             </div>
         </div>
     </div>
+    <div class="header-nav-bar-placeholder" id="headerNavBarPlaceholder"></div>
 </div>

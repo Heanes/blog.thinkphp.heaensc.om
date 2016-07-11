@@ -44,7 +44,7 @@ defined('inHeanes') or die('Access denied!');
                     <div class="article-list-block" id="indexArticleList">
                         <div class="article-list-row" v-for="article in indexArticleList">
                             <div class="article-title">
-                                <h1 class="title"><a href="/article/{{article.id}}">{{article.title}}</a></h1>
+                                <h1 class="title"><a href="/article/{{article.id}}.html">{{article.title}}</a></h1>
                             </div>
                             <div class="article-info">
                                 <dl>
