@@ -26,7 +26,7 @@ defined('inHeanes') or die('Access denied!');
     <title>首页</title>
 </head>
 <body>
-<div class="center wrap">
+<div class="center wrap clearfix">
     <!-- S 头部 S -->
     <include file="layout/header"/>
     <!-- E 头部 E-->
@@ -107,9 +107,9 @@ defined('inHeanes') or die('Access denied!');
     <!-- S js S -->
     <include file="layout/commonJs"/>
     <script type="text/javascript" src="/public/static/libs/js/vue/1.0.20/vue.js"></script>
+    <script type="text/javascript" src="<?php echo TPL;?>/js/mvvm/vue/js.js"></script>
     <script type="text/javascript">
         $(function () {
-            Vue.config.debug = true;
             var pathName = window.location.pathname;
             var API = {
                 'articleList':'/api/article/list'

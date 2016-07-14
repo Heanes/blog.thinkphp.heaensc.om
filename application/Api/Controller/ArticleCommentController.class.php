@@ -55,6 +55,18 @@ class ArticleCommentController extends BaseAPIController {
             ->limit('0,20')
             ->select();
         $articleTagListCamelStyle = convertToCamelStyle($articleTagListRaw);
+        $page = [
+            'pageSize' => 20,
+            'pageNumber' => 1,
+            'pageHasNext' => true,
+            'totalPage' => 12,
+            'total' => 246,
+        ];
+        $requestNextPage = [
+            'pageSize' => 20,
+            'pageNumber' => 1,
+            'pageSinceId' => 32,
+        ];
         $result = [
             'body' => $articleTagListCamelStyle,
             'message' => 'success',

@@ -61,36 +61,6 @@ $(function () {
         $('iframe', window.parent.document).contents().find('body').css({'font-family':cookieFontFamily});
     }
 
-
-    var navigationList = new Vue({
-        el: '#navigationList',
-        data: {
-            navigationList: []
-        },
-        methods: {
-            isCurrentPath: function(data) {
-                return window.location.pathname == data;
-            }
-        }
-    });
-
-    // 获取导航列表
-    var API = {
-        'navigationList':'/api/navigation/list'
-    };
-    $.ajax({
-        url: API.navigationList,
-        method: 'POST',
-        data: {},
-        dataType: "json",
-        success: function (result) {
-            navigationList.navigationList = result.body || [];
-        },
-        fail: function (result) {
-            alert('数据异常！');
-        }
-    });
-
 });
 
 

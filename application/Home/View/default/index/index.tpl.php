@@ -27,7 +27,7 @@ defined('inHeanes') or die('Access denied!');
     <title>首页</title>
 </head>
 <body>
-<div class="center wrap">
+<div class="center wrap clearfix">
     <!-- S 头部 S -->
     <include file="layout/header"/>
     <!-- E 头部 E-->
