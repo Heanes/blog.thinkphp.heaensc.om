@@ -122,12 +122,15 @@
 .add-comment-block .add-comment .comment-add-form{padding:10px;}
 .add-comment-block .add-comment .comment-add-form .input-group{margin-bottom:10px;}
 .add-comment-block .add-comment .comment-add-form .input-group input{width:140px;padding:4px;border:1px solid #d9ecfb;}
+.add-comment-block .add-comment .comment-add-form .input-group input:hover,
 .add-comment-block .add-comment .comment-add-form .input-group input:focus{outline:none;border-color:#82cdff;}
 .add-comment-block .add-comment .comment-add-form .input-group.inline{display:inline-block;margin-right:18px;}
-.add-comment-block .add-comment .comment-textarea{width:100%;height:200px;line-height:24px;resize:none;border:1px solid #d9ecfb;font-size:14px;padding:8px;}
+.add-comment-block .add-comment .comment-textarea{width:100%;height:200px;line-height:24px;resize:none;border:1px solid #d9ecfb;font-size:14px;padding:4px 8px;}
+.add-comment-block .add-comment .comment-textarea:hover,
 .add-comment-block .add-comment .comment-textarea:focus{outline:none;border-color:#82cdff;}
 .add-comment-block .add-comment .add-comment-handle{text-align:right;position:relative;}
 .add-comment-block .add-comment .add-comment-handle .submit-button{position:absolute;top:-66px;right:6px;background:#07adf9;color:#fff;width:100px;height:45px}
+.add-comment-block .add-comment .add-comment-handle .submit-button:hover{background-color:#00a0e9;}
 /* 评论列表 */
 .comment-list{margin:10px 0;position:relative;}
 .comment-list .comment-list-handle{position:absolute;right:20px;top:8px;color:#fff;}

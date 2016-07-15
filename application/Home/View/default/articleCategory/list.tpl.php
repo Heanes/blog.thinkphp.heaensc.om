@@ -107,6 +107,7 @@ defined('inHeanes') or die('Access denied!');
     <!-- S js S -->
     <include file="layout/commonJs"/>
     <script type="text/javascript" src="/public/static/libs/js/vue/1.0.20/vue.js"></script>
+    <script type="text/javascript" src="<?php echo TPL;?>/js/mvvm/vue/js.js"></script>
     <script type="text/javascript">
         $(function () {
             Vue.config.debug = true;
