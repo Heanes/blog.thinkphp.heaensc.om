@@ -6,12 +6,29 @@
  */
 namespace Home\Controller;
 use Think\Controller;
+
+require_once(APP_PATH.'Common/utils/func/utils.php');
+use Common\Model\NavigationModel;
 class BaseHomeController extends Controller{
+    
+    /**
+     * @var array 前台公共输出数据
+     */
+    protected $commonOutput;
+    
+    /**
+     * @var NavigationModel 导航模型
+     */
+    private $navigationModel;
 
     function __construct() {
         parent::__construct();
+        $this->navigationModel = new NavigationModel();
         // 获取主题
         $this->getTheme();
+        $this->commonOutput['common']['navigationList'] = $this->getNavigation();
+        // 通用标题后缀
+        $this->commonOutput['common']['titleCommonSuffix'] = ' - Heanes的博客';
     }
 
     /**
@@ -29,7 +46,11 @@ class BaseHomeController extends Controller{
      * @time 2016-06-21 14:17:45 周二
      */
     public function getNavigation() {
-        ;
+        $navigationListRaw = $this->navigationModel
+            ->where('is_enable = 1 and is_deleted = 0')
+            ->select();
+        $navigationListCamelStyle = convertToCamelStyle($navigationListRaw);
+        return $navigationListCamelStyle;
     }
 
     /**
@@ -40,5 +61,13 @@ class BaseHomeController extends Controller{
     public function getFriendlyLink() {
         ;
     }
-
+    
+    /**
+     * @doc 检测当前path于请求的方法匹配
+     * @author Heanes
+     * @param $url
+     */
+    public function isCurrentPath($url) {
+        ;
+    }
 }

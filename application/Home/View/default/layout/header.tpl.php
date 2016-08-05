@@ -37,16 +37,14 @@ defined('inHeanes') or die('Access denied!');
             <!-- 头部导航菜单区域 -->
             <div class="header-nav">
                 <ul class="nav" id="navigationList">
-                    <li v-for="navigation in navigationList">
-                        <a href="{{navigation.aHref}}" class="nav-a {{navigation.styleClass}} current" v-if="isCurrentPath(navigation.aHref)">
-                            <i class="{{navigation.iconClass}}"></i>
-                            <span>{{navigation.name}}</span>
-                        </a>
-                        <a href="{{navigation.aHref}}" class="nav-a {{navigation.styleClass}}" v-else>
-                            <i class="{{navigation.iconClass}}"></i>
-                            <span>{{navigation.name}}</span>
+                    <?php foreach ($output['common']['navigationList'] as $key => $navigation){?>
+                    <li>
+                        <a href="{$navigation.aHref}" class="nav-a {$navigation.styleClass}">
+                            <i class="{$navigation.iconClass}"></i>
+                            <span>{$navigation.name}</span>
                         </a>
                     </li>
+                    <?php }?>
                 </ul>
             </div>
             <!-- 搜索区域 -->

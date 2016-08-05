@@ -13,6 +13,16 @@ class IndexController extends BaseHomeController {
      * @time 2016-06-21 14:16:12 周二
      */
     public function indexOp(){
+        // 显示公共信息相关
+        $output = $this->commonOutput;
+    
+        // 显示文章列表信息
+        $articleController = new ArticleController;// 可用简写方法A('Article');但是太low
+        $articleList = $articleController->list_([]);
+        $output['data']['article'] = $articleList;
+    
+        $output['common']['title'] = '首页';
+        $this->assign('output', $output);
         $this->display('index');
     }
 

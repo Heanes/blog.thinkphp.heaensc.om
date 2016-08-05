@@ -61,6 +61,37 @@ $(function () {
         $('iframe', window.parent.document).contents().find('body').css({'font-family':cookieFontFamily});
     }
 
+    rollTitle2();
+    /**
+     * @doc 网页标题滚动显示
+     * @param speed 滚动速度
+     * @param titleMinLength 标题滚动满足的最小长度
+     * @author Heanes
+     * @time 2016-08-05 16:32:03
+     */
+    function rollTitle(speed, titleMinLength){
+        var pageTitle = $('title');
+        var pageTitleText = pageTitle.text();
+        if(pageTitleText.length < (titleMinLength || 18)) return;
+        var temp = swapFirstAndLast(pageTitleText);
+        pageTitle.text(temp);
+        function swapFirstAndLast(string) {
+            return string.substring(1, string.length) + string[0];
+        }
+        setTimeout(rollTitle, speed || 200);
+    }
+
+    var pageTitleTextOrigin = $('title').text();
+    function rollTitle2(speed, titleMinLength){
+        var pageTitle = $('title');
+        var pageTitleText = pageTitle.text();
+        pageTitleTextOrigin = pageTitleTextOrigin || pageTitleText;
+        if(pageTitleTextOrigin.length < (titleMinLength || 18)) return;
+        if(pageTitleText.length == 1) pageTitle.text('');
+        if(pageTitleText.length == 0) pageTitle.text(pageTitleTextOrigin);
+        pageTitle.text(pageTitleText.substring(1, pageTitleText.length));
+        setTimeout(rollTitle2, speed|| 200);
+    }
 });
 
 

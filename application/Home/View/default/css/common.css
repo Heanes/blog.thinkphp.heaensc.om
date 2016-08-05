@@ -151,7 +151,7 @@
 .right-fix-block .right-corner .handle-block.hover-change-block{position:relative;}
 .right-fix-block .right-corner .handle-block.hover-change-block:hover .hover-change-content{display:block;}
 .right-fix-block .right-corner .handle-block.hover-change-block .hover-change-content{display:none;position:absolute;top:-50%;}
-.right-fix-block .right-corner .handle-block .qr-code-content{right:60px}
+.right-fix-block .right-corner .handle-block .left-show-content{right:60px}
 
 .right-fix-block .right-corner .handle-block.decorate-cat{margin-top:30px;}
 .right-fix-block .right-corner .handle-block.decorate-cat .handle-content{padding-left:20px;padding-top:23px;}

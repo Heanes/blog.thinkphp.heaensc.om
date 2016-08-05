@@ -18,7 +18,7 @@ class ArticleController extends BaseAPIController {
     private $articleModel;
 
     /**
-     * @var ArticleModel 文章分类模型
+     * @var ArticleCategoryModel 文章分类模型
      */
     private $articleCategoryModel;
 
@@ -50,6 +50,7 @@ class ArticleController extends BaseAPIController {
             ->select();
         foreach ($articleListRaw as $index => &$article) {
             $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
+            $article['testField'] = null;
         }
         $articleListCamelStyle = convertToCamelStyle($articleListRaw);
         $result = [
