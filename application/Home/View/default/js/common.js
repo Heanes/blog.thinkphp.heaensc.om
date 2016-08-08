@@ -61,7 +61,8 @@ $(function () {
         $('iframe', window.parent.document).contents().find('body').css({'font-family':cookieFontFamily});
     }
 
-    rollTitle2();
+    var pageTitleTextOrigin = $('title').text();
+    //rollTitle2();
     /**
      * @doc 网页标题滚动显示
      * @param speed 滚动速度
@@ -81,14 +82,24 @@ $(function () {
         setTimeout(rollTitle, speed || 200);
     }
 
-    var pageTitleTextOrigin = $('title').text();
+    /**
+     * @doc 网页标题滚动显示,记录原始标题,逐字消去的方式
+     * @param speed 滚动速度
+     * @param titleMinLength 标题滚动满足的最小长度
+     * @author Heanes
+     * @time 2016-08-05 16:32:03
+     */
     function rollTitle2(speed, titleMinLength){
         var pageTitle = $('title');
         var pageTitleText = pageTitle.text();
         pageTitleTextOrigin = pageTitleTextOrigin || pageTitleText;
         if(pageTitleTextOrigin.length < (titleMinLength || 18)) return;
-        if(pageTitleText.length == 1) pageTitle.text('');
-        if(pageTitleText.length == 0) pageTitle.text(pageTitleTextOrigin);
+        if(pageTitleText == '.'){
+            pageTitleText = '...' + pageTitleTextOrigin;
+        }
+        if(pageTitleText.length == 1){
+            pageTitleText += '...';
+        }
         pageTitle.text(pageTitleText.substring(1, pageTitleText.length));
         setTimeout(rollTitle2, speed|| 200);
     }
