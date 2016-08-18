@@ -39,9 +39,9 @@ defined('inHeanes') or die('Access denied!');
                 <ul class="nav" id="navigationList">
                     <?php foreach ($output['common']['navigationList'] as $key => $navigation){?>
                     <li>
-                        <a href="{$navigation.aHref}" class="nav-a {$navigation.styleClass}">
-                            <i class="{$navigation.iconClass}"></i>
-                            <span>{$navigation.name}</span>
+                        <a href="<?php echo $navigation['aHref'];?>" class="nav-a <?php echo $navigation['styleClass'];?>">
+                            <i class="<?php echo $navigation['iconClass'];?>"></i>
+                            <span><?php echo $navigation['name'];?></span>
                         </a>
                     </li>
                     <?php }?>
