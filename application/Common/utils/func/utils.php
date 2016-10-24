@@ -121,3 +121,40 @@ function convertCamelToUnderlineStyle($string){
     }
     return $newString;
 }
+
+/**
+ * @doc 将数组转换为按某个字段作为索引的数组
+ * @param $array array 要转换的数组
+ * @param $key string 哪个字段作为索引key
+ * @param array $fields 哪些字段存储为索引值，为空则表示全部存储
+ * @param $convertToCamel string 是否转为驼峰形式，key-索引字段值|fields-存储字段|all-全部
+ * @return array
+ * @author Heanes
+ * @time 2016-10-23 19:18:45 周日
+ */
+function getKeyValueMapFromArray($array, $key, $fields = [], $convertToCamel){
+    $targetArray = [];
+    foreach ($array as $index => $item) {
+        if(array_key_exists($key, $item)){
+            $tempArray = [];
+            if($fields == null || $fields == []){
+                $tempArray = $item;
+            }else if(count($fields) == 1){
+                // 若字段只有一个则只存储该字段值
+                $tempArray = $item[$fields[0]];
+            }else{
+                foreach ($fields as $field){
+                    if(array_key_exists($field, $item)){
+                        $tempArray[$field] = $item[$field];
+                    }
+                }
+            }
+            $targetArrayKey = $item[$key];
+            if($convertToCamel == 'key' || $convertToCamel == 'all'){
+                $targetArrayKey = convertToCamelStyle($targetArrayKey);
+            }
+            $targetArray[$targetArrayKey] = $tempArray;
+        }
+    }
+    return $targetArray;
+}

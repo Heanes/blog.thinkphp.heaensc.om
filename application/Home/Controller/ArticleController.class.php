@@ -24,7 +24,6 @@ class ArticleController extends BaseHomeController {
     
     function __construct() {
         parent::__construct();
-        define('ARTICLE_LIST_PAGE_SIZE', 20);
         $this->articleModel = new ArticleModel();
         $this->articleCategoryModel = new ArticleCategoryModel();
     }
@@ -47,6 +46,7 @@ class ArticleController extends BaseHomeController {
         $param = [];
         // 参数判断
         // 1.1.是否带有文章分类参数
+        if(I('request.articleCategory', '', 'string'))
 
         // 1.2.分页参数
         $page = [
@@ -55,8 +55,8 @@ class ArticleController extends BaseHomeController {
         ];
         $param['page'] = $page;
         $output = $this->commonOutput;
-        $output['data'] = $this->list_($param);
-        $output['common']['title'] = '文章列表';
+        $output['data']['article'] = $this->page_($param);
+        $output['common']['title'] = ' - 文章列表';
         $this->assign('output', $output);
         $this->display('list');
     }
@@ -92,6 +92,49 @@ class ArticleController extends BaseHomeController {
         }
         $articleListCamelStyle = convertToCamelStyle($articleListRaw);
         
+        return ['rows' => $articleListCamelStyle, 'page' => $page];
+    }
+
+    /**
+     * @doc 文章列表数据获取
+     * @param array $param 参数
+     * @author Heanes
+     * @time 2016-07-16 22:11:34
+     * @return array|null|string
+     */
+    public function page_($param) {
+        // 处理分页
+        $pageLimit = [($param['page']['pageNumber'] - 1) * $param['page']['pageSize'], $param['page']['pageSize']];
+        $where = '';
+        if($param['where']){
+            foreach ($param['where'] as $index => $item) {
+                $where .= $item['field'] . ' ' . $item['operator'] . ' ' . $item['value'];
+            }
+        }
+        $where = $where . ($where ? ' and ' : '');
+
+        $totalCount = $this->articleModel
+            ->where($where. 'is_enable = 1 and is_deleted = 0')
+            ->count(1);
+        var_dump($this->articleModel->getLastSql());
+        $totalPage = ceil($totalCount / $param['page']['pageSize']);
+        $page = [
+            'pageSize' => $param['page']['pageSize'],
+            'pageNumber' => $param['page']['pageNumber'],
+            'pageHasNext' => ($totalPage - $param['page']['pageNumber']) > 1,
+            'totalPage' => $totalPage,
+            'total' => $totalCount,
+        ];
+
+        $articleListRaw = $this->articleModel
+            ->where('is_enable = 1 and is_deleted = 0')
+            ->limit(implode(',', $pageLimit))
+            ->select();
+        foreach ($articleListRaw as $index => &$article) {
+            $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
+        }
+        $articleListCamelStyle = convertToCamelStyle($articleListRaw);
+
         return ['rows' => $articleListCamelStyle, 'page' => $page];
     }
 
