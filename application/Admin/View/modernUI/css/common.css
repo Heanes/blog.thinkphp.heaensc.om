@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+/**
+ * @doc 公共样式
+ * @copyright heanes.com
+ * @author Heanes
+ * @time 2015-04-08 17:34:33
+ */
+
+.float-block{
+    float:left;
+}
+.float-left{float:left;}
+.float-right{float:right;}
+.box{position:relative;border-radius:3px;background-color:#fff;margin-bottom:20px;box-shadow:0 1px 1px rgba(0,0,0,0.1);}
+.text-center{text-align:center;}
+.relative{position:relative;}
+.absolute{position:absolute;}
+[disabled="disabled"],.disabled{pointer-events:none;}

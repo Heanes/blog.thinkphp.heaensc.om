@@ -4,7 +4,7 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 13:06:51 周二
  */
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 ?>
 <div class="footer">
     <div class="footer-decorate clearfix">

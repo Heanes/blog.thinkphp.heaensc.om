@@ -5,7 +5,16 @@
  * @time 2016-07-04 19:42:23 周一
  */
 namespace Admin\Controller;
+defined('InHeanes') or die('Access denied!');
 class IndexController extends BaseAdminController {
+    
+    private $output;
+    
+    function __construct(){
+        parent::__construct();
+        $this->output = $this->commonOutput;
+        $this->checkLogin();
+    }
 
     /**
      * @doc Admin默认方法

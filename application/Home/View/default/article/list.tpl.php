@@ -4,7 +4,7 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 19:09:22 周二
  */
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 ?>
 <!-- 主体内容 -->
 <div class="main-content main-wrap clearfix">

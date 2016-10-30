@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";/**
+ * @doc 布局样式
+ * @copyright heanes.com
+ * @author Heanes
+ * @time 2016-06-29 22:51:07
+ */
+
+.layout .header{position:fixed;z-index:3;width:100%;height:50px;background-color:#00a2ca}
+.layout .left-block{position:fixed;height:100%;z-index:2;background-color:#86b4bf;padding-top:50px}
+.layout .center-block{position:absolute;width:100%;height:100%;padding-left:240px;padding-top:50px;padding-right:0;}
+.layout .right-iframe{background-color:#ecf0f5;}
+.left-width{width:240px;}
+/* 头部logo及菜单 */
+.header .admin-logo{position:relative;float:left;height:100%;}
+.header .admin-logo .lap-handle{position:absolute;right:10px;top:16px;color:#fff;font-size:14px;font-weight:600;}
+.header .admin-logo .admin-log-href{display:block;height:100%;line-height:50px;text-align:center;}
+.header .admin-logo .admin-log-href .admin-icon,
+.header .admin-logo .admin-log-href .admin-title-text{display:inline-block;vertical-align:middle;color:#fff;height:100%}
+.header .admin-logo .admin-log-href .admin-icon{font-size:34px;line-height:inherit;}
+.header .admin-logo .admin-log-href .admin-title-text{font-size:22px;padding:0 30px 0 0;}
+.header .admin-logo .admin-log-img{min-width:150px;max-width:100%;min-height:60px;max-height:100%}
+.header .menu-top{float:left;height:50px;line-height:50px}
+.header .menu-top .menu-list li{float:left;width:auto;color:#fff}
+.header .menu-top .menu-list li.active,
+.header .menu-top .menu-list li:hover{background-color:#2b91af}
+.header .menu-top .menu-list li a{display:block;color:#fff;padding:0 30px;font-size:14px}
+/* 侧边菜单 */
+.menu-left-block{}
+.menu-left-family{display:none}
+.menu-left-family.active{display:block}
+.menu-left-group{}
+.menu-left-group.close{display:none}
+.menu-left-group li{line-height:26px;color:#fff;overflow:hidden;}
+.menu-left-group li .menu-parent .triangle-right{display:inline-block;width:0;height:0;border-top:5px solid transparent;border-left:6px solid #fff;border-bottom:5px solid transparent;vertical-align:middle;margin-bottom:3px;margin-right:12px}
+.menu-left-group li .menu-parent .triangle-down{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #fff;vertical-align:middle;margin-bottom:3px;margin-right:8px}
+.menu-left-group li .menu-parent,
+.menu-left-group li a{display:block;padding:0 8px;height:40px;line-height:40px;color:inherit;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.menu-left-group li a .menu-text{vertical-align:middle;display:inline-block}
+.menu-left-group li a .menu-icon{vertical-align:middle;font-size:14px;margin-right:6px;line-height:inherit;text-align:center;}
+.menu-left-group li:nth-child(2n){background-color:#85aab3}
+.menu-left-group li > ul.menu-left-group{padding-left:22px}
+.menu-left-group li .menu-parent:hover,
+.menu-left-group li .menu-parent.active,
+.menu-left-group li.active > a,
+.menu-left-group li:hover > a:not(.menu-parent){background-color:#2b91af}
+.menu-left-group .menu-link.active{background-color:#3c7794;}
+
+.left-block .left-lap{}
+.left-block .left-lap .lap-handle{color:#fff;background-color:#759ea9;display:block;height:30px;line-height:30px;text-align:center;}
+
+.menu-left-block.lapped .menu-left-family.active .menu-left-group{background-color:#86b4bf}
+.menu-left-block.lapped .menu-left-group{position:absolute;}
+.menu-left-block.lapped .menu-left-group > li{width:30px;}
+.menu-left-block.lapped .menu-left-group > li.active,
+.menu-left-block.lapped .menu-left-group > li.active li{width:auto;}
+.menu-left-block.lapped .menu-left-group li.active{overflow:visible;position:absolute;background-color:transparent;}
+.menu-left-block.lapped .menu-left-group li.active + li{margin-top:40px;}
+.menu-left-block.lapped .menu-left-group li.active .menu-parent.active > .menu-text{padding-left:8px;}
+.menu-left-block.lapped .menu-left-group li a .menu-icon{width:16px;}
+.menu-left-block.lapped .menu-left-group li.active > ul.menu-left-group{position:relative;left:0;padding-left:0;margin-left:30px;}
+.menu-left-family.lapped .menu-left-group li .menu-parent .triangle-right{display:none;}
+.menu-left-family.lapped .menu-left-group li .menu-parent .menu-text{display:none;}
+
+.menu-left-block .menu-left-group > li:hover{width:auto;}

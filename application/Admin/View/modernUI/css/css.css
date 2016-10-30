@@ -1,0 +1,179 @@
+@CHARSET "UTF-8";
+/**
+ * @doc 大部分样式
+ * @copyright heanes.com
+ * @author Heanes
+ * @time 2015-04-08 17:34:33
+ */
+body.start{background-color:#ecf0f5;}
+.main-content .center-block.right-content{padding:20px;}
+
+.box-normal{box-shadow:0 0 2px 2px rgba(225,225,225,0.5);border-radius:4px;}
+/**
+ * @doc 欢迎页面
+ * @author Heanes
+ * @time 2016-08-17 17:46:53 周三
+ */
+.report-count-block{font-size:0;margin:20px 10px;}
+.report-count-block .report-count-one{display:inline-table;min-height:90px;vertical-align:top;font-size:14px;background-color:#fff;margin-right:20px;margin-bottom:20px;}
+.report-count-block .report-count-one .report-icon-field,
+.report-count-block .report-count-one .report-content{display:table-cell;vertical-align:middle;}
+.report-count-block .report-count-one .report-icon-field{width:60px;text-align:center}
+.report-count-block .report-count-one .report-icon-field.article{background-color:#00a65a;}
+.report-count-block .report-count-one .report-icon-field.comment{background-color:#00c0ef;}
+.report-count-block .report-count-one .report-icon-field.member{background-color:#f39c12;}
+.report-count-block .report-count-one .report-icon-field.visitor{background-color:#2ec7c9;}
+.report-count-block .report-count-one .report-icon-field .report-icon{font-size:28px;line-height:60px;color:#fff;}
+.report-count-block .report-count-one .report-content{margin-right:10px;vertical-align:top;min-width:180px;}
+.report-count-block .report-count-one .report-content .report{display:block;line-height:18px;color:#555;margin:0 10px;}
+.report-count-block .report-count-one .report-content .report.main{font-size:17px;line-height:30px;margin:8px 10px 4px;}
+.report-count-block .report-count-one .report-content .report dt,
+.report-count-block .report-count-one .report-content .report dd{display:inline-block;}
+.report-count-block .report-count-one .report-content .report .value{font-weight:600;color:#000;margin-right:5px;}
+.report-count-block .report-count-one .report-content .report .title{font-weight:300;text-align:right;}
+
+.report-chart-block{_max-width:900px;}
+.report-chart-block .report-chart{border-top:4px solid #ddd;background-color:#fff;margin:10px;font-size:0;}
+.report-chart-block .report-chart .content-block .count-report{display:inline-block;width:70%;height:400px;margin-right:4%;}
+.report-chart-block .report-chart .content-block .count-report:last-child{padding-right:0;margin-right:0;}
+.report-chart-block .report-chart .content-block .count-report.count-browser{width:26%;}
+
+/**
+ *
+ * @dod数据列表页面
+ * @author Heanes
+ * @time 2016-09-06 11:53:56 周二
+
+/* 面包屑导航 2016-09-09 00:00:47 */
+.page-crumbs{padding:10px;margin-bottom:20px;}
+.page-crumbs.bg-normal{background-color:#f5f5f5;border:1px solid #ddd;}
+.page-crumbs .crumbs-list{margin:0;list-style:none;}
+.page-crumbs .crumbs-list li,
+.page-crumbs .crumbs-list li .crumbs-href,
+.page-crumbs .crumbs-list li .crumbs-separator{display:inline-block;vertical-align:middle;}
+.page-crumbs .crumbs-list li .crumbs-separator{margin:0 6px;}
+/* 查询表单 */
+.search-form{position:relative;margin-bottom:20px;background-color:#f5f5f5;}
+.search-form.bg-normal{background-color:#f5f5f5;border:1px solid #ddd;}
+.search-form.bg-normal form{padding:20px;}
+.search-form .input-block,
+.search-form .form-handle{display:table-cell;}
+.search-form .line-group{}
+.search-form .line-group.last,
+.search-form .line-group:last-child{margin-bottom:0;}
+.search-form .line-group .form-group{margin-bottom:20px;}
+.search-form .line-group .control-label{min-width:84px;text-align:right;}
+.search-form .line-group .control-label.text-center{text-align:center;}
+.search-form .line-group .form-control{min-width:140px;}
+.search-form .line-group .normal-input-width,
+.search-form .line-group .select2-container{min-width:178px;}
+.search-form .form-handle{vertical-align:middle;padding:0 50px 0;}
+.search-form .form-handle .handle-inline{display:inline-block;vertical-align:bottom;margin-right:20px;}
+.search-form .form-handle .handle-inline:last-child{margin-right:0;}
+.search-form .form-handle .handle-inline input[type="reset"],
+.search-form .form-handle .handle-inline button[type="reset"]{margin-left:40px;}
+
+
+
+/* 全局消息 @time 2016-09-08 18:36:48 周四 */
+.global-message{margin:20px 0;}
+
+/* 数据列表统计区域 @time 2016-09-08 18:36:38 周四 */
+.data-statistics{margin:20px 0;}
+.data-statistics .statistics-content{padding:16px;border:1px solid #ddd;border-radius:4px;}
+.data-statistics .statistics-content p{margin:0;}
+
+/* 数据操作区域 @time 2016-09-08 19:15:09 周四 */
+.date-handle{display:table;width:100%;padding-top:10px;}
+.date-handle .table-cell{display:table-cell}
+.date-handle .handle-right{text-align:right;vertical-align:bottom;}
+.date-handle .handle-right .handle{}
+.date-handle .handle-right .handle:hover{text-decoration:none;}
+.date-handle .handle-right .handle.disabled{color:#ddd;pointer-events:none;cursor:not-allowed;}
+.date-handle .handle-right .handle-inline{margin:0 10px;}
+
+/* 数据列表 */
+.data-list{margin:16px 0;}
+.data-list .table{margin-bottom:0;}
+.data-list .table .select-row{width:60px;}
+.data-list .bg-normal{background-color:#ededed;}
+.data-list .op-btn{font-size:13px;}
+.data-list .op-btn .op-icon{position:inherit;margin-right:2px;}
+.data-list .op-btn .op-icon,
+.data-list .op-btn .btn-text{display:inline-block;vertical-align:middle;}
+/* 选中后的数据的批量操作 @time 2016-09-11 17:35:39 */
+.data-selected-handle{margin:20px 0;}
+.data-selected-handle .handle-one{margin-right:20px;}
+.data-selected-handle .inline-block{display:inline-block;vertical-align:middle;margin:0;}
+.data-selected-handle input.inline-block{margin-right:6px;}
+.data-selected-handle .selected-count{color:#ff0000;margin:0 4px;}
+
+/* 分页样式 */
+.turn-page{text-align:right;margin:6px 0;}
+.turn-page input[type="text"]{padding:0 4px;font-size:13px;height:24px;line-height:24px;color:#555;background-color:#fff;border:1px solid #ccc;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
+.turn-page input:focus{border-color:#66afe9;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}
+.turn-page .inline-block{display:inline-block;}
+.turn-page .page-link{margin:4px 0 8px 0;font-size:0;}
+.turn-page .page-link a{display:inline-block;margin:0 4px;border:1px solid #ddd;padding:0 4px;min-width:32px;height:30px;line-height:30px;text-align:center;font-size:14px;border-radius:4px;}
+.turn-page .page-link a:hover{text-decoration:none;background-color:#00a0e9;color:#fff;}
+.turn-page .page-link a:focus,
+.turn-page .page-link a:active{text-decoration:none;}
+.turn-page .page-link a.current{border:0;}
+.turn-page .page-link a.current:hover{background-color:inherit;color:inherit;cursor:text}
+.turn-page .page-link a:last-child{margin-right:0;}
+.turn-page .page-link .href-ellipsis{display:inline-block;min-width:30px;height:30px;line-height:30px;text-align:center;font-size:14px;}
+.turn-page .page-info,
+.turn-page .page-quick-link{margin:4px 0 8px 0;color:#666;font-size:13px;height:24px;line-height:24px;}
+.turn-page .page-info{margin-top:20px;}
+.turn-page .page-info .page-info-btn{vertical-align:top;}
+.turn-page .page-info .input-page-size{width:40px;margin:0 3px;}
+.turn-page .page-quick-link .quick-input{width:30px;margin:0 3px;}
+.turn-page .page-quick-link .quick-link-btn{vertical-align:top;margin:0 3px;}
+.turn-page .page-quick-link .quick-select{display:inline-block;width:auto;line-height:inherit;height:inherit;font-size:inherit;padding:2px 4px;}
+
+/* 数据编辑页面 */
+/* tab 切换 */
+.tab-block{}
+.tab-block.border-normal{border:1px solid #ddd;}
+.tab-block .tab-panel{border-bottom: 1px solid #ddd;border-top-left-radius:4px;border-top-right-radius:4px;}
+.tab-block .tab-panel.bg-normal{background-color:#f5f5f5}
+.tab-block .tab-panel .tab-panel-list{font-size:0;margin:0;border-top-left-radius:4px;}
+.tab-block .tab-panel .tab-panel-list li{display:inline-block;border-right:1px solid #ddd;font-size:inherit;cursor:pointer;}
+.tab-block .tab-panel .tab-panel-list li:first-child{margin-left:0;border-top-left-radius:4px;}
+.tab-block .tab-panel .tab-panel-list li.active,
+.tab-block .tab-panel .tab-panel-list li:hover{background-color:#fff;}
+.tab-block .tab-panel .tab-panel-list li.active{margin-bottom:-1px;border-bottom:1px solid #fff;}
+.tab-block .tab-panel .tab-panel-list li .tab-panel-content{}
+.tab-block .tab-panel .tab-panel-list li .tab-panel-content .panel-title{font-size:14px;line-height:36px;padding:0 10px;margin:0;}
+
+/* tab内容 */
+.tab-block .tab-content{padding:20px 0;}
+.tab-block .tab-content .content{display:none;margin:20px 0;}
+.tab-block .tab-content .content.active{display:block;}
+
+/**
+ * @doc 编辑表单
+ * @author Heanes
+ * @time 2016-09-27 20:23:28 周二
+ */
+.data-edit-form{padding: 0 20px;}
+.data-edit-form .form{width:870px;margin:0 auto;}
+.data-edit-form .form .form-group.inline{display:inline-block;}
+.data-edit-form .form .form-group.inline .form-control{width:auto;display:inline-block;vertical-align:middle;}
+.data-edit-form .form .form-group .control-label{width:120px;text-align:right;vertical-align:middle;margin-bottom:0;}
+.data-edit-form .form .form-group .control-label.input-show-value-text{width:auto;font-weight:normal;min-width:0;margin:0 10px 0 4px}
+.data-edit-form .form .form-group .control-icon{margin-left:-30px;z-index:-1;vertical-align:middle;}
+
+.data-edit-form .form .form-group .form-control.textarea-title{width:740px;height:60px;}
+.data-edit-form .form .form-group .form-control.textarea-content{width:740px;height:740px;}
+.data-edit-form .form .form-group .kindEditor-count{padding-left:134px;font-size:13px;color:#5a5a5a;}
+.data-edit-form .form .form-group .form-control.textarea-content.uEditor{padding:0;border:0;margin-bottom:130px;}
+.data-edit-form .form .form-group .form-control.textarea-content.uEditor.eui-default{height:auto;}
+.data-edit-form .form .form-group input[type="checkbox"],
+.data-edit-form .form .form-group input[type="radio"]{display:inline-block;vertical-align:middle;margin:0;}
+.ke-container{display:inline-block;vertical-align:top;}
+
+.data-edit-form .form .form-handle{margin:20px auto;}
+.data-edit-form .form .form-handle .handle-group{}
+.data-edit-form .form .form-handle .handle-group.text-center{text-align:center}
+.data-edit-form .form .form-handle .handle-group .handle{margin:0 20px;}

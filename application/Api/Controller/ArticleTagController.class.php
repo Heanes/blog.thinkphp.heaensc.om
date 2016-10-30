@@ -5,7 +5,7 @@
  * @time 2016-07-07 14:30:52 周四
  */
 namespace Api\Controller;
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
 use Common\Model\ArticleTagModel;

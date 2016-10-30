@@ -24,7 +24,7 @@ define('APP_PATH', './application/');
 //define('BIND_MODULE','Admin');
 
 // 定义入口变量，防止模版文件直接访问
-define('inHeanes', true);
+define('InHeanes', true);
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
 

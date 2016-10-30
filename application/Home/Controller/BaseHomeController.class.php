@@ -96,6 +96,7 @@ class BaseHomeController extends Controller{
         }
         $defaultTheme = $this->commonOutput['common']['settingCommon']['webThemeHome'] ?: WEB_THEME_HOME_DEFAULT;
         define('TPL', '/application/home/view/'. $defaultTheme);
+        C('DEFAULT_THEME', $defaultTheme);
     }
 
     /**

@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+/**
+ * @doc 重设样式
+ * @copyright heanes.com
+ * @author Heanes
+ * @time 2015-04-08 17:34:33
+ */
+/* S 区域展示 S */
+iframe{
+	width: 100%;
+	height: 100%;
+}
+
+/* E 区域展示 E */
+
+
+/* S 外边框 S */
+body,dl,dt,dd{
+	margin:0;
+}
+/* E 外边框 E */
+
+/* S 内边框 S */
+body{
+	padding:0;
+}
+
+/* E 内边框 E */
+
+/* S 表格样式 S */
+table{
+	border-spacing: 1px;
+	border-collapse: collapse;
+}
+/* E 表格样式 E */
+
+/* S 列表样式 S */
+ul,li{
+	list-style: none;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+/* E 列表样式 E */
+
+/* S 链接样式 S */
+a{
+	text-decoration: none;
+}
+/* E 链接样式 E */

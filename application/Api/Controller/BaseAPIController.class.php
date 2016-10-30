@@ -5,7 +5,7 @@
  * @time 2016-06-21 14:51:27 周二
  */
 namespace Api\Controller;
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 use Think\Controller;
 use Common\Model\SettingCommonModel;
 use Common\Component\Page;

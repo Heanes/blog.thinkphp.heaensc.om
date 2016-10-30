@@ -4,7 +4,7 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 19:09:49 周二
  */
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 ?>
 <!-- 文章导航目录样式 -->
 <link rel="stylesheet" type="text/css" href="/public/static/libs/js/autoCatalog/1.0/css/autoCatalog.css">

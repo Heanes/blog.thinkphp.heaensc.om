@@ -5,13 +5,18 @@
  * @time 2016-07-04 19:42:33 周一
  */
 namespace Admin\Controller;
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 use Think\Controller;
 use Common\Model\SettingCommonModel;
 use Common\Component\Page;
 
 require_once(APP_PATH.'Common/utils/func/utils.php');
 class BaseAdminController extends Controller{
+    
+    /**
+     * @var array 前台公共输出数据
+     */
+    protected $commonOutput;
 
     /**
      * @var string 公共排除字段
@@ -31,7 +36,12 @@ class BaseAdminController extends Controller{
     function __construct() {
         parent::__construct();
 
-        $this->settingCommonModel = new SettingCommonModel();
+        // 获取设置
+        $this->commonOutput['common']['settingCommon'] = getKeyValueMapFromArray($this->getSettingCommon(), 'code', ['storedValue'], 'key');
+        // 定义主题
+        $this->getTheme();
+        // 通用标题后缀
+        $this->commonOutput['common']['titleCommonSuffix'] = ' - 管理后台 - Heanes的博客';
     }
 
     /**
@@ -54,10 +64,23 @@ class BaseAdminController extends Controller{
         // 数据分页大小
         define('DATA_LIST_PAGE_SIZE', $settingCommonListCamelStyle['articleListPageSize'] != null ? $settingCommonListCamelStyle['articleListPageSize'] : ARTICLE_LIST_PAGE_SIZE_DEFAULT);
         // 定义主题
-        define('TPL', '/application/admin/view/'. $settingCommonListCamelStyle['webThemeAdmin']);
         return $settingCommonListCamelStyle;
     }
-
+    
+    /**
+     * @doc 获取数据库设置的主题功能
+     * @author Heanes fang <heanes@163.com>
+     * @time 2016-10-30 23:06:38 周日
+     */
+    public function getTheme() {
+        if($this->commonOutput == null){
+            die('未初始化设置，请设置');
+        }
+        $defaultTheme = $this->commonOutput['common']['settingCommon']['webThemeAdmin'] ?: WEB_THEME_ADMIN_DEFAULT;
+        C('DEFAULT_THEME', $defaultTheme);
+        define('TPL', '/application/admin/view/'. $defaultTheme);
+    }
+    
     /**
      * @doc 获取设置里的分页大小
      * @author Heanes fang <heanes@163.com>
@@ -66,5 +89,16 @@ class BaseAdminController extends Controller{
     protected function getPageCondition() {
         $settingOriginResult = $this->getSettingCommon();
         $page = new Page();
+    }
+    
+    /**
+     * @doc 检查登录
+     * @author Heanes
+     * @time 2016-10-30 23:35:44 周日
+     */
+    public function checkLogin() {
+        if(!isset($_SESSION['isLoginAdmin']) && $_SESSION['isLoginAdmin'] != 'SYS_LOGIN_IN'){
+            $this->redirect('adminUser/login');
+        }
     }
 }

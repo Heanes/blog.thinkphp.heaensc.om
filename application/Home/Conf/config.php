@@ -10,5 +10,5 @@ return array(
     'layout_on' => true,                    // 开启布局
     'layout_name' => 'layout/layoutCommon', // 默认布局名称
 
-    'load_ext_config' => 'defaultCommonConstants',  // 额外配置
+    'load_ext_config' => 'router.config,defaultCommonConstants',  // 额外配置
 );

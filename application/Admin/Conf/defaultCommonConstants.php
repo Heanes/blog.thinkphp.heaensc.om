@@ -13,3 +13,10 @@ define('DATE_TIME_FORMATIVE_DEFAULT', 'Y-m-d H:i:s');
 // 默认后台数据分页大小
 define('DATA_LIST_PAGE_SIZE_DEFAULT', 20);
 
+// 默认主题
+define('WEB_THEME_ADMIN_DEFAULT', 'default');
+
+// 默认分页请求名称
+define('REQUEST_PAGE_PARAM_NAME_DEFAULT', 'p');
+
+

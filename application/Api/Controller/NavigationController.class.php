@@ -5,7 +5,7 @@
  * @time 2016-06-30 15:44:37 周四
  */
 namespace Api\Controller;
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 
 use Common\Model\NavigationModel;
 

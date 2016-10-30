@@ -4,7 +4,7 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 14:39:10 周二
  */
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 
 /**
  * @doc 返回json

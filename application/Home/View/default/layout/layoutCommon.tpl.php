@@ -4,7 +4,7 @@
  * @author Heanes
  * @time 2016-07-15 10:32:28
  */
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 ?>
 <!-- 通用布局文件 -->
 <!DOCTYPE html>

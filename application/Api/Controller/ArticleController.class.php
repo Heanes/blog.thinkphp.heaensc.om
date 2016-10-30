@@ -5,7 +5,7 @@
  * @time 2016-06-21 14:55:09 周二
  */
 namespace Api\Controller;
-defined('inHeanes') or die('Access denied!');
+defined('InHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
