@@ -97,7 +97,7 @@ class BaseAdminController extends Controller{
      * @time 2016-10-30 23:35:44 周日
      */
     public function checkLogin() {
-        if(!isset($_SESSION['isLoginAdmin']) && $_SESSION['isLoginAdmin'] != 'SYS_LOGIN_IN'){
+        if(!isset($_SESSION['isLoginAdmin']) && $_SESSION['isLoginAdmin'] != SYS_ADMIN_LOGIN_IN_FLAG){
             $this->redirect('adminUser/login');
         }
     }

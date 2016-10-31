@@ -36,7 +36,7 @@ defined('InHeanes') or exit('Access Invalid!');
                 <div class="admin-login-box-background"></div>
                 <div class="admin-login-box login-block">
                     <h1>后台管理系统登录</h1>
-                    <form action="" method="post" name="login-form" id="login-form">
+                    <form action="doLogin.html" method="post" name="login-form" id="loginForm">
                         <div class="input-row">
                             <div class="input-field">
                                 <label for="adminName">管理账号:</label>
@@ -63,13 +63,13 @@ defined('InHeanes') or exit('Access Invalid!');
                                     <i class="reset-input-icon">x</i>
                                 </div>
                                 <div class="input-reference">
-                                    <img class="admin-captcha" src="getCaptcha?t=123" id="adminCaptchaImage">
+                                    <img class="admin-captcha" src="getCaptcha.html" id="adminCaptchaImage">
                                 </div>
                             </div>
                         </div>
                         <div class="login-handle">
                             <div class="login-handle-field">
-                                <input type="submit" class="login-submit" name="login-form-submit" value="登录" />
+                                <input type="submit" class="login-submit" name="login-form-submit" id="adminLoginBtn" value="登录" />
                             </div>
                         </div>
                     </form>
@@ -122,6 +122,33 @@ defined('InHeanes') or exit('Access Invalid!');
              */
             $('.reset-input-icon').on('click', function() {
                 $(this).prev('input').val('').focus();
+            });
+
+            /**
+             * @doc 登录操作
+             * @author Heanes
+             * @time 2016-10-31 18:05:14 周一
+             */
+            $('#adminLoginBtn').on('click', function () {
+                var $adminName = $('input[name="adminName"]');
+                var $adminPassword = $('input[name="adminPassword"]');
+                var $adminCaptcha = $('input[name="adminCaptcha"]');
+                var data = {adminName: $adminName.val(), adminPassword: $adminPassword.val(), adminCaptcha: $adminCaptcha.val()};
+                $.ajax({
+                    url: "doLogin.html",
+                    type: "POST",
+                    data: data,
+                    dataType: "json",
+                    success: function (result) {
+                        alert('提交成功');
+                        console.log(result);
+                    },
+                    fail: function (result) {
+                        alert('出现问题：' + status);
+                    }
+
+                });
+                return false;
             });
         });
     </script>

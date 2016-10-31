@@ -1,7 +1,7 @@
 <?php
 /**
  * @doc 用户模型
- * @author Heanes fang <heanes@163.com>
+ * @author Heanes <heanes@163.com>
  * @time 2016-06-23 10:23:55 周四
  */
 

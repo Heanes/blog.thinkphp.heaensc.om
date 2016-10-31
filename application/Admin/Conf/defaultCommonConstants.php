@@ -19,4 +19,7 @@ define('WEB_THEME_ADMIN_DEFAULT', 'default');
 // 默认分页请求名称
 define('REQUEST_PAGE_PARAM_NAME_DEFAULT', 'p');
 
+// 管理员登录设置标志常量
+define('SYS_ADMIN_LOGIN_IN_FLAG', 'SYS_ADMIN_LOGIN_IN');
+
 

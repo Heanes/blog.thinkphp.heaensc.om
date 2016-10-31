@@ -1,7 +1,7 @@
 <?php
 /**
- * @doc 文章模型
- * @author Heanes fang <heanes@163.com>
+ * @doc 文章评论模型
+ * @author Heanes <heanes@163.com>
  * @time 2016-06-21 18:40:12 周二
  */
 

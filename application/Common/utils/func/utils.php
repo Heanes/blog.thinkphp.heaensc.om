@@ -158,3 +158,15 @@ function getKeyValueMapFromArray($array, $key, $fields = [], $convertToCamel){
     }
     return $targetArray;
 }
+
+// ---------------------------------------------- 安全相关 ----------------------------------------------------
+/**
+ * @doc 加密算法
+ * @param $password
+ * @return string
+ * @author Heanes
+ * @time 2016-10-31 17:54:34 周一
+ */
+function encryptPassword($password){
+    return md5($password);
+}
