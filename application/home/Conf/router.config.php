@@ -9,9 +9,9 @@ return array(
     'url_router_on'     => true,            // 开启路由
     'url_route_rules'=>array(
         // 文章路由
-        'article/:id\d'=>'Home/article/detail',
-        'api/article/:id\d'=>'Api/article/detail',
+        'article/:id\d'=>'home/article/detail',
+        'api/article/:id\d'=>'api/article/detail',
         // 文章分类路由
-        'articleCategory/:code'=>'Home/articleCategory/list',
+        'articleCategory/:code'=>'home/articleCategory/list',
     ),
 );

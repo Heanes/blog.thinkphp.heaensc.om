@@ -22,6 +22,8 @@ class IndexController extends BaseAdminController {
      * @time 2016-06-21 14:52:32 周二
      */
     public function indexOp(){
-        ;
+        $output['title'] = '后台管理起始页';
+        $this->assign('output', $output);
+        $this->display('layout/start');
     }
 }

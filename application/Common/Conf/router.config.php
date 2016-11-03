@@ -6,7 +6,7 @@
  */
 return array(
     // 路由相关
-    'url_router_on'     => true,            // 开启路由
-    'url_route_rules'=>array(
+    'url_router_on'     => true,        // 开启路由
+    'url_route_rules'   =>array(
     ),
 );

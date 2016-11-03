@@ -21,7 +21,7 @@ define('APP_DEBUG', true);
 define('APP_PATH', './application/');
 
 // 绑定Admin模块到当前入口文件，自动生成代码用
-//define('BIND_MODULE','Admin');
+//define('BIND_MODULE','admin');
 
 // 定义入口变量，防止模版文件直接访问
 define('InHeanes', true);

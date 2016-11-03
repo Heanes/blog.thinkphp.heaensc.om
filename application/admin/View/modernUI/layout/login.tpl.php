@@ -22,7 +22,7 @@ defined('InHeanes') or exit('Access Invalid!');
     <link rel="stylesheet" type="text/css" href="/public/static/libs/css/reset/reset.css"/>
     <link rel="stylesheet" type="text/css" href="/public/static/libs/css/base/base.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/login.css"/>
-    <title>登录</title>
+    <title><?php echo $output['title'].$output['common']['titleCommonSuffix'];;?></title>
 </head>
 <body class="admin-login green-sky background-image">
 <div class="wrap">
@@ -55,6 +55,7 @@ defined('InHeanes') or exit('Access Invalid!');
                                 </div>
                             </div>
                         </div>
+                        <?php if($output['common']['settingCommon']['needCaptcha']){?>
                         <div class="input-row">
                             <div class="input-field captcha">
                                 <label for="adminCaptcha">验证码:</label>
@@ -67,6 +68,7 @@ defined('InHeanes') or exit('Access Invalid!');
                                 </div>
                             </div>
                         </div>
+                        <?php }?>
                         <div class="login-handle">
                             <div class="login-handle-field">
                                 <input type="submit" class="login-submit" name="login-form-submit" id="adminLoginBtn" value="登录" />
@@ -129,7 +131,7 @@ defined('InHeanes') or exit('Access Invalid!');
              * @author Heanes
              * @time 2016-10-31 18:05:14 周一
              */
-            $('#adminLoginBtn').on('click', function () {
+            /*$('#adminLoginBtn').on('click', function () {
                 var $adminName = $('input[name="adminName"]');
                 var $adminPassword = $('input[name="adminPassword"]');
                 var $adminCaptcha = $('input[name="adminCaptcha"]');
@@ -149,7 +151,7 @@ defined('InHeanes') or exit('Access Invalid!');
 
                 });
                 return false;
-            });
+            });*/
         });
     </script>
     <!-- E js E -->
