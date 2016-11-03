@@ -6,7 +6,6 @@
  */
 return array(
     // 路由相关
-    'url_router_on'     => true,            // 开启路由
     'url_route_rules'=>array(
         // 文章路由
         'article/:id\d'=>'home/article/detail',
@@ -14,4 +13,7 @@ return array(
         // 文章分类路由
         'articleCategory/:code'=>'home/articleCategory/list',
     ),
+    'url_router_on'     => true,        // 开启路由
+    'url_html_suffix'   => 'html',      // 默认后缀
+    'url_model'         => '2',         // URL模式
 );

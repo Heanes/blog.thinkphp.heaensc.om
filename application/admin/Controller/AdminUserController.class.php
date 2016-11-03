@@ -86,8 +86,8 @@ class AdminUserController extends BaseAdminController {
         }
         
         $this->adminLogin($result, $postAdminName, $postAdminPassword);
-        returnJson($result);
-        $this->redirect('index/index');
+        //returnJson($result);
+        $this->redirect('index/index', null, 5, '登陆成功，正在跳转。。。');
         return true;
     }
     
@@ -121,6 +121,16 @@ class AdminUserController extends BaseAdminController {
         $result['body'] = $adminUserCamelStyle;
         $result['success'] = true;
         return $result;
+    }
+    
+    /**
+     * @doc 管理员登陆后的连带更新及附加操作
+     * @param $loginUser array 登录成功的用户
+     * @author Heanes
+     * @time 2016年11月04日00:04:14
+     */
+    private function adminLoginIn($loginUser){
+        ;
     }
     
     /**
