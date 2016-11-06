@@ -1,14 +1,14 @@
 @CHARSET "UTF-8";
 /**
  * @doc 前台公共样式
- * @author fanggang
+ * @author Heanes
  * @time 2015-11-22 12:12:46
  */
 /**************************************首页页面*******************************/
 .index-article-list-block{}
 
 /**************************************文章列表页面*******************************/
-.article-list-block{padding:30px 10px;min-height:800px}
+.article-list-block{padding:30px 10px;}
 .article-list-block .article-list-row{margin-bottom:20px;}
 .article-list-block .article-list-row .article-title{}
 .article-list-block .article-list-row .article-title .title{font-size:24px;font-weight:600;border-left:6px solid #008fb5;padding-left:24px;}
@@ -28,8 +28,21 @@
 .article-list-block .article-list-row .article-tags{float:right;}
 .article-list-block .article-list-row .article-tags dd{padding-left:6px;}
 .article-list-block .article-list-row .article-tags dd a:hover{background-color:#008fb5;color:#fff;}
+
+/* 分页样式 */
+.data-page-block{margin:20px 0;}
+.data-page-block .page-link{font-size:0;text-align:center;}
+.data-page-block .page-link .turn-page{display:inline-block;min-width:34px;height:34px;line-height:34px;border:1px solid #00a3cf;margin-right:10px;text-align:center;font-size:14px;color:#00a3cf;padding:0 10px;white-space:nowrap;-webkit-transition:all 0.28s ease;transition:all 0.28s ease;}
+.data-page-block .page-link .turn-page.ellipsis{cursor:default;}
+.data-page-block .page-link .turn-page.current,
+.data-page-block .page-link .turn-page:hover{background-color:#00a0e9;color:#fff;}
+.data-page-block .page-link .turn-page.ellipsis:hover{background-color:inherit;color:inherit;}
 /**************************************文章页面*******************************/
-.article-page{background:#fff;color:#000;padding:10px;}
+.margin-common{margin-left:10px;margin-right:10px;}
+.article-page .article-category,
+.article-page .article-page,
+.article-page .article-relate-block,
+.article-page .article-comment-block{margin-left:10px;margin-right:10px;}
 .article-page .article-block{padding-top:20px;}
 .article-page .article-category{padding:10px 5px;border-bottom:3px solid #57adfd;line-height:24px;}
 .article-page .article-block .article-title-block{position:relative;border-bottom:1px #ddd dashed;color:#222;}
@@ -108,7 +121,7 @@
 .article-page .article-preview-forward p{padding:4px 0;text-indent:2em}
 .article-page .article-preview-forward p a:hover{color:#ff9500}
 /* 相关文章 */
-.article-page .article-relate-block{margin:10px 0}
+.article-page .article-relate-block{margin:10px 10px;}
 .article-page .relate-title{font-size:17px;background:#07adf9;padding:6px 10px}
 .article-page .relate-title a{color:#fff}
 .article-page .relate-text-ul{padding:12px 2px 12px 10px}
@@ -186,29 +199,58 @@
 /* 底部“不容错过”推荐文章样式 */
 
 /**************************************读书页面*******************************/
-.read-book-detail{padding:6px;font-size:0;}
-.read-book-detail .book-cover,
-.read-book-detail .book-screenshot-list{display:inline-block;vertical-align:top;}
-.read-book-detail .book-cover{width:200px;height:300px;border:1px solid #ddd;text-align:center;padding:6px;line-height:284px;overflow:hidden}
-.read-book-detail .book-cover img{max-width:100%;max-height:100%;}
-.read-book-detail .book-screenshot-list{width:586px;height:300px;vertical-align:middle;border:1px solid #ddd;margin-left:-1px;overflow-x:auto;}
-.read-book-detail .book-screenshot-list ul{width:100%;}
-.read-book-detail .book-screenshot-list ul li{display:inline-block;width:200px;height:300px;line-height:284px;padding:6px;}
-.read-book-detail .book-screenshot-list img{max-width:100%;max-height:100%;}
+.read-book-page{}
+.read-book-page .book-cover,
+.read-book-page .book-info-block{padding:6px;display:inline-block;vertical-align:top;line-height:22px;}
+.read-book-page .book-info-block{width:468px;}
+.read-book-page .book-detail-block{margin-bottom:20px;}
 
 /* 书本信息 */
-.read-book-detail .book-info{font-size:14px;padding:20px 10px;}
-.read-book-detail .book-info .book-info-row{}
-.read-book-detail .book-info .book-info-row dt,
-.read-book-detail .book-info .book-info-row dd{display:inline-block;vertical-align:top;padding-left:6px;}
-.read-book-detail .book-info .book-info-row dt{color:#888;}
-.read-book-detail .book-info .book-info-row dd{font-weight:600;}
+.read-book-page .book-info,
+.read-book-page .book-read-info{display:inline-block;width:360px;vertical-align:top;padding:20px 10px;font-size:13px;}
 
-.read-book-detail .book-info,
-.read-book-detail .book-read-info{display:inline-block;width:360px;vertical-align:top;}
+.read-book-page .book-info{}
+.read-book-page .book-info .book-info-row{}
+.read-book-page .book-info .book-info-row dt,
+.read-book-page .book-info .book-info-row dd{display:inline-block;vertical-align:top;}
+.read-book-page .book-info .book-info-row dt{color:#888;padding:0 6px;}
+.read-book-page .book-info .book-info-row dd{font-weight:600;}
+.read-book-page .book-info .book-info-row dd.unit{color:#555;}
 
-.read-book-detail .book-read-info{font-size:16px;padding-top:20px}
-.read-book-detail .book-read-info .book-info-row dt,
-.read-book-detail .book-read-info .book-info-row dd{display:inline-block;vertical-align:top;padding-left:6px;}
-.read-book-detail .book-read-info .book-info-row dt{color:#888;}
-.read-book-detail .book-read-info .book-info-row dd{font-weight:600;}
+/* 个人阅读相关信息 */
+.read-book-page .book-read-info{padding-top:20px}
+.read-book-page .book-read-info .book-info-row dt,
+.read-book-page .book-read-info .book-info-row dd{display:inline-block;vertical-align:top;}
+.read-book-page .book-read-info .book-info-row dt{color:#888;padding:0 6px;}
+.read-book-page .book-read-info .book-info-row dd{font-weight:600;}
+.read-book-page .book-read-info .book-info-row dd.unit{color:#555;}
+
+/* 书本详情页面tab切换 */
+.tab-nav-block{}
+.tab-nav-block .tab-title-block-placeholder{height:48px;display:none;}
+.tab-nav-block .tab-title-block{position:relative;font-size:0;border:1px solid #ddd;background-color:#fff;box-shadow:0 1px 5px 0 rgba(0,0,0,.2)}
+.tab-nav-block .tab-title-block.fixed{position:fixed;top:0;}
+.tab-nav-block .tab-title-block .hide-tab-nav-fixed{display:none;font-size:13px;color:inherit;position:absolute;top:16px;right:10px;}
+.tab-nav-block .tab-title-block .tab-nav-one{display:inline-block;border-right:1px solid #ddd;line-height:42px;cursor:pointer;}
+.tab-nav-block .tab-title-block .tab-nav-one.active{position:relative;border-top:2px solid #b10000;border-left:1px solid #cfbfb1;border-right-color:#cfbfb1;margin-top:-2px;margin-left:-1px;}
+.tab-nav-block .tab-title-block .tab-nav-one.active:after{content:' ';position:absolute;display:block;border:5px solid transparent;border-top-color:#b00000;width:0;height:0;top:-1px;left:50%;margin-left:-5px;}
+.tab-nav-block .tab-title-block .tab-nav-one:last-child{border-right-width:1px;}
+.tab-nav-block .tab-title-block .tab-nav-one .tab-title{display:block;padding:0 14px;font-size:14px;color:inherit;line-height:46px;}
+.tab-nav-block .tab-title-block .tab-nav-one.active .tab-title{color:#b10000;font-weight:600;}
+.tab-nav-block .tab-nav-content-block .tab-content-one{display:none;text-indent:2em;}
+.tab-nav-block .tab-nav-content-block .tab-content-one.active{display:block;}
+
+/* 详情区块 */
+.book-detail-block .book-detail-tab-nav{}
+.book-detail-block .book-detail-tab-nav .desc-content,
+.book-detail-block .book-detail-tab-nav .desc-author,
+.book-detail-block .book-detail-tab-nav .book-catalog{padding:20px 10px;font-size:13px;line-height:22px;text-indent:2em;}
+.book-detail-block .book-detail-tab-nav .book-catalog .catalog-dl{}
+.book-detail-block .book-detail-tab-nav .book-catalog .catalog-dl dt{font-weight:600;font-size:14px;padding:10px 0;}
+.book-detail-block .book-detail-tab-nav .desc-content p,
+.book-detail-block .book-detail-tab-nav .desc-author p{margin-bottom:10px;}
+.book-detail-block .book-detail-tab-nav .read-online{margin-top:10px;}
+.book-detail-block .book-detail-tab-nav .read-online .read-online-iframe{height:860px;}
+
+/* 评论 */
+.book-comment-block{padding: 10px 20px;}

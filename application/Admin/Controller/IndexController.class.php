@@ -1,7 +1,7 @@
 <?php
 /**
  * @doc Admin默认控制器
- * @author Heanes fang <heanes@163.com>
+ * @author Heanes <heanes@163.com>
  * @time 2016-07-04 19:42:23 周一
  */
 namespace Admin\Controller;
@@ -24,6 +24,6 @@ class IndexController extends BaseAdminController {
     public function indexOp(){
         $output['title'] = '后台管理起始页';
         $this->assign('output', $output);
-        $this->display('layout/start');
+        $this->display('layout/home');
     }
 }

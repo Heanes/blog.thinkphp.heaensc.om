@@ -55,7 +55,7 @@ class ArticleController extends BaseHomeController {
         ];
         $param['page'] = $page;
         $output = $this->commonOutput;
-        $output['data']['article'] = $this->page_($param);
+        $output['data']['article'] = $this->pageList($param);
         $output['common']['title'] = ' - 文章列表';
         $this->assign('output', $output);
         $this->display('list');
@@ -68,7 +68,7 @@ class ArticleController extends BaseHomeController {
      * @time 2016-07-16 22:11:34
      * @return array|null|string
      */
-    public function list_($param) {
+    public function listAll($param) {
         // 处理分页
         $pageLimit = [($param['page']['pageNumber'] - 1) * $param['page']['pageSize'], $param['page']['pageSize']];
         $totalCount = $this->articleModel
@@ -102,7 +102,7 @@ class ArticleController extends BaseHomeController {
      * @time 2016-07-16 22:11:34
      * @return array|null|string
      */
-    public function page_($param) {
+    public function pageList($param) {
         // 处理分页
         $pageLimit = [($param['page']['pageNumber'] - 1) * $param['page']['pageSize'], $param['page']['pageSize']];
         $where = '';
@@ -147,7 +147,7 @@ class ArticleController extends BaseHomeController {
         $param['id'] = $_REQUEST['id'];
         $output = $this->commonOutput;
         $output['id'] = $_REQUEST['id'];
-        $output['data'] = $this->detail_($param);
+        $output['data'] = $this->detail($param);
         $output['common']['title'] = $output['data']['title'] . ' - 文章详情';
         $this->assign('output', $output);
         $this->display('detail');
@@ -160,7 +160,7 @@ class ArticleController extends BaseHomeController {
      * @time 2016-07-16 22:01:15
      * @return array|null|string
      */
-    public function detail_($param) {
+    public function detail($param) {
         $articleRaw = $this->articleModel
             ->where('id = '. $param['id'] .' and is_enable = 1 and is_deleted = 0')
             ->find();

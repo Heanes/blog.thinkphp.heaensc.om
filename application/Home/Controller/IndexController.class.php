@@ -25,7 +25,7 @@ class IndexController extends BaseHomeController {
 
         // 显示文章列表信息
         $articleController = new ArticleController;// 可用简写方法A('Article');但是太low
-        $articleList = $articleController->list_([]);
+        $articleList = $articleController->pageList([]);
         $output['data']['article'] = $articleList;
 
         $output['common']['title'] = '首页';
