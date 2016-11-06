@@ -32,11 +32,11 @@ defined('InHeanes') or exit('Access Invalid!');
         <div class="main-content main-wrap clearfix">
             <!-- 中心区域 -->
             <div class="center-block center-wrap right-content">
-                <div id="clouds" class="cloud-stage"></div>
+                <div id="clouds" class="admin-login cloud-stage"></div>
                 <div class="admin-login-box-background"></div>
                 <div class="admin-login-box login-block">
                     <h1>后台管理系统登录</h1>
-                    <form action="doLogin.html" method="post" name="login-form" id="loginForm">
+                    <form action="doLogin.html" method="post" name="login-form" class="login-form normal-width" id="login-form">
                         <div class="input-row">
                             <div class="input-field">
                                 <label for="adminName">管理账号:</label>
@@ -71,15 +71,18 @@ defined('InHeanes') or exit('Access Invalid!');
                         <?php }?>
                         <div class="login-handle">
                             <div class="login-handle-field">
-                                <input type="submit" class="login-submit" name="login-form-submit" id="adminLoginBtn" value="登录" />
+                                <input type="submit" class="login-submit" name="login-form-submit" value="登录" />
+                            </div>
+                        </div>
+                        <div class="login-handle-extra">
+                            <div class="inline inline-half remember-account">
+                                <label class="color-dark"><input type="checkbox" name="rememberAccount" class="inline v-middle" value="1"><span class="checkbox-text inline v-middle">记住我</span></label>
+                            </div>
+                            <div class="inline inline-half forget-password">
+                                <a href="javascript:;" class="color-dark">忘记密码？</a>
                             </div>
                         </div>
                     </form>
-                    <div class="login-handle-extra">
-                        <div class="forget-password">
-                            <a href="javascript:;" class="href-duck">忘记密码？</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
