@@ -6,12 +6,14 @@
  */
 return array(
     // 路由相关
-    'url_route_rules'=>array(
+    'url_route_rules' => array(
         // 文章路由
-        'article/:id\d'=>'home/article/detail',
-        'api/article/:id\d'=>'api/article/detail',
+        'article/:id\d' => 'home/article/detail',
+        'article/:articleCategory/list' => 'home/article/list',
+        'api/article/:id\d' => 'api/article/detail',
         // 文章分类路由
-        'articleCategory/:code'=>'home/articleCategory/list',
+        'articleCategory/:code' => 'home/articleCategory/list',
+        'articleCategory/:id\d' => 'home/articleCategory/list',
     ),
     
     'url_router_on'         => true,        // 开启路由

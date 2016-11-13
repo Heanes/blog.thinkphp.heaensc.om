@@ -43,129 +43,62 @@ class ArticleController extends BaseHomeController {
      * @time 2016-06-21 14:45:47 周二
      */
     public function listOp() {
+        $output = $this->commonOutput;
         $param = [];
+        //$param['where'] = array_merge((array)$param['where'], $this->getCommonShowDataSelectParam());
+        $param['where'] = $this->getCommonShowDataSelectParam();
         // 参数判断
         // 1.1.是否带有文章分类参数
-        if(I('request.articleCategory', '', 'string'))
+        $requestArticleCategory = I('request.articleCategory', null, 'string');
+        if(isset($requestArticleCategory)){
+            $paramArticleCategory['where'][] = [
+                'code' => $requestArticleCategory,
+            ];
+            $articleCategoryRaw = $this->articleCategoryModel
+                ->where($paramArticleCategory['where'])
+                ->find();
+            if($articleCategoryRaw && $articleCategoryRaw != null && count($articleCategoryRaw)){
+                $param['where'][] = [
+                    'category_id' => $articleCategoryRaw['id']
+                ];
+                $output['common']['title'] = $articleCategoryRaw['name'];
+            }
+        }
 
         // 1.2.分页参数
+        $pagePramName = $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT;
+        $pageSizePramName = $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT;
+        $pageSizeDefault = $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
+        $pageNumber = I('request' . $pagePramName, 1, 'int');
+        $pageSize = I('request' . $pageSizePramName, $pageSizeDefault, 'int');
         $page = [
-            'pageNumber'    => $_GET['p'] ? $_GET['p'] : 1,
-            'pageSize'      => $_GET['pageSize'] ? $_GET['pageSize'] : ARTICLE_LIST_PAGE_SIZE,
+            'pageNumber'    => $pageNumber,
+            'pageSize'      => $pageSize,
         ];
         $param['page'] = $page;
-        $output = $this->commonOutput;
-        $output['data']['article'] = $this->pageList($param);
-        $output['common']['title'] = ' - 文章列表';
+        $output['data']['article'] = $this->articleModel->listAll($param);
+        $output['common']['title'] .= ' - 文章列表';
         $this->assign('output', $output);
         $this->display('list');
     }
 
     /**
-     * @doc 文章列表数据获取
-     * @param array $param 参数
-     * @author Heanes
-     * @time 2016-07-16 22:11:34
-     * @return array|null|string
-     */
-    public function listAll($param) {
-        // 处理分页
-        $pageLimit = [($param['page']['pageNumber'] - 1) * $param['page']['pageSize'], $param['page']['pageSize']];
-        $totalCount = $this->articleModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->count(1);
-        $totalPage = ceil($totalCount / $param['page']['pageSize']);
-        $page = [
-            'pageSize' => $param['page']['pageSize'],
-            'pageNumber' => $param['page']['pageNumber'],
-            'pageHasNext' => ($totalPage - $param['page']['pageNumber']) > 1,
-            'totalPage' => $totalPage,
-            'total' => $totalCount,
-        ];
-        
-        $articleListRaw = $this->articleModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->limit(implode(',', $pageLimit))
-            ->select();
-        foreach ($articleListRaw as $index => &$article) {
-            $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
-        }
-        $articleListCamelStyle = convertToCamelStyle($articleListRaw);
-        
-        return ['rows' => $articleListCamelStyle, 'page' => $page];
-    }
-
-    /**
-     * @doc 文章列表数据获取
-     * @param array $param 参数
-     * @author Heanes
-     * @time 2016-07-16 22:11:34
-     * @return array|null|string
-     */
-    public function pageList($param) {
-        // 处理分页
-        $pageLimit = [($param['page']['pageNumber'] - 1) * $param['page']['pageSize'], $param['page']['pageSize']];
-        $where = '';
-        if($param['where']){
-            foreach ($param['where'] as $index => $item) {
-                $where .= $item['field'] . ' ' . $item['operator'] . ' ' . $item['value'];
-            }
-        }
-        $where = $where . ($where ? ' and ' : '');
-
-        $totalCount = $this->articleModel
-            ->where($where. 'is_enable = 1 and is_deleted = 0')
-            ->count(1);
-        var_dump($this->articleModel->getLastSql());
-        $totalPage = ceil($totalCount / $param['page']['pageSize']);
-        $page = [
-            'pageSize' => $param['page']['pageSize'],
-            'pageNumber' => $param['page']['pageNumber'],
-            'pageHasNext' => ($totalPage - $param['page']['pageNumber']) > 1,
-            'totalPage' => $totalPage,
-            'total' => $totalCount,
-        ];
-
-        $articleListRaw = $this->articleModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->limit(implode(',', $pageLimit))
-            ->select();
-        foreach ($articleListRaw as $index => &$article) {
-            $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
-        }
-        $articleListCamelStyle = convertToCamelStyle($articleListRaw);
-
-        return ['rows' => $articleListCamelStyle, 'page' => $page];
-    }
-
-    /**
-     * @doc 显示文章内容
+     * @doc 根据文章ID显示文章内容
+     * @alias getDetailById
      * @author Heanes
      * @time 2016-06-21 14:46:05 周二
      */
     public function detailOp() {
-        $param['id'] = $_REQUEST['id'];
+        $requestId = I('request.id', null, 'int');
+        if(!isset($requestId)){
+            $this->error('参数不对');
+        }
         $output = $this->commonOutput;
-        $output['id'] = $_REQUEST['id'];
-        $output['data'] = $this->detail($param);
+        $output['data'] = $this->articleModel->getDetailById($requestId);
+        
+        // TODO 更新文章相关属性，如阅读数等
         $output['common']['title'] = $output['data']['title'] . ' - 文章详情';
         $this->assign('output', $output);
         $this->display('detail');
-    }
-
-    /**
-     * @doc 获取文章数据
-     * @param array $param 参数
-     * @author Heanes
-     * @time 2016-07-16 22:01:15
-     * @return array|null|string
-     */
-    public function detail($param) {
-        $articleRaw = $this->articleModel
-            ->where('id = '. $param['id'] .' and is_enable = 1 and is_deleted = 0')
-            ->find();
-        $articleRaw['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
-        $articleCamelStyle = convertToCamelStyle($articleRaw);
-        return $articleCamelStyle;
     }
 }

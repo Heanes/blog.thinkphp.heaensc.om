@@ -18,6 +18,3 @@ define('ARTICLE_LIST_PAGE_SIZE_DEFAULT', 20);
 
 // 默认主题
 define('WEB_THEME_HOME_DEFAULT', 'default');
-
-// 默认分页请求名称
-define('REQUEST_PAGE_PARAM_NAME_DEFAULT', 'p');
