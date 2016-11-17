@@ -30,78 +30,47 @@ class ArticleCategoryController extends BaseHomeController {
 
     /**
      * @doc 显示文章分类列表
-     * @author Heanes fang <heanes@163.com>
+     * @author Heanes <heanes@163.com>
      * @time 2016-06-21 14:45:47 周二
      */
     public function listOp() {
         $output = $this->commonOutput;
-        $articleCategoryParam = [
-            'where' => [
-                [
-                    'field' => 'code',
-                    'value' => I('get.code', '', 'string'),
-                    'operator' => '=',
-                ]
-            ]
+        $param = [];
+        $param['where'] = $this->getCommonShowDataSelectParam();
+        
+        // 1.2.分页参数
+        $pagePramName = $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT;
+        $pageSizePramName = $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT;
+        $pageSizeDefault = $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
+        $pageNumber = I('request' . $pagePramName, 1, 'int');
+        $pageSize = I('request' . $pageSizePramName, $pageSizeDefault, 'int');
+        $page = [
+            'pageNumber'    => $pageNumber,
+            'pageSize'      => $pageSize,
         ];
-        $articleCategory = $this->detail_($articleCategoryParam);
-        var_dump($articleCategory);
+        $param['page'] = $page;
 
-        // 显示文章列表信息
-        $articleController = new ArticleController;// 可用简写方法A('Article');但是太low
-        $articleParam = [
-            'where' => [
-                [
-                    'field' => 'category_id',
-                    'value' => $articleCategory['id'],
-                    'operator' => '=',
-                ]
-            ]
-        ];
-        $articleList = $articleController->page_($articleParam);
-        $output['data']['article'] = $articleList;
-
-        $output['common']['title'] = $articleCategory['name'].' - 分类文章列表';
+        // 显示文章分类列表信息
+        $output['data']['article'] = $this->articleModel->listAll($param);
+        $output['common']['title'] = '分类文章列表';
         $this->assign('output', $output);
         $this->display('list');
     }
 
     /**
      * @doc 显示文章分类详情
-     * @author Heanes fang <heanes@163.com>
+     * @author Heanes <heanes@163.com>
      * @time 2016-06-21 14:46:05 周二
      */
     public function detailOp() {
         // 显示公共信息相关
         $output = $this->commonOutput;
         // 文章数据
-        $articleController = new ArticleController;// 可用简写方法A('Article');但是太low
-        $articleDetail = $articleController->detail_([]);
-        $output['data']['article'] = $articleDetail;
+        $articleCategoryDetail = [];
+        $output['data']['articleCategory'] = $articleCategoryDetail;
 
-        $output['common']['title'] = $articleDetail['title']. ' - 文章详情';
+        $output['common']['title'] = $articleCategoryDetail['title']. ' - 文章详情';
         $this->assign('output', $output);
         $this->display('detail');
-    }
-
-    /**
-     * @doc 显示文章分类详情
-     * @author Heanes fang <heanes@163.com>
-     * @time 2016-06-21 14:46:05 周二
-     */
-    public function detail_($param) {
-        $where = '';
-        if($param['where']){
-            foreach ($param['where'] as $index => $item) {
-                $where .= $item['field'] . ' ' . $item['operator'] . ' ' . $item['value'];
-            }
-        }
-        $where = $where . ($where ? ' and ' : '');
-        $this->articleCategoryModel = new ArticleCategoryModel();
-        $articleCategoryRaw = $this->articleCategoryModel
-            ->where($where . 'is_enable = 1 and is_deleted = 0')
-            ->find();
-        echo $this->articleCategoryModel->getLastSql();
-        return convertToCamelStyle($articleCategoryRaw);
     }
 }

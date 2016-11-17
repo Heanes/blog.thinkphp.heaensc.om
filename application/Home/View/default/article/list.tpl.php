@@ -15,7 +15,7 @@ defined('InHeanes') or die('Access denied!');
         <!-- 首页文章列表模块 -->
         <div class="index-article-list-block">
             <div class="article-list-block" id="indexArticleList">
-                <?php foreach ($output['data']['article']['items'] as $key => $article)?>
+                <?php foreach ($output['data']['article']['items'] as $key => $article){?>
                 <div class="article-list-row">
                     <div class="article-title">
                         <h1 class="title"><a href="/article/<?php echo $article['id'];?>.html"><?php echo $article['title'];?></a></h1>
@@ -44,21 +44,11 @@ defined('InHeanes') or die('Access denied!');
                         </dl>
                     </div>
                 </div>
+                <?php }?>
             </div>
             <!-- 文章分页 -->
-            <div class="data-page-block article-page">
-                <div class="page-link">
-                    <a href="javascript:;" class="turn-page prev-page">上一页</a>
-                    <a href="javascript:;" class="turn-page current">1</a>
-                    <a href="javascript:;" class="turn-page">2</a>
-                    <a href="javascript:;" class="turn-page">3</a>
-                    <a href="javascript:;" class="turn-page">4</a>
-                    <a href="javascript:;" class="turn-page ellipsis">...</a>
-                    <a href="javascript:;" class="turn-page">16</a>
-                    <a href="javascript:;" class="turn-page">17</a>
-                    <a href="javascript:;" class="turn-page next-page">下一页</a>
-                </div>
-            </div>
+            <include file="dataPage/pageCommonDefaultStyle" />
+            <?php echo $page;?>
         </div>
     </div>
     <!-- 右侧区域 -->

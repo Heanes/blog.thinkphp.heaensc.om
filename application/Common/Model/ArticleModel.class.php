@@ -7,12 +7,13 @@
 
 namespace Common\Model;
 use Think\Model;
-class ArticleModel extends Model {
+class ArticleModel extends BaseModel  {
     protected $tableName = 'article';
     
     /**
      * @doc 获取文章数据，分页或者不分页
      * @param array $param 参数
+     * @param string $resultStyle 数据结果风格，RESULT_STYLE_CAMEL-驼峰，RAW-原始类型不处理
      * @return array|null
      * @author Heanes
      * @time 2016-11-13 13:33:34 周日
@@ -21,7 +22,6 @@ class ArticleModel extends Model {
         // 如果有分页
         if(isset($param['page'])){
             // 处理分页
-            $pageLimit = [($param['page']['pageNumber'] - 1) * $param['page']['pageSize'], $param['page']['pageSize']];
             $totalItem = $this
                 ->where($param['where'])
                 ->count(1);
@@ -29,19 +29,25 @@ class ArticleModel extends Model {
             $page = [
                 'pageSize'      => $param['page']['pageSize'],
                 'pageNumber'    => $param['page']['pageNumber'],
-                'pageHasPrev'   => $param['page']['pageNumber'] > 1,
-                'pageHasNext'   => ($totalPage - $param['page']['pageNumber']) > 1,
+                'hasNextPage'   => $param['page']['pageNumber'] > 1,
+                'hasPrevPage'   => ($totalPage - $param['page']['pageNumber']) > 1,
                 'totalPage'     => $totalPage,
                 'totalItem'     => $totalItem,
             ];
             $articleListRaw = $this
-                ->page($param['page'])
+                ->page($this->getPagePram($param['page']))
                 ->where($param['where'])
                 ->select();
         }else{
             $articleListRaw = $this
                 ->where($param['where'])
                 ->select();
+        }
+        if($articleListRaw == null || count($articleListRaw) <= 0){
+            if(isset($param['page'])){
+                return ['items' => [], 'page' => $page];
+            }
+            return null;
         }
         foreach ($articleListRaw as $index => &$article) {
             $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
@@ -52,7 +58,7 @@ class ArticleModel extends Model {
             $articleListResult = $articleListRaw;
         }
         if(isset($param['page']) && isset($page)){
-            return ['items' => $articleListResult, 'page' => $page];
+            $articleListResult = ['items' => $articleListResult, 'page' => $page];
         }
         return $articleListResult;
     }
@@ -65,9 +71,17 @@ class ArticleModel extends Model {
      * @author Heanes
      * @time 2016-11-13 13:34:57 周日
      */
-    public function getDetailById($id, $resultStyle = RESULT_STYLE_CAMEL) {
+    public function getDetailById($id, $param = null, $resultStyle = RESULT_STYLE_CAMEL) {
+        if($param != null){
+            if(is_array($param['where'])){
+                $param['where'] = array_merge($param['where'], ['id' => $id]);
+            }
+            if(is_string($param['where'])){
+                $param['where'] .= ' and `id` = ' . $id;
+            }
+        }
         $articleRaw = $this
-            ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
+            ->where($param['where'])
             ->find();
         if(count($articleRaw) <= 0){
             return null;

@@ -9,6 +9,7 @@ defined('InHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
+use Think\Page;
 
 class ArticleController extends BaseHomeController {
 
@@ -69,13 +70,15 @@ class ArticleController extends BaseHomeController {
         $pagePramName = $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT;
         $pageSizePramName = $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT;
         $pageSizeDefault = $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
-        $pageNumber = I('request' . $pagePramName, 1, 'int');
-        $pageSize = I('request' . $pageSizePramName, $pageSizeDefault, 'int');
-        $page = [
+        $pageNumber = I('request.' . $pagePramName, 1, 'int');
+        $pageSize = I('request.' . $pageSizePramName, $pageSizeDefault, 'int');
+        $param['page'] = [
             'pageNumber'    => $pageNumber,
             'pageSize'      => $pageSize,
         ];
-        $param['page'] = $page;
+        $pager = new Page(30, 20);
+        $show       = $pager->show();
+        $this->assign('page',$show);
         $output['data']['article'] = $this->articleModel->listAll($param);
         $output['common']['title'] .= ' - 文章列表';
         $this->assign('output', $output);
@@ -93,8 +96,9 @@ class ArticleController extends BaseHomeController {
         if(!isset($requestId)){
             $this->error('参数不对');
         }
+        $param['where'] = $this->getCommonShowDataSelectParam();
         $output = $this->commonOutput;
-        $output['data'] = $this->articleModel->getDetailById($requestId);
+        $output['data'] = $this->articleModel->getDetailById($requestId, $param);
         
         // TODO 更新文章相关属性，如阅读数等
         $output['common']['title'] = $output['data']['title'] . ' - 文章详情';

@@ -11,7 +11,7 @@
 .article-list-block{padding:30px 10px;}
 .article-list-block .article-list-row{margin-bottom:20px;}
 .article-list-block .article-list-row .article-title{}
-.article-list-block .article-list-row .article-title .title{font-size:24px;font-weight:600;border-left:6px solid #008fb5;padding-left:24px;}
+.article-list-block .article-list-row .article-title .title{font-size:24px;font-weight:300;border-left:6px solid #008fb5;padding-left:24px;}
 .article-list-block .article-list-row .article-title .title a{line-height:30px;}
 .article-list-block .article-list-row .article-title .title a:visited{color:#6594b7 }
 .article-list-block .article-list-row .article-title .title a:hover{background-color:#008fb5;color:#fff;}
@@ -22,7 +22,7 @@
 .article-list-block .article-list-row .article-info dl{margin-right:14px;}
 
 .article-list-block .article-list-row .article-title.no-data{padding-left:30px;}
-.article-list-block .article-list-row .article-title.no-data h1{font-size:24px;color:#555;}
+.article-list-block .article-list-row .article-title.no-data h1{font-size:24px;color:#555;font-weight:300;}
 .article-list-block .article-list-row .article-info.no-data{text-align:center;border:none;}
 
 .article-list-block .article-list-row .article-tags{float:right;}
@@ -37,6 +37,8 @@
 .data-page-block .page-link .turn-page.current,
 .data-page-block .page-link .turn-page:hover{background-color:#00a0e9;color:#fff;}
 .data-page-block .page-link .turn-page.ellipsis:hover{background-color:inherit;color:inherit;}
+.data-page-block .page-link .turn-page.disabled{color:#bbb;border-color:#bbb;cursor:text;}
+.data-page-block .page-link .turn-page.disabled:hover{background-color:#fff;color:#bbb;}
 /**************************************文章页面*******************************/
 .margin-common{margin-left:10px;margin-right:10px;}
 .article-page .article-category,
