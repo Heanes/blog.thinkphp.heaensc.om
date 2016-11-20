@@ -5,6 +5,9 @@
  * @time 2016-06-23 12:04:09 周四
  */
 namespace Common\Component;
+!defined('REQUEST_PAGE_PARAM_NAME_DEFAULT') ?: define('REQUEST_PAGE_PARAM_NAME_DEFAULT', 'p');
+!defined('REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT') ?: define('REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT', 'pageSize');
+!defined('DATA_LIST_PAGE_SIZE_DEFAULT') ?: define('DATA_LIST_PAGE_SIZE_DEFAULT', 20);
 class Page{
 
     /**
@@ -59,9 +62,9 @@ class Page{
     }
     
     private function getPageSetting() {
-        $pagePramName = $this->parameter['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT;
-        $pageSizePramName = $this->parameter['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT;
-        $pageSizeDefault = $this->parameter['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
+        $pagePramName = $this->parameter['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT;
+        $pageSizePramName = $this->parameter['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT;
+        $pageSizeDefault = $this->parameter['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
     
     }
     

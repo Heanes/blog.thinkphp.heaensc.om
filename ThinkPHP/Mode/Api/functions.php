@@ -74,7 +74,7 @@ function load_config($file,$parse=CONF_PARSE){
             if(function_exists($parse)){
                 return $parse($file);
             }else{
-                E(L('_NOT_SUPPERT_').':'.$ext);
+                E(L('_NOT_SUPPORT_').':'.$ext);
             }
     }
 }
@@ -199,6 +199,9 @@ function compile($filename) {
  * @return mixed
  */
 function I($name,$default='',$filter=null,$datas=null) {
+	if(strpos($name,'/')){ // 指定修饰符
+		list($name,$type) 	=	explode('/',$name,2);
+	}
     if(strpos($name,'.')) { // 指定参数来源
         list($method,$name) =   explode('.',$name,2);
     }else{ // 默认为自动判断
@@ -261,10 +264,10 @@ function I($name,$default='',$filter=null,$datas=null) {
                 if(function_exists($filter)) {
                     $data   =   is_array($data) ? array_map_recursive($filter,$data) : $filter($data); // 参数过滤
                 }elseif(0===strpos($filter,'/')){
-                    // 支持正则验证
-                    if(1 !== preg_match($filter,(string)$data)){
-                        return   isset($default) ? $default : NULL;
-                    }
+                	// 支持正则验证
+                	if(1 !== preg_match($filter,(string)$data)){
+                		return   isset($default) ? $default : NULL;
+                	}
                 }else{
                     $data   =   filter_var($data,is_int($filter) ? $filter : filter_id($filter));
                     if(false === $data) {
@@ -272,6 +275,25 @@ function I($name,$default='',$filter=null,$datas=null) {
                     }
                 }
             }
+        }
+        if(!empty($type)){
+        	switch(strtolower($type)){
+        		case 's':   // 字符串
+        			$data 	=	(string)$data;
+        			break;
+        		case 'a':	// 数组
+        			$data 	=	(array)$data;
+        			break;
+        		case 'd':	// 数字
+        			$data 	=	(int)$data;
+        			break;
+        		case 'f':	// 浮点
+        			$data 	=	(float)$data;
+        			break;
+        		case 'b':	// 布尔
+        			$data 	=	(boolean)$data;
+        			break;
+        	}
         }
     }else{ // 变量默认值
         $data       =    isset($default)?$default:NULL;
@@ -1078,9 +1100,9 @@ function in_array_case($value,$array){
 }
 
 function think_filter(&$value){
-    // TODO 其他安全过滤
+	// TODO 其他安全过滤
 
-    // 过滤查询特殊字符
+	// 过滤查询特殊字符
     if(preg_match('/^(EXP|NEQ|GT|EGT|LT|ELT|OR|XOR|LIKE|NOTLIKE|NOT BETWEEN|NOTBETWEEN|BETWEEN|NOTIN|NOT IN|IN)$/i',$value)){
         $value .= ' ';
     }
