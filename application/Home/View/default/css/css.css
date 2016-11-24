@@ -36,7 +36,7 @@
 .data-page-block .page-link .turn-page.ellipsis{cursor:default;}
 .data-page-block .page-link .turn-page.current,
 .data-page-block .page-link .turn-page:hover{background-color:#00a0e9;color:#fff;}
-.data-page-block .page-link .turn-page.ellipsis:hover{background-color:inherit;color:inherit;}
+.data-page-block .page-link .turn-page.ellipsis:hover{background-color:inherit;color:#00a3cf;}
 .data-page-block .page-link .turn-page.disabled{color:#bbb;border-color:#bbb;cursor:text;}
 .data-page-block .page-link .turn-page.disabled:hover{background-color:#fff;color:#bbb;}
 /**************************************文章页面*******************************/

@@ -9,7 +9,7 @@ return array(
     'db_type'   => 'mysqli',                // 数据库类型
     'db_host'   => '127.0.0.1',             // 服务器地址
     'db_name'   => 'heanes.com',            // 数据库名
-    'db_user'   => 'webdb',                 // 用户名
+    'db_user'   => 'web_user_heanes.com',   // 用户名
     'db_pwd'    => 'p()P]aHqCEfwVY@7',      // 密码
     'db_port'   => 3306,                    // 端口
     'db_prefix' => 'pre_',                  // 数据库表前缀
