@@ -4,14 +4,14 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 13:34:51 周二
  */
-namespace Home\Controller;
+namespace Index\Controller;
 use Think\Controller;
 
 require_once(APP_PATH.'Common/utils/func/utils.php');
 use Common\Model\NavigationModel;
 use Common\Model\SettingCommonModel;
 use Common\Model\FriendLinkModel;
-class BaseHomeController extends Controller{
+class BaseIndexController extends Controller{
     
     /**
      * @var array 前台公共输出数据
@@ -95,7 +95,7 @@ class BaseHomeController extends Controller{
             die('未初始化设置，请设置');
         }
         $defaultTheme = $this->commonOutput['common']['settingCommon']['webThemeHome'] ?: WEB_THEME_HOME_DEFAULT;
-        define('TPL', '/application/home/view/'. $defaultTheme);
+        define('TPL', '/application/index/view/'. $defaultTheme);
         C('DEFAULT_THEME', $defaultTheme);
     }
 

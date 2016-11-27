@@ -4,14 +4,14 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 14:44:18 周二
  */
-namespace Home\Controller;
+namespace Index\Controller;
 defined('InHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
 use Think\Page;
 
-class ArticleController extends BaseHomeController {
+class ArticleController extends BaseIndexController {
 
     /**
      * @var ArticleModel 文章模型

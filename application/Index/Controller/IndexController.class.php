@@ -4,8 +4,8 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 11:34:51 周二
  */
-namespace Home\Controller;
-class IndexController extends BaseHomeController {
+namespace Index\Controller;
+class IndexController extends BaseIndexController {
 
     private $output;
 

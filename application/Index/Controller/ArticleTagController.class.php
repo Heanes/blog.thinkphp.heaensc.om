@@ -4,13 +4,13 @@
  * @author Heanes
  * @time 2016-08-06 21:53:04
  */
-namespace Home\Controller;
+namespace Index\Controller;
 
 use Common\Model\ArticleTagModel;
 use Common\Model\ArticleModel;
 
 require_once(APP_PATH.'Common/utils/func/utils.php');
-class ArticleTagController extends BaseHomeController{
+class ArticleTagController extends BaseIndexController{
     
     /**
      * @var ArticleTagModel 文章标签模型

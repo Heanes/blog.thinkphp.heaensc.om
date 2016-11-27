@@ -4,10 +4,10 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 14:44:18 周二
  */
-namespace Home\Controller;
+namespace Index\Controller;
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
-class ArticleCategoryController extends BaseHomeController {
+class ArticleCategoryController extends BaseIndexController {
 
     /**
      * @var ArticleCategoryModel 文章分类模型

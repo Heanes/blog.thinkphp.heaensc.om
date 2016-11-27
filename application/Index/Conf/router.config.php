@@ -8,12 +8,12 @@ return array(
     // 路由相关
     'url_route_rules' => array(
         // 文章路由
-        'article/:id\d' => 'home/article/detail',
-        'article/:articleCategory/list' => 'home/article/list',
+        'article/:id\d' => 'index/article/detail',
+        'article/:articleCategory/list' => 'index/article/list',
         'api/article/:id\d' => 'api/article/detail',
         // 文章分类路由
-        'articleCategory/:code' => 'home/articleCategory/list',
-        'articleCategory/:id\d' => 'home/articleCategory/list',
+        'articleCategory/:code' => 'index/articleCategory/list',
+        'articleCategory/:id\d' => 'index/articleCategory/list',
     ),
     
     'url_router_on'         => true,        // 开启路由
