@@ -6,7 +6,6 @@
  */
 defined('InHeanes') or die('Access denied!');
 ?>
-<!-- 通用布局文件 -->
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>

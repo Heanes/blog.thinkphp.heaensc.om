@@ -80,7 +80,7 @@ class ArticleController extends BaseIndexController {
         $show       = $pager->show();
         $this->assign('page',$show);
         $output['data']['article'] = $this->articleModel->listAll($param);
-        $output['common']['title'] .= ' - 文章列表';
+        $output['common']['title'] .= '文章列表';
         $this->assign('output', $output);
         $this->display('list');
     }
