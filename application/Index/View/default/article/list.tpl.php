@@ -47,7 +47,6 @@ defined('InHeanes') or die('Access denied!');
                 <?php }?>
             </div>
             <!-- 文章分页 -->
-            <include file="dataPage/pageCommonDefaultStyle" />
             <?php echo $page;?>
         </div>
     </div>

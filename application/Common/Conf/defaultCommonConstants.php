@@ -14,7 +14,7 @@ define('DATE_TIME_FORMATIVE_DEFAULT', 'Y-m-d H:i:s');
 define('DATA_LIST_PAGE_SIZE_DEFAULT', 20);
 
 // 默认分页请求名称
-define('REQUEST_PAGE_PARAM_NAME_DEFAULT', 'p');
+define('REQUEST_PAGE_PARAM_NAME_DEFAULT', 'page');
 define('REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT', 'pageSize');
 
 // 返回数据风格样式

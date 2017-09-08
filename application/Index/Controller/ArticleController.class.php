@@ -76,7 +76,7 @@ class ArticleController extends BaseIndexController {
             'pageNumber'    => $pageNumber,
             'pageSize'      => $pageSize,
         ];
-        $pager = new Page(30, 20);
+        $pager = new Page(3, 1);
         $show       = $pager->show();
         $this->assign('page',$show);
         $output['data']['article'] = $this->articleModel->listAll($param);

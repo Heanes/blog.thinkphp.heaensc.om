@@ -7,6 +7,6 @@ return array(
     'default_module'    => 'Index', // 默认模块
 
     // 额外配置
-    'load_ext_config'   => 'db.config,defaultCommonConstants,log.config,router.config,template.config',
+    'load_ext_config'   => 'db.config,defaultCommonConstants,log.config,router.config,template.config,page.config',
 
 );
