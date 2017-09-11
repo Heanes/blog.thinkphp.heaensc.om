@@ -35,7 +35,7 @@ class ArticleController extends BaseIndexController {
      * @time 2016-06-21 14:16:12 周二
      */
     public function indexOp(){
-        $this->listOp();
+        return $this->listOp();
     }
 
     /**
@@ -67,22 +67,19 @@ class ArticleController extends BaseIndexController {
         }
 
         // 1.2.分页参数
-        $pagePramName = $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT;
-        $pageSizePramName = $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT;
-        $pageSizeDefault = $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
-        $pageNumber = I('request.' . $pagePramName, 1, 'int');
-        $pageSize = I('request.' . $pageSizePramName, $pageSizeDefault, 'int');
-        $param['page'] = [
-            'pageNumber'    => $pageNumber,
-            'pageSize'      => $pageSize,
-        ];
-        $pager = new Page(3, 1);
-        $show       = $pager->show();
-        $this->assign('page',$show);
-        $output['data']['article'] = $this->articleModel->listAll($param);
+        $param['page'] = $this->getPageParamArray();
+
+        $output['data']['article'] = $articlePageList = $this->articleModel->listAll($param);
+
+        // 分页显示
+        $pager = new Page($articlePageList['page']['totalPage'], $param['page']['pageSize']);
+        $pageShow = $pager->show();
+        $this->assign('page',$pageShow);
+        
         $output['common']['title'] .= '文章列表';
         $this->assign('output', $output);
         $this->display('list');
+        return $this;
     }
 
     /**
@@ -99,10 +96,13 @@ class ArticleController extends BaseIndexController {
         $param['where'] = $this->getCommonShowDataSelectParam();
         $output = $this->commonOutput;
         $output['data'] = $this->articleModel->getDetailById($requestId, $param);
+
+        // 文章分类信息
         
         // TODO 更新文章相关属性，如阅读数等
         $output['common']['title'] = $output['data']['title'] . ' - 文章详情';
         $this->assign('output', $output);
         $this->display('detail');
+        return $this;
     }
 }

@@ -8,6 +8,7 @@ namespace Index\Controller;
 use Think\Controller;
 
 require_once(APP_PATH.'Common/utils/func/utils.php');
+
 use Common\Model\NavigationModel;
 use Common\Model\SettingCommonModel;
 use Common\Model\FriendLinkModel;
@@ -17,6 +18,11 @@ class BaseIndexController extends Controller{
      * @var array 前台公共输出数据
      */
     protected $commonOutput;
+
+    /**
+     * @var array 分页
+     */
+    protected $pager;
 
     /**
      * @var SettingCommonModel 公共设置模型
@@ -45,6 +51,9 @@ class BaseIndexController extends Controller{
         $this->commonOutput['common']['friendLinkList'] = $this->getFriendlyLink();
         // 通用标题后缀
         $this->commonOutput['common']['titleCommonSuffix'] = ' - Heanes的博客';
+
+        // 分页
+        $this->initPager();
     }
 
     /**
@@ -83,6 +92,31 @@ class BaseIndexController extends Controller{
         // 分页参数名
         define('REQUEST_PAGE_PARAM_NAME', $settingCommonListCamelStyle['requestPageParamName'] != null ?: REQUEST_PAGE_PARAM_NAME_DEFAULT);
         return $settingCommonListCamelStyle;
+    }
+
+    /**
+     * @doc 初始化分页相关数据
+     */
+    private function initPager(){
+        $this->pager = [
+            'pagePramName'     => $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT,
+            'pageSizePramName' => $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT,
+            'pageSizeDefault'  => $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT,
+        ];
+    }
+
+    /**
+     * @doc 获取分页参数数组
+     * @author Heanes
+     * @time 2017-09-11 13:08:32 周一
+     */
+    public function getPageParamArray(){
+        $pageNumber = I('request.' . $this->pager['pagePramName'], 1, 'int');
+        $pageSize = I('request.' . $this->pager['pageSizePramName'], $this->pager['pageSizeDefault'], 'int');
+        return [
+            'pageNumber'    => $pageNumber,
+            'pageSize'      => $pageSize,
+        ];
     }
 
     /**

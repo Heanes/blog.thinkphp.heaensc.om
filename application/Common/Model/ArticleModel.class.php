@@ -19,6 +19,7 @@ class ArticleModel extends BaseModel  {
      * @time 2016-11-13 13:33:34 周日
      */
     public function listAll($param, $resultStyle = RESULT_STYLE_CAMEL) {
+        $page = null;
         // 如果有分页
         if(isset($param['page'])){
             // 处理分页
@@ -52,15 +53,12 @@ class ArticleModel extends BaseModel  {
         foreach ($articleListRaw as $index => &$article) {
             $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
         }
-        if($resultStyle == RESULT_STYLE_CAMEL){
-            $articleListResult = convertToCamelStyle($articleListRaw);
-        }else{
-            $articleListResult = $articleListRaw;
-        }
+
+        // 如果有分页，则转换数据格式
         if(isset($param['page']) && isset($page)){
-            $articleListResult = ['items' => $articleListResult, 'page' => $page];
+            $articleListRaw = ['items' => $articleListRaw, 'page' => $page];
         }
-        return $articleListResult;
+        return $articleListRaw;
     }
     
     /**
