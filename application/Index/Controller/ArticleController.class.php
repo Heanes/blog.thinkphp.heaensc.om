@@ -97,6 +97,8 @@ class ArticleController extends BaseIndexController {
         $output = $this->commonOutput;
         $output['data'] = $this->articleModel->getDetailById($requestId, $param);
 
+        $output['id'] = $requestId;
+
         // 文章分类信息
         
         // TODO 更新文章相关属性，如阅读数等

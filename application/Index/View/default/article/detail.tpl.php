@@ -7,21 +7,32 @@
 defined('InHeanes') or die('Access denied!');
 ?>
 <!-- 文章导航目录样式 -->
-<link rel="stylesheet" type="text/css" href="/public/static/libs/js/autoCatalog/1.0/css/autoCatalog.css">
 <div class="main-content main-wrap clearfix">
     <!-- 左侧区域 -->
     <div class="left-block left-wrap float-block"></div>
     <!-- 中心区域 -->
     <div class="center-block center-wrap float-block">
         <div class="page-content">
-            <div class="article-page">
-                <!-- 文章分类 -->
-                <div class="article-category">
-                    <a href="">首页</a>
-                    <span class="nav-sub"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                    <a href="">资讯</a>
-                    <span class="nav-sub"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                    <a href="">网络</a>
+            <div class="article-detail-page">
+                <!-- 面包屑导航链接 -->
+                <div class="page-breadcrumb article-category">
+                    <div class="breadcrumb-wrap">
+                        <div class="breadcrumb-cell breadcrumb-node breadcrumb-root">
+                            <span class="breadcrumb-text"><a href="javascript:void(0);">首页</a></span>
+                        </div>
+                        <div class="breadcrumb-cell breadcrumb-delimiter">
+                            <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="breadcrumb-cell breadcrumb-node">
+                            <span class="breadcrumb-text"><a href="javascript:void(0);">兴趣</a></span>
+                        </div>
+                        <div class="breadcrumb-cell breadcrumb-delimiter">
+                            <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="breadcrumb-cell breadcrumb-node">
+                            <span class="breadcrumb-text"><a href="javascript:void(0);">漫画</a></span>
+                        </div>
+                    </div>
                 </div>
                 <!-- 单篇文章 -->
                 <div class="article-block">
@@ -149,31 +160,6 @@ defined('InHeanes') or die('Access denied!');
                         </script>
                     </div>
                 </div>
-                <!-- 前后文章 -->
-                <div class="article-preview-forward">
-                    <p>» 上一条：没有啦！</p>
-                    <p>» 下一条：<a href="/news/show-444.html">大学毕业季，校园学生搬家怎么办？</a></p>
-                </div>
-                <!-- 相关文章 -->
-                <div class="article-relate-block">
-                    <div class="article-relate-text">
-                        <h1 class="relate-title"><a id="relate-article">相关文章</a></h1>
-                        <ul class="relate-text-ul">
-                            <li>
-                                <a href="" class="relate-li-a">腾讯旗下微众银行推出首款小额贷款产品“微粒贷”</a>
-                            </li>
-                            <li>
-                                <a href="" class="relate-li-a">腾讯旗下微众银行推出首款小额贷款产品“微粒贷”</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="article-relate-img">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                </div>
                 <!-- 评论区域 -->
                 <div class="article-comment-block" id="comment">
                     <div class="add-comment-block">
@@ -198,144 +184,10 @@ defined('InHeanes') or die('Access denied!');
                                     <textarea name="commentContent" id="commentContent" class="comment-textarea"></textarea>
                                 </div>
                                 <div class="add-comment-handle">
-                                    <input type="submit" class="submit-button button-normal" id="commentAddSubmit" />
+                                    <input type="submit" class="btn submit-button button-normal" id="commentAddSubmit" />
                                 </div>
                             </form>
                         </div>
-                    </div>
-                    <div class="comment-list">
-                        <h3 class="comment-list-title"><a id="comment-list">评论列表</a></h3>
-                        <ul class="comment-list-ul" id="commentList">
-                            <li v-if="articleCommentList && articleCommentList.length > 0" v-for="articleComment in articleCommentList">
-                                <div class="comment-info">
-                                    <span class="comment-user-avatar"><i class="user-avatar" style="background-image:url('<?php echo TPL;?>/image/user/avatar/anonymous.jpg')"></i></span>
-                                    <span class="comment-user-name"><a href="" class="user-name-a">蒲常莹</a></span>
-                                    <span class="comment-user-ip">北京海淀</span>
-                                    <span>2015-05-19 17:26:28</span>
-                                    <span class="comment-floor"><a id="comment-floor-4" class="comment-floor-a">4楼</a></span>
-                                </div>
-                                <div class="comment-content">
-                                    <p>楼下的一看就是小白。阿里微贷的1年利息接近10%。是工行的2倍，至于广发 平安更是高达17%-20%</p>
-                                </div>
-                                <div class="comment-handle">
-                                    <span class="comment-complain"><a href="">举报</a></span>
-                                    <i class="border-separate"></i>
-                                    <span class="comment-vote-up"><a href="">支持(46)</a></span>
-                                    <i class="border-separate"></i>
-                                    <span class="comment-vote-down"><a href="">反对(0)</a></span>
-                                    <i class="border-separate"></i>
-                                    <span class="comment-reply"><a href="">回复</a></span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li v-if="articleCommentList == undefined">
-                                <div class="no-data">
-                                    <p>暂无评论</p>
-                                </div>
-                            </li>
-                            <li class="get-data-error" id="getCommentListDataError">
-                                <div class="no-data">
-                                    <p>获取文章评论失败</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 右侧区域 -->
-    <div class="right-block right-wrap float-block">
-        <!-- 文章目录导航 -->
-        <div class="side-content" id="articleCatalog"></div>
-        <!-- 右侧钉住样式 -->
-        <div class="right-fix-block">
-            <div class="right-corner">
-                <div class="handle-block hover-change-block">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-angle-down" aria-hidden="true" style="font-size:54px;padding-top:5px;"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon go-to-bottom">去底部</a>
-                    </div>
-                </div>
-                <div class="handle-block hover-change-block">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-home" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon go-to-home" href="/">回首页</a>
-                    </div>
-                </div>
-                <div class="handle-block hover-change-block">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-refresh" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon refresh" onclick="window.location.reload();">刷新</a>
-                    </div>
-                </div>
-                <div class="handle-block hover-change-block" id="goToArticleCommentBtn">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-comments-o" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon comment" href="#comment">评论</a>
-                    </div>
-                </div>
-                <div class="handle-block hover-change-block">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon share">分享</a>
-                    </div>
-                    <div class="hover-change-content left-show-content">
-                        <!-- 百度分享 -->
-                        <div class="bdsharebuttonbox" style="width:72px;background-color:#fff;padding-left:10px;">
-                            <a href="#" class="bds_more" data-cmd="more"></a>
-                            <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-                            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-                            <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣"></a>
-                            <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
-                            <a class="bds_more" data-cmd="more"></a>
-                            <a class="bds_count" data-cmd="count"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="handle-block hover-change-block">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-qrcode" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon qr-code">二维码</a>
-                    </div>
-                    <div class="hover-change-content left-show-content">
-                        <img src="<?php echo TPL?>/image/rightFixCorner/style1/qr-150.png">
-                    </div>
-                </div>
-                <!-- 关灯（背景黑） -->
-                <div class="handle-block hover-change-block none">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon turn-off-light">关灯</a>
-                    </div>
-                </div>
-                <div class="handle-block hover-change-block">
-                    <div class="handle-content front">
-                        <a class="handle handle-icon"><i class="fa fa-angle-up" aria-hidden="true" style="font-size:54px;padding-top:0"></i></a>
-                    </div>
-                    <div class="handle-content backend">
-                        <a class="handle handle-icon go-to-top">回顶部</a>
-                    </div>
-                </div>
-                <div class="handle-block decorate-cat">
-                    <div class="handle-content front" id="rightFixLittleCat">
-                        <img src="<?php echo TPL?>/image/footer/other/little-cat.png"/>
                     </div>
                 </div>
             </div>
@@ -345,9 +197,6 @@ defined('InHeanes') or die('Access denied!');
 <cite>
     <!-- S js S -->
     <include file="layout/commonJs"/>
-    <script type="text/javascript" src="/public/static/libs/js/vue/1.0.20/vue.js"></script>
-    <script type="text/javascript" src="/public/static/libs/js/autoCatalog/1.0/js/autoCatalog.js"></script>
-    <script type="text/javascript" src="<?php echo TPL;?>/js/mvvm/vue/js.js"></script>
     <script type="text/javascript">
         $(function () {
             var API = {
@@ -367,66 +216,8 @@ defined('InHeanes') or die('Access denied!');
                 'articleThumbsUpAdd':'/api/articleThumbsUp/add'
             };
 
-            var rootUrl = window.location.origin;
-
-            var $articleContent = $('#articleContent');
-            /**
-             * @doc 仿百度百科自动生成文章目录导航
-             * @author Heanes
-             * @time 2016-04-13 18:07:26
-             */
-            $articleContent.autoCatalog({
-                step: 90,
-                alwaysShow: true
-            });
-            var queryUrlDetail = rootUrl + '/api' + window.location.pathname;
-            var queryUrlClickCountUpdate = API.articleClickCountUpdate;
-
-            /**
-             * @doc 点击一次文章点击数更新
-             * @author Heanes
-             * @time 2016-07-07 17:16:59 周四
-             */
-            $.ajax({
-                url: queryUrlClickCountUpdate,
-                method:'POST',
-                data: {'id': <?php echo $output['id'];?>},
-                dataType: "json",
-                success: function (result) {
-                    //;
-                },
-                fail: function (result) {
-                    console.warn('文章点击数更新错误!');
-                }
-            });
             // @todo 文章关键词
             // @todo 相关文章算法
-            /**
-             * @doc 获取文章评论
-             * @author Heanes
-             * @time 2016-07-07 17:37:09 周四
-             */
-            $.ajax({
-                url: API.articleCommentList,
-                method:'POST',
-                data: {'id': <?php echo $output['id'];?>},
-                dataType: "json",
-                success: function (result) {
-                    if(result.success){
-                        var articleCommentList = new Vue({
-                            el: '#commentList',
-                            data: {
-                                articleCommentList: result.body
-                            }
-                        });
-                    }else{
-                        $('#getCommentListDataError').show();
-                    }
-                },
-                fail: function (result) {
-                    $('#getCommentListDataError').show();
-                }
-            });
 
             /**
              * @doc 添加文章评论
@@ -438,7 +229,7 @@ defined('InHeanes') or die('Access denied!');
             $commentAddSubmit.on('click', function () {
                 var $commentAddContent = $commentAddForm.find('textarea[name="commentAddContent"]');
                 var commentAddContent = $commentAddContent.val();
-                if(commentAddContent == ''){
+                if(commentAddContent === ''){
                     alert('请输入文字');
                     return false;
                 }
@@ -446,7 +237,7 @@ defined('InHeanes') or die('Access denied!');
                 $.ajax({
                     url: API.articleCommentAdd,
                     method:'POST',
-                    data: {'id': <?php echo $output['id'];?>},
+                    data: {'id': <?php echo $output['id'];?>, commentData: commentData},
                     dataType: "json",
                     success: function (result) {
                         if(result.success){

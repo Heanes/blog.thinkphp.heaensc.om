@@ -7,9 +7,9 @@
 defined('InHeanes') or die('Access denied!');
 ?>
 <!-- 左侧区域 -->
-<div class="left-block left-wrap float-block"></div>
+<div class="left-block left-wrap fl"></div>
 <!-- 中心区域 -->
-<div class="center-block center-wrap float-block">
+<div class="center-block center-wrap fl">
     <!-- 首页文章列表模块 -->
     <div class="index-article-list-block">
         <div class="article-list-block" id="indexArticleList">
@@ -28,7 +28,7 @@ defined('InHeanes') or die('Access denied!');
                             <dd><?php echo $article['publishTimeFormative'];?></dd>
                         </dl>
                         <dl>
-                            <dt>人气:</dt>
+                            <dt>点击:</dt>
                             <dd><?php echo $article['clickCount'];?></dd>
                         </dl>
                         <dl>
@@ -49,7 +49,7 @@ defined('InHeanes') or die('Access denied!');
     </div>
 </div>
 <!-- 右侧区域 -->
-<div class="right-block right-wrap float-block"></div>
+<div class="right-block right-wrap fl"></div>
 <cite>
     <!-- S js S -->
     <include file="layout/commonJs"/>

@@ -7,11 +7,11 @@
 defined('InHeanes') or die('Access denied!');
 ?>
 <!-- 左侧区域 -->
-<div class="left-block left-wrap float-block"></div>
+<div class="left-block left-wrap fl"></div>
 <!-- 中心区域 -->
-<div class="center-block center-wrap float-block">
-    <!-- 文章列表模块 -->
-    <div class="article-list-block" id="indexArticleList">
+<div class="center-block center-wrap fl">
+    <!-- 文章列表 -->
+    <div class="article-list-block">
         <?php foreach ($output['data']['article']['items'] as $key => $article){?>
         <div class="article-list-row">
             <div class="article-title">
@@ -27,7 +27,7 @@ defined('InHeanes') or die('Access denied!');
                     <dd><?php echo $article['publishTimeFormative'];?></dd>
                 </dl>
                 <dl>
-                    <dt>人气:</dt>
+                    <dt>点击:</dt>
                     <dd><?php echo $article['clickCount'];?></dd>
                 </dl>
                 <dl>
