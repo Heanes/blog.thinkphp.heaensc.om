@@ -53,11 +53,13 @@ class ArticleService extends BaseService{
      * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:56:00 周二
      */
-    public function getDetailById($param, $resultStyle = RESULT_STYLE_CAMEL){
-        $articleRaw = $this->articleModel->getDetailById($param, $resultStyle);
-
+    public function getDetailById($id, $param, $resultStyle = RESULT_STYLE_CAMEL){
+        $articleRaw = $this->articleModel->getDetailById($id, $param);
+        if($articleRaw == null || count($articleRaw) == 0){
+            return [];
+        }
         // 数据处理
-        $articleRaw[0]['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
+        $articleRaw[0]['publish_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $articleRaw['publish_time']);
         if($resultStyle == RESULT_STYLE_CAMEL){
             $articleResult = convertToCamelStyle($articleRaw);
             return $articleResult;

@@ -81,11 +81,10 @@ class ArticleModel extends BaseModel  {
         $articleRaw = $this
             ->where($param['where'])
             ->find();
-        if(count($articleRaw) <= 0){
+        if($articleRaw == null || count($articleRaw) <= 0){
             return null;
         }
-        $articleRaw[0]['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
 
-        return $articleRaw[0];
+        return $articleRaw;
     }
 }

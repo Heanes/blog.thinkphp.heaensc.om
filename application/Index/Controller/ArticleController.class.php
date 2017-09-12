@@ -20,11 +20,6 @@ class ArticleController extends BaseIndexController {
     private $articleService;
 
     /**
-     * @var ArticleModel 文章模型
-     */
-    private $articleModel;
-
-    /**
      * @var ArticleCategoryModel 文章分类模型
      */
     private $articleCategoryModel;
@@ -32,7 +27,6 @@ class ArticleController extends BaseIndexController {
     function __construct() {
         parent::__construct();
 
-        $this->articleModel = new ArticleModel();
         $this->articleCategoryModel = new ArticleCategoryModel();
 
         $this->articleService = new ArticleService();
@@ -78,7 +72,7 @@ class ArticleController extends BaseIndexController {
         // 1.2.分页参数
         $param['page'] = $this->getPageParamArray();
 
-        $output['data']['article'] = $articlePageList = $this->articleModel->listAll($param);
+        $output['data']['article'] = $articlePageList = $this->articleService->getList($param);
 
         // 分页显示
         $pager = new Page($articlePageList['page']['totalPage'], $param['page']['pageSize']);
@@ -104,7 +98,7 @@ class ArticleController extends BaseIndexController {
         }
         $param['where'] = $this->getCommonShowDataSelectParam();
         $output = $this->commonOutput;
-        $output['data'] = $this->articleModel->getDetailById($requestId, $param);
+        $output['data'] = $this->articleService->getDetailById($requestId, $param);
 
         $output['id'] = $requestId;
 

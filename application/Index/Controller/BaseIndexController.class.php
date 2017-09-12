@@ -4,16 +4,18 @@
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 13:34:51 周二
  */
+
 namespace Index\Controller;
+
+use Common\Model\FriendLinkModel;
+use Common\Model\NavigationModel;
+use Common\Service\SettingCommonService;
 use Think\Controller;
 
-require_once(APP_PATH.'Common/utils/func/utils.php');
+require_once(APP_PATH . 'Common/utils/func/utils.php');
 
-use Common\Model\NavigationModel;
-use Common\Model\SettingCommonModel;
-use Common\Model\FriendLinkModel;
-class BaseIndexController extends Controller{
-    
+class BaseIndexController extends Controller {
+
     /**
      * @var array 前台公共输出数据
      */
@@ -25,10 +27,10 @@ class BaseIndexController extends Controller{
     protected $pager;
 
     /**
-     * @var SettingCommonModel 公共设置模型
+     * @var SettingCommonService 网站公用设置服务
      */
-    private $settingCommonModel;
-    
+    private $settingCommonService;
+
     /**
      * @var NavigationModel 导航模型
      */
@@ -76,10 +78,8 @@ class BaseIndexController extends Controller{
      * @time 2016-06-21 14:17:45 周二
      */
     public function getSettingCommon() {
-        $this->settingCommonModel = new SettingCommonModel();
-        $settingCommonList = $this->settingCommonModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->select();
+        $this->settingCommonService = new SettingCommonService();
+        $settingCommonList = $this->settingCommonService->getSettingCommon();
         $settingCommonListCamelStyle = convertToCamelStyle($settingCommonList);
         // 日期格式化
         define('DATE_FORMATIVE', $settingCommonListCamelStyle['dateTimeFormative'] ?: DATE_FORMATIVE_DEFAULT);
@@ -97,7 +97,7 @@ class BaseIndexController extends Controller{
     /**
      * @doc 初始化分页相关数据
      */
-    private function initPager(){
+    private function initPager() {
         $this->pager = [
             'pagePramName'     => $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT,
             'pageSizePramName' => $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT,
@@ -110,12 +110,12 @@ class BaseIndexController extends Controller{
      * @author Heanes
      * @time 2017-09-11 13:08:32 周一
      */
-    public function getPageParamArray(){
+    public function getPageParamArray() {
         $pageNumber = I('request.' . $this->pager['pagePramName'], 1, 'int');
         $pageSize = I('request.' . $this->pager['pageSizePramName'], $this->pager['pageSizeDefault'], 'int');
         return [
-            'pageNumber'    => $pageNumber,
-            'pageSize'      => $pageSize,
+            'pageNumber' => $pageNumber,
+            'pageSize'   => $pageSize,
         ];
     }
 
@@ -125,11 +125,11 @@ class BaseIndexController extends Controller{
      * @time 2016-06-21 14:04:16 周二
      */
     public function getTheme() {
-        if($this->commonOutput == null){
+        if ($this->commonOutput == null) {
             die('未初始化设置，请设置');
         }
         $defaultTheme = $this->commonOutput['common']['settingCommon']['webThemeHome'] ?: WEB_THEME_HOME_DEFAULT;
-        define('TPL', '/application/index/view/'. $defaultTheme);
+        define('TPL', '/application/index/view/' . $defaultTheme);
         C('DEFAULT_THEME', $defaultTheme);
     }
 
@@ -162,10 +162,10 @@ class BaseIndexController extends Controller{
      * @author Heanes
      * @time 2016-10-24 11:33:16 周一
      */
-    public function parseParam($param = []){
+    public function parseParam($param = []) {
 
     }
-    
+
     /**
      * @doc 获取公共的查询条件
      * @return array
@@ -174,8 +174,8 @@ class BaseIndexController extends Controller{
      */
     public function getCommonShowDataSelectParam() {
         return [
-            'is_enable'     => 1,
-            'is_deleted'    => 0,
+            'is_enable'  => 1,
+            'is_deleted' => 0,
         ];
     }
 }
