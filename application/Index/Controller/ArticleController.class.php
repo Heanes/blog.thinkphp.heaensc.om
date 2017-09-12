@@ -9,9 +9,15 @@ defined('InHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
+use Common\Service\ArticleService;
 use Think\Page;
 
 class ArticleController extends BaseIndexController {
+
+    /**
+     * @var ArticleService 文章服务
+     */
+    private $articleService;
 
     /**
      * @var ArticleModel 文章模型
@@ -25,8 +31,11 @@ class ArticleController extends BaseIndexController {
     
     function __construct() {
         parent::__construct();
+
         $this->articleModel = new ArticleModel();
         $this->articleCategoryModel = new ArticleCategoryModel();
+
+        $this->articleService = new ArticleService();
     }
 
     /**

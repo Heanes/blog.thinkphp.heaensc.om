@@ -48,4 +48,21 @@ class ArticleService extends BaseService{
 
     }
 
+    /**
+     * @doc 列表页
+     * @author Heanes fang <heanes@163.com>
+     * @time 2016-06-21 14:56:00 周二
+     */
+    public function getDetailById($param, $resultStyle = RESULT_STYLE_CAMEL){
+        $articleRaw = $this->articleModel->getDetailById($param, $resultStyle);
+
+        // 数据处理
+        $articleRaw[0]['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
+        if($resultStyle == RESULT_STYLE_CAMEL){
+            $articleResult = convertToCamelStyle($articleRaw);
+            return $articleResult;
+        }
+        return $articleRaw[0];
+    }
+
 }

@@ -21,9 +21,6 @@ class IndexController extends BaseIndexController {
         parent::__construct();
         $this->output = $this->commonOutput;
 
-        //var_dump(C());
-        //var_dump(get_included_files());
-
         $this->articleService = new ArticleService();
     }
 

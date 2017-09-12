@@ -18,7 +18,7 @@ class ArticleModel extends BaseModel  {
      * @author Heanes
      * @time 2016-11-13 13:33:34 周日
      */
-    public function listAll($param, $resultStyle = RESULT_STYLE_CAMEL) {
+    public function listAll($param) {
         $page = null;
         // 如果有分页
         if(isset($param['page'])){
@@ -60,7 +60,7 @@ class ArticleModel extends BaseModel  {
         }
         return $articleListRaw;
     }
-    
+
     /**
      * @doc 返回文章详情
      * @param int $id 参数
@@ -69,7 +69,7 @@ class ArticleModel extends BaseModel  {
      * @author Heanes
      * @time 2016-11-13 13:34:57 周日
      */
-    public function getDetailById($id, $param = null, $resultStyle = RESULT_STYLE_CAMEL) {
+    public function getDetailById($id, $param = null) {
         if($param != null){
             if(is_array($param['where'])){
                 $param['where'] = array_merge($param['where'], ['id' => $id]);
@@ -84,11 +84,8 @@ class ArticleModel extends BaseModel  {
         if(count($articleRaw) <= 0){
             return null;
         }
-        $articleRaw['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
-        if($resultStyle == RESULT_STYLE_CAMEL){
-            $articleResult = convertToCamelStyle($articleRaw);
-            return $articleResult;
-        }
-        return $articleRaw;
+        $articleRaw[0]['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
+
+        return $articleRaw[0];
     }
 }
