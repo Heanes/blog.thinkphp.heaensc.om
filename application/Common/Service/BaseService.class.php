@@ -8,9 +8,24 @@
 namespace Common\Service;
 defined('InHeanes') or die('Access denied!');
 
-use Common\Service\SettingCommonService;
+use Common\Model\BaseModel;
 
 class BaseService{
+
+    /**
+     * @var BaseModel baseModel
+     */
+    private $model;
+
+    /**
+     * @var string model类型
+     */
+    private $modelName;
+
+    /**
+     * @var string model类型
+     */
+    private $name;
 
     /**
      * @var boolean 是否已经初始化
@@ -28,7 +43,13 @@ class BaseService{
     private $settingCommonService;
 
     function __construct() {
+        $this->getModelName();
+    }
 
+    public function getList($param) {
+        $dataListRaw = $this->model->getList($param);
+        $dataListCamelStyle = convertToCamelStyle($dataListRaw);
+        return $dataListCamelStyle;
     }
 
     /**
@@ -44,6 +65,25 @@ class BaseService{
 
         $this->isInitialized = true;
         return $this;
+    }
+
+    /**
+     * 得到当前的数据对象名称
+     * @access public
+     * @return string
+     */
+    public function getModelName() {
+        if(empty($this->modelName)){
+            $name = substr(get_class($this),0, -strlen('Service'));
+            if ( $pos = strrpos($name,'\\') ) {//有命名空间
+                $this->name = substr($name,$pos+1);
+            }else{
+                $this->name = $name;
+            }
+        }
+        $this->model = new BaseModel($this->name);
+        $this->modelName = $this->name . C('DEFAULT_M_LAYER');
+        return $this->modelName;
     }
 
     /**

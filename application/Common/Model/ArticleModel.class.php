@@ -6,9 +6,8 @@
  */
 
 namespace Common\Model;
-use Think\Model;
 class ArticleModel extends BaseModel  {
-    protected $tableName = 'article';
+    //protected $tableName = 'article';
     
     /**
      * @doc 获取文章数据，分页或者不分页
@@ -36,7 +35,7 @@ class ArticleModel extends BaseModel  {
                 'totalItem'     => $totalItem,
             ];
             $articleListRaw = $this
-                ->page($this->getPagePram($param['page']))
+                ->page($this->generatePagePram($param['page']))
                 ->where($param['where'])
                 ->select();
         }else{
@@ -49,9 +48,6 @@ class ArticleModel extends BaseModel  {
                 return ['items' => [], 'page' => $page];
             }
             return null;
-        }
-        foreach ($articleListRaw as $index => &$article) {
-            $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
         }
 
         // 如果有分页，则转换数据格式

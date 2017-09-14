@@ -6,7 +6,6 @@
  */
 
 namespace Common\Model;
-use Think\Model;
-class ArticleTagModel extends Model {
+class ArticleTagModel extends BaseModel {
     protected $tableName = 'article_tag';
 }

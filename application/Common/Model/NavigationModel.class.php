@@ -6,7 +6,6 @@
  */
 
 namespace Common\Model;
-use Think\Model;
-class NavigationModel extends Model {
+class NavigationModel extends BaseModel {
     protected $tableName = 'navigation';
 }

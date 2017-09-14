@@ -1,6 +1,6 @@
 <?php
 /**
- * @doc 文章相关服务
+ * @doc 文章分类服务
  * @author Heanes
  * @time 2017-09-10 19:56:43 周日
  */
@@ -11,12 +11,7 @@ defined('InHeanes') or die('Access denied!');
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
 
-class ArticleService extends BaseService{
-
-    /**
-     * @var ArticleModel 文章模型
-     */
-    private $articleModel;
+class ArticleCategoryService extends BaseService{
 
     /**
      * @var ArticleCategoryModel 文章分类模型
@@ -25,7 +20,6 @@ class ArticleService extends BaseService{
 
     function __construct() {
         parent::__construct();
-        $this->articleModel = new ArticleModel();
         $this->articleCategoryModel = new ArticleCategoryModel();
     }
 
@@ -37,31 +31,10 @@ class ArticleService extends BaseService{
      * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:56:00 周二
      */
-    public function getList($param, $resultStyle = RESULT_STYLE_CAMEL){
+    /*public function getList($param, $resultStyle = RESULT_STYLE_CAMEL){
+        var_dump('fdfd');
         // 0. 查询文章基本数据
-        $articleListRaw = $this->articleModel->getList($param);
-
-        // 遍历一次得到相关备查数据
-        if(empty($articleListRaw)){
-            return [];
-        }
-
-        $articleCategoryIdList = [];
-        foreach ($articleListRaw['items'] ?: $articleListRaw as $index => $item) {
-            $articleCategoryIdList[] = $item['category_id'];
-        }
-        $articleCategoryIdList = array_unique($articleCategoryIdList);
-
-        // 1. 查询文章分类信息
-        $articleCategoryParam = [];
-        $articleCategoryParam['id'] = ['in', $articleCategoryIdList];
-
-        $articleCategoryService = new ArticleCategoryService();
-        $articleCategoryListRaw = $articleCategoryService->getList($articleCategoryParam);
-        var_dump($articleCategoryListRaw);
-        // 2. 查询文章标签信息
-
-        // ---- 数据后续加工处理
+        $articleListRaw = $this->articleCategoryModel->getList($param);
 
         // 如果是驼峰格式
         if($resultStyle == RESULT_STYLE_CAMEL){
@@ -71,7 +44,7 @@ class ArticleService extends BaseService{
         }
 
         return $articleListResult;
-    }
+    }*/
 
     /**
      * @doc 列表页
@@ -83,7 +56,7 @@ class ArticleService extends BaseService{
      */
     public function getDetailById($id, $param, $resultStyle = RESULT_STYLE_CAMEL){
         $param['where']['id'] = $id;
-        $articleRaw = $this->articleModel->getOne($param);
+        $articleRaw = $this->articleCategoryModel->getOne($param);
         if($articleRaw == null || count($articleRaw) == 0){
             return [];
         }

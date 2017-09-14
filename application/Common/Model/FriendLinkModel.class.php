@@ -6,7 +6,6 @@
  */
 
 namespace Common\Model;
-use Think\Model;
-class FriendLinkModel extends Model {
+class FriendLinkModel extends BaseModel {
     protected $tableName = 'friend_link';
 }

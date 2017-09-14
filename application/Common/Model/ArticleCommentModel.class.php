@@ -6,7 +6,6 @@
  */
 
 namespace Common\Model;
-use Think\Model;
-class ArticleCommentModel extends Model {
+class ArticleCommentModel extends BaseModel {
     protected $tableName = 'article_comment';
 }

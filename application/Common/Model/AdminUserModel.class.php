@@ -6,7 +6,6 @@
  */
 
 namespace Common\Model;
-use Think\Model;
-class AdminUserModel extends Model {
+class AdminUserModel extends BaseModel {
     protected $tableName = 'admin_user';
 }

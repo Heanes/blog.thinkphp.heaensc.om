@@ -6,7 +6,6 @@
  */
 
 namespace Common\Model;
-use Think\Model;
-class SettingCommonModel extends Model {
+class SettingCommonModel extends BaseModel {
     protected $tableName = 'setting_common';
 }

@@ -10,18 +10,15 @@ use Think\Page;
 
 class IndexController extends BaseIndexController {
 
-    private $output;
-
     /**
-     * @var ArticleService 文章服务
+     * @var array
      */
-    private $articleService;
+    private $output;
 
     function __construct(){
         parent::__construct();
         $this->output = $this->commonOutput;
 
-        $this->articleService = new ArticleService();
     }
 
     /**
@@ -33,23 +30,37 @@ class IndexController extends BaseIndexController {
         // 显示公共信息相关
         $output = $this->commonOutput;
 
+        // 1. 文章数据
+        $articlePageList = $this->getArticleData();
+        $output['data']['article'] = $articlePageList['articleList'];
+        $this->assign('articlePage', $articlePageList['articlePageShow']);
+
+        $output['common']['title'] = '首页';
+        $this->assign('output', $output);
+        $this->display('index');
+    }
+
+    /**
+     * @doc 获取文章数据
+     * @return mixed
+     * @author Heanes
+     * @time 2017-09-13 15:14:10 周三
+     */
+    private function getArticleData() {
         // 显示文章列表信息
         $articleParam = [];
         $articleParam['where'] = $this->getCommonShowDataSelectParam();
         // 1.2.分页参数
         $articleParam['page'] = $this->getPageParamArray();
-
         // 查询数据
-        $output['data']['article'] = $articlePageList = $this->articleService->getList($articleParam);
+        $articleService = new ArticleService();
+        $articlePageList['articleList'] = $articleService->getList($articleParam);
 
         // 分页显示
-        $pager = new Page($articlePageList['page']['totalPage'], $articleParam['page']['pageSize']);
-        $pageShow = $pager->show();
-        $this->assign('page',$pageShow);
+        $articlePageList['articlePager'] = $articlePager = new Page($articlePageList['page']['totalPage'], $articleParam['page']['pageSize']);
+        $articlePageList['articlePageShow'] = $articlePageShow = $articlePager->show();
 
-        $output['common']['title'] = '首页';
-        $this->assign('output', $output);
-        $this->display('index');
+        return $articlePageList;
     }
 
 }
