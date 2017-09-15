@@ -23,15 +23,16 @@ defined('InHeanes') or die('Access denied!');
                         <div class="breadcrumb-cell breadcrumb-delimiter">
                             <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                         </div>
-                        <div class="breadcrumb-cell breadcrumb-node">
-                            <span class="breadcrumb-text"><a href="javascript:void(0);">兴趣</a></span>
-                        </div>
-                        <div class="breadcrumb-cell breadcrumb-delimiter">
-                            <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="breadcrumb-cell breadcrumb-node">
-                            <span class="breadcrumb-text"><a href="javascript:void(0);">漫画</a></span>
-                        </div>
+                        <?php foreach ($output['data']['articleCategoryTree'] as $key => $item){?>
+                            <div class="breadcrumb-cell breadcrumb-node">
+                                <span class="breadcrumb-text"><a href="javascript:void(0);"><?php echo $item['name'];?></a></span>
+                            </div>
+                            <?php if($key == count($output['data']['articleCategoryTree'])){?>
+                            <div class="breadcrumb-cell breadcrumb-delimiter">
+                                <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                            </div>
+                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
                 <!-- 单篇文章 -->

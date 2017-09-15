@@ -57,19 +57,17 @@ class ArticleService extends BaseService{
         $articleCategoryParam['id'] = ['in', $articleCategoryIdList];
 
         $articleCategoryService = new ArticleCategoryService();
-        $articleCategoryListRaw = $articleCategoryService->getList($articleCategoryParam);
-        var_dump($articleCategoryListRaw);
+        $articleCategoryListSR = $articleCategoryService->getList();
+        $articleCategoryListIBId = arrayToKeyIndex($articleCategoryListSR);
         // 2. 查询文章标签信息
 
         // ---- 数据后续加工处理
-
-        // 如果是驼峰格式
-        if($resultStyle == RESULT_STYLE_CAMEL){
-            $articleListResult = convertToCamelStyle($articleListRaw);
-        }else{
-            $articleListResult = $articleListRaw;
+        foreach ($articleListRaw['items'] ?: $articleListRaw as $index => &$item) {
+            $item['articleCategory'] = $articleCategoryListIBId[$item['category_id']];
         }
 
+        // 如果是驼峰格式
+        $articleListResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleListRaw) : $articleListRaw;
         return $articleListResult;
     }
 
@@ -87,14 +85,15 @@ class ArticleService extends BaseService{
         if($articleRaw == null || count($articleRaw) == 0){
             return [];
         }
+        // 1. 查询文章分类信息
+        $articleCategoryService = new ArticleCategoryService();
+        $articleCategoryListSR = $articleCategoryService->getList();
         // 数据后续加工处理
+        $articleRaw['articleCategoryTree'] = findParent($articleCategoryListSR, $articleRaw['category_id']);
         $articleRaw['publish_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $articleRaw['publish_time']);
 
-        if($resultStyle == RESULT_STYLE_CAMEL){
-            $articleResult = convertToCamelStyle($articleRaw);
-            return $articleResult;
-        }
-        return $articleRaw;
+        $articleResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleRaw) : $articleRaw;
+        return $articleResult;
     }
 
 }

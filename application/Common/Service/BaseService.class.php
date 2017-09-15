@@ -46,7 +46,7 @@ class BaseService{
         $this->getModelName();
     }
 
-    public function getList($param) {
+    public function getList($param = []) {
         $dataListRaw = $this->model->getList($param);
         $dataListCamelStyle = convertToCamelStyle($dataListRaw);
         return $dataListCamelStyle;
