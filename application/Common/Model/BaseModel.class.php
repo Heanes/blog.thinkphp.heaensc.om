@@ -51,41 +51,6 @@ class BaseModel extends Model {
     }
 
     /**
-     * @doc  生产分页结果对象
-     * @param int $totalItem 总数
-     * @param int $pageNumber 页码数
-     * @param int $pageSize 分页大小
-     * @return array
-     * @author Heanes
-     * @time 2017-09-13 11:49:22 周三
-     */
-    public function generatePageResult($totalItem, $pageNumber, $pageSize){
-        $totalPage = (int) ceil($totalItem / $pageSize);
-        return
-        $page = [
-            'pageSize'      => $pageSize,
-            'pageNumber'    => $pageNumber,
-            'hasNextPage'   => $pageNumber > 1,
-            'hasPrevPage'   => ($totalPage - $pageNumber) > 1,
-            'totalPage'     => $totalPage,
-            'totalItem'     => $totalItem,
-        ];
-    }
-
-    /**
-     * @doc 生成分页参数
-     * @param array $pageParam
-     * @return string
-     * @author Heanes
-     * @time 2017-09-13 11:54:55 周三
-     */
-    public function generatePagePram($pageParam){
-        $pageNumber = $pageParam['pageNumber'] ?: 1;
-        $pageSize = $pageParam['pageSize'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
-        return $pageNumber . ',' . $pageSize;
-    }
-
-    /**
      * @doc 公用根据参数统计总数方法
      * @param array $param
      * @return int
@@ -155,5 +120,40 @@ class BaseModel extends Model {
 
     public function delete($param){
         return 1;
+    }
+
+    /**
+     * @doc  生产分页结果对象
+     * @param int $totalItem 总数
+     * @param int $pageNumber 页码数
+     * @param int $pageSize 分页大小
+     * @return array
+     * @author Heanes
+     * @time 2017-09-13 11:49:22 周三
+     */
+    public function generatePageResult($totalItem, $pageNumber, $pageSize){
+        $totalPage = (int) ceil($totalItem / $pageSize);
+        return
+            $page = [
+                'pageSize'      => $pageSize,
+                'pageNumber'    => $pageNumber,
+                'hasNextPage'   => $pageNumber > 1,
+                'hasPrevPage'   => ($totalPage - $pageNumber) > 1,
+                'totalPage'     => $totalPage,
+                'totalItem'     => $totalItem,
+            ];
+    }
+
+    /**
+     * @doc 生成分页参数
+     * @param array $pageParam
+     * @return string
+     * @author Heanes
+     * @time 2017-09-13 11:54:55 周三
+     */
+    public function generatePagePram($pageParam){
+        $pageNumber = $pageParam['pageNumber'] ?: 1;
+        $pageSize = $pageParam['pageSize'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
+        return $pageNumber . ',' . $pageSize;
     }
 }

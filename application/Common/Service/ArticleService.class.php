@@ -86,10 +86,10 @@ class ArticleService extends BaseService{
             return [];
         }
         // 1. 查询文章分类信息
-        $articleCategoryService = new ArticleCategoryService();
+        /*$articleCategoryService = new ArticleCategoryService();
         $articleCategoryListSR = $articleCategoryService->getList();
+        $articleRaw['articleCategoryTree'] = findParent($articleCategoryListSR, $articleRaw['category_id']);*/
         // 数据后续加工处理
-        $articleRaw['articleCategoryTree'] = findParent($articleCategoryListSR, $articleRaw['category_id']);
         $articleRaw['publish_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $articleRaw['publish_time']);
 
         $articleResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleRaw) : $articleRaw;

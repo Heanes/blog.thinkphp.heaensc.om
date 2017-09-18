@@ -46,10 +46,30 @@ class BaseService{
         $this->getModelName();
     }
 
+    /**
+     * @doc 根据参数获取列表
+     * @param array $param
+     * @return array|null|string
+     * @author Heanes
+     * @time 2017-09-15 10:47:27 周一
+     */
     public function getList($param = []) {
         $dataListRaw = $this->model->getList($param);
         $dataListCamelStyle = convertToCamelStyle($dataListRaw);
         return $dataListCamelStyle;
+    }
+
+    /**
+     * @doc 根据参数获取一个结果
+     * @param array $param
+     * @return array|null|string
+     * @author Heanes
+     * @time 2017-09-12 10:47:10 周一
+     */
+    public function getOne($param = []) {
+        $dataRaw = $this->model->getOne($param);
+        $dataCamelStyle = convertToCamelStyle($dataRaw);
+        return $dataCamelStyle;
     }
 
     /**

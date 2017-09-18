@@ -7,9 +7,9 @@
 namespace Index\Controller;
 defined('InHeanes') or die('Access denied!');
 
-use Common\Model\ArticleModel;
-use Common\Model\ArticleCategoryModel;
+use Common\Service\ArticleCategoryService;
 use Common\Service\ArticleService;
+use Common\Service\ArticleTagService;
 use Think\Page;
 
 class ArticleController extends BaseIndexController {
@@ -19,15 +19,8 @@ class ArticleController extends BaseIndexController {
      */
     private $articleService;
 
-    /**
-     * @var ArticleCategoryModel 文章分类模型
-     */
-    private $articleCategoryModel;
-    
     function __construct() {
         parent::__construct();
-
-        $this->articleCategoryModel = new ArticleCategoryModel();
 
         $this->articleService = new ArticleService();
     }
@@ -48,8 +41,6 @@ class ArticleController extends BaseIndexController {
      */
     public function listOp() {
         $output = $this->commonOutput;
-        $param = [];
-        //$param['where'] = array_merge((array)$param['where'], $this->getCommonShowDataSelectParam());
         $param['where'] = $this->getCommonShowDataSelectParam();
         // 参数判断
         // 1.1.是否带有文章分类参数
@@ -58,9 +49,8 @@ class ArticleController extends BaseIndexController {
             $paramArticleCategory['where'][] = [
                 'code' => $requestArticleCategory,
             ];
-            $articleCategoryRaw = $this->articleCategoryModel
-                ->where($paramArticleCategory['where'])
-                ->find();
+            $articleCategoryService = new ArticleCategoryService($paramArticleCategory);
+            $articleCategoryRaw = $articleCategoryService->getOne();
             if($articleCategoryRaw && $articleCategoryRaw != null && count($articleCategoryRaw)){
                 $param['where'][] = [
                     'category_id' => $articleCategoryRaw['id']
@@ -96,18 +86,46 @@ class ArticleController extends BaseIndexController {
         if(!isset($requestId)){
             $this->error('参数不对');
         }
-        $param['where'] = $this->getCommonShowDataSelectParam();
+
         $output = $this->commonOutput;
-        $output['data'] = $this->articleService->getDetailById($requestId, $param);
+
+        // 0. 获取文章数据
+        $param['where'] = $this->getCommonShowDataSelectParam();
+        $articleSR = $this->articleService->getDetailById($requestId, $param);
+        $articleSR['publishTimeFormativeCh'] = date('Y年m月d日 - H时i分s秒', $articleSR['publishTime']);
+
+        // 1. 文章分类信息
+        $articleCategoryService = new ArticleCategoryService();
+        $articleCategoryListSR = $articleCategoryService->getList();
+        $articleSR['articleCategoryTree'] = findParent($articleCategoryListSR, $articleSR['categoryId']);
+        // 2. 获取文章作者信息
+
+        // 3. 获取文章标签信息
+        $articleTagService = new ArticleTagService();
+        $articleTagSR = $articleTagService->getList();
+        $articleSR['articleTagList'] = $articleTagSR;
 
         $output['id'] = $requestId;
-
-        // 文章分类信息
-        
-        // TODO 更新文章相关属性，如阅读数等
-        $output['common']['title'] = $output['data']['title'] . ' - 文章详情';
+        $output['data'] = $articleSR;
+        $output['common']['title'] = $articleSR['title'] . ' - 文章详情';
         $this->assign('output', $output);
         $this->display('detail');
+        // 后续操作
+        $this->afterDetailHandle();
         return $this;
+    }
+
+    /**
+     * @doc 点击文章后的后续操作
+     * @author Heanes
+     * @time 2017-09-18 10:19:17 周一
+     */
+    private function afterDetailHandle() {
+        // TODO 更新文章相关属性，如阅读数等
+        // 1. 更新文章点击数据
+        
+        // 2. 记录文章访客
+        
+        // 3. 用户阅读历史记录
     }
 }

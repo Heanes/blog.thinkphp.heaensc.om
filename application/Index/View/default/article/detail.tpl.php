@@ -103,7 +103,12 @@ defined('InHeanes') or die('Access denied!');
                 <div class="article-meta">
                     <dl class="meta-define-list">
                         <dt>本文分类：</dt>
-                        <dd><a href="javascript:;">闲言碎语</a></dd>
+                        <?php foreach ($output['data']['articleCategoryTree'] as $key => $item){?>
+                                <dd><a href="javascript:void(0);"><?php echo $item['name'];?></a></dd>
+                            <?php if($key == count($output['data']['articleCategoryTree'])){?>
+                                <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                            <?php } ?>
+                        <?php } ?>
                     </dl>
                     <dl class="meta-define-list">
                         <dt>本文标签：</dt>
@@ -113,11 +118,11 @@ defined('InHeanes') or die('Access denied!');
                     </dl>
                     <dl class="meta-define-list">
                         <dt>流行热度：</dt>
-                        <dd>已超过 6,998 人围观了本文</dd>
+                        <dd>已超过 <?php echo $output['data']['clickCount'];?> 人围观了本文</dd>
                     </dl>
                     <dl class="meta-define-list">
                         <dt>生产日期：</dt>
-                        <dd>异次纪元 16年07月8日 - 21时36分08秒</dd>
+                        <dd>异次纪元 <?php echo $output['data']['publishTimeFormativeCh'];?></dd>
                     </dl>
                     <dl class="meta-define-list">
                         <dt>文章链接：</dt>
