@@ -111,7 +111,7 @@ class ArticleController extends BaseIndexController {
         $this->assign('output', $output);
         $this->display('detail');
         // 后续操作
-        $this->afterDetailHandle();
+        $this->afterDetailHandle($requestId);
         return $this;
     }
 
@@ -120,12 +120,13 @@ class ArticleController extends BaseIndexController {
      * @author Heanes
      * @time 2017-09-18 10:19:17 周一
      */
-    private function afterDetailHandle() {
+    private function afterDetailHandle($requestId) {
         // TODO 更新文章相关属性，如阅读数等
         // 1. 更新文章点击数据
-        
+        $param['id'] = $requestId;
+        $this->articleService->afterDetailHandle($param);
         // 2. 记录文章访客
-        
+
         // 3. 用户阅读历史记录
     }
 }

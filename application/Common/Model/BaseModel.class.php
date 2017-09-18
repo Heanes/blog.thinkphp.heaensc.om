@@ -115,10 +115,31 @@ class BaseModel extends Model {
     }
 
     public function update($param){
+        $data = [];
+        $paramWhere = $param;
+        $updateCount = $this->where($paramWhere)->save($data);
+        return $updateCount;
+    }
+
+    /**
+     * @doc 逻辑删除
+     * @param $param
+     * @return int
+     * @author Heanes
+     * @time 2017-09-18 11:08:26 周一
+     */
+    public function logicDelete($param){
         return 1;
     }
 
-    public function delete($param){
+    /**
+     * @doc 真实删除
+     * @param $param
+     * @return int
+     * @author Heanes
+     * @time 2017-09-18 11:08:39 周一
+     */
+    public function realDelete($param){
         return 1;
     }
 

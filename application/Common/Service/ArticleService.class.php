@@ -37,7 +37,7 @@ class ArticleService extends BaseService{
      * @author Heanes fang <heanes@163.com>
      * @time 2016-06-21 14:56:00 周二
      */
-    public function getList($param, $resultStyle = RESULT_STYLE_CAMEL){
+    public function getList($param = [], $resultStyle = RESULT_STYLE_CAMEL){
         // 0. 查询文章基本数据
         $articleListRaw = $this->articleModel->getList($param);
 
@@ -94,6 +94,23 @@ class ArticleService extends BaseService{
 
         $articleResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleRaw) : $articleRaw;
         return $articleResult;
+    }
+
+    /**
+     * @doc 阅读文章后的操作
+     * @return int 更新结果
+     * @author Heanes
+     * @time 2017-09-18 11:29:43 周一
+     */
+    public function afterDetailHandle($param) {
+        // 0.0 更新文章点击数据
+        $updateCount = $this->articleModel->where($param)->setInc('click_count');
+        // 0.1 更新文章阅读数，可以自定一套规则
+
+        // 1. 记录文章访客
+
+        // 2. 用户阅读历史记录
+        return $updateCount;
     }
 
 }
