@@ -10,6 +10,7 @@ namespace Index\Controller;
 use Common\Model\FriendLinkModel;
 use Common\Model\NavigationModel;
 use Common\Service\SettingCommonService;
+use Common\utils\Server;
 use Think\Controller;
 
 require_once(APP_PATH . 'Common/utils/func/utils.php');
@@ -53,6 +54,10 @@ class BaseIndexController extends Controller {
         $this->commonOutput['common']['friendLinkList'] = $this->getFriendlyLink();
         // 通用标题后缀
         $this->commonOutput['common']['titleCommonSuffix'] = ' - Heanes的博客';
+
+
+        // 其他数据
+        $this->commonOutput['currentUrl'] = Server::getCurrentUrl();
 
         // 分页
         $this->initPager();

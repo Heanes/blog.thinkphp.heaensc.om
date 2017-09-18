@@ -27,7 +27,7 @@ defined('InHeanes') or die('Access denied!');
                             <div class="breadcrumb-cell breadcrumb-node">
                                 <span class="breadcrumb-text"><a href="javascript:void(0);"><?php echo $item['name'];?></a></span>
                             </div>
-                            <?php if($key == count($output['data']['articleCategoryTree'])){?>
+                            <?php if(($key + 1) < count($output['data']['articleCategoryTree'])){?>
                             <div class="breadcrumb-cell breadcrumb-delimiter">
                                 <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                             </div>
@@ -72,7 +72,12 @@ defined('InHeanes') or die('Access denied!');
                     <!-- 文章主体 -->
                     <div class="article-content" id="articleContent"><?php echo $output['data']['content'];?></div>
                     <div class="article-meta">
-                        <p class="article-tags">本文关键词：<strong><a href="">漫画</a></strong>，<strong><a href="">友情</a></strong></p>
+                        <p class="article-tags">本文关键词：
+                            <strong>
+                                <?php foreach ($output['data']['articleTagList'] as $key => $item){?>
+                                    <a href="javascript:;"><?php echo $item['name'];?><?php if(($key + 1) < count($output['data']['articleTagList'])){?>，<?php }?></a>
+                                <?php }?>
+                            </strong></p>
                     </div>
                 </div>
                 <!-- 作者相关信息 -->
@@ -103,7 +108,7 @@ defined('InHeanes') or die('Access denied!');
                 <div class="article-meta">
                     <dl class="meta-define-list">
                         <dt>本文分类：</dt>
-                        <?php foreach ($output['data']['articleCategoryTree'] as $key => $item){?>
+                        <?php foreach ($output['data']['articleCategoryTree'] as $item){?>
                                 <dd><a href="javascript:void(0);"><?php echo $item['name'];?></a></dd>
                             <?php if($key == count($output['data']['articleCategoryTree'])){?>
                                 <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
@@ -112,9 +117,9 @@ defined('InHeanes') or die('Access denied!');
                     </dl>
                     <dl class="meta-define-list">
                         <dt>本文标签：</dt>
-                        <dd><a href="javascript:;">漫画</a></dd>
-                        <dd>，<a href="javascript:;">友谊</a></dd>
-                        <dd>，<a href="javascript:;">网络</a></dd>
+                        <?php foreach ($output['data']['articleTagList'] as $key => $item){?>
+                            <dd><a href="javascript:;"><?php echo $item['name'];?><?php if(count($output['data']['articleTagList']) < $key){?>，<?php }?></a></dd>
+                        <?php }?>
                     </dl>
                     <dl class="meta-define-list">
                         <dt>流行热度：</dt>
@@ -127,7 +132,7 @@ defined('InHeanes') or die('Access denied!');
                     <dl class="meta-define-list">
                         <dt>文章链接：</dt>
                         <dd>
-                            <strong class="url">http://blog.heanes.com/article/1.html</strong>
+                            <strong class="url"><a href="<?php echo $output['currentUrl'];?>"><?php echo $output['currentUrl'];?></a></strong>
                             <span class="copy-link">[<a href="javascript:;" id="copyUrl">复制</a>]</span>
                             <span>(转载时请注明本文出处及文章链接)</span>
                         </dd>

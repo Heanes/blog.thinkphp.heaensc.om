@@ -16,7 +16,7 @@ class BaseAPIController extends Controller{
     /**
      * @var string 公共排除字段
      */
-    protected $commonExceptFields = 'is_enable,is_deleted,access_password,insert_time,update_time,create_user,update_user';
+    protected $commonExceptFields = 'is_enable,is_deleted,access_password,create_time,update_time,create_user,update_user';
 
     /**
      * @var string 安全性字段

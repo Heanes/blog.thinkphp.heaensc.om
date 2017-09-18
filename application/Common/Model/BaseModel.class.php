@@ -29,11 +29,11 @@ class BaseModel extends Model {
 
             $dataListRaw = $this
                 ->page($this->generatePagePram($param['page']))
-                ->where($param)
+                ->where($param['where'])
                 ->select();
         }else{
             $dataListRaw = $this
-                ->where($param)
+                ->where($param['where'])
                 ->select();
         }
         if($dataListRaw == null || count($dataListRaw) <= 0){
@@ -115,8 +115,8 @@ class BaseModel extends Model {
     }
 
     public function update($param){
-        $data = [];
-        $paramWhere = $param;
+        $data = $param['data'];
+        $paramWhere = $param['where'];
         $updateCount = $this->where($paramWhere)->save($data);
         return $updateCount;
     }

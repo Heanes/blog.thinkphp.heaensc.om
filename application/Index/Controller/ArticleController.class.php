@@ -8,8 +8,11 @@ namespace Index\Controller;
 defined('InHeanes') or die('Access denied!');
 
 use Common\Service\ArticleCategoryService;
+use Common\Service\ArticleContentService;
 use Common\Service\ArticleService;
+use Common\Service\ArticleTagLibService;
 use Common\Service\ArticleTagService;
+use Think\Exception;
 use Think\Page;
 
 class ArticleController extends BaseIndexController {
@@ -41,7 +44,7 @@ class ArticleController extends BaseIndexController {
      */
     public function listOp() {
         $output = $this->commonOutput;
-        $param['where'] = $this->getCommonShowDataSelectParam();
+        $articleParam['where'] = $this->getCommonShowDataSelectParam();
         // 参数判断
         // 1.1.是否带有文章分类参数
         $requestArticleCategory = I('request.articleCategory', null, 'string');
@@ -52,7 +55,7 @@ class ArticleController extends BaseIndexController {
             $articleCategoryService = new ArticleCategoryService($paramArticleCategory);
             $articleCategoryRaw = $articleCategoryService->getOne();
             if($articleCategoryRaw && $articleCategoryRaw != null && count($articleCategoryRaw)){
-                $param['where'][] = [
+                $articleParam['where'][] = [
                     'category_id' => $articleCategoryRaw['id']
                 ];
                 $output['common']['title'] = $articleCategoryRaw['name'];
@@ -60,12 +63,12 @@ class ArticleController extends BaseIndexController {
         }
 
         // 1.2.分页参数
-        $param['page'] = $this->getPageParamArray();
+        $articleParam['page'] = $this->getPageParamArray();
 
-        $output['data']['article'] = $articlePageList = $this->articleService->getList($param);
+        $output['data']['article'] = $articlePageList = $this->articleService->getList($articleParam);
 
         // 分页显示
-        $pager = new Page($articlePageList['page']['totalPage'], $param['page']['pageSize']);
+        $pager = new Page($articlePageList['page']['totalPage'], $articleParam['page']['pageSize']);
         $pageShow = $pager->show();
         $this->assign('page',$pageShow);
         
@@ -92,18 +95,42 @@ class ArticleController extends BaseIndexController {
         // 0. 获取文章数据
         $param['where'] = $this->getCommonShowDataSelectParam();
         $articleSR = $this->articleService->getDetailById($requestId, $param);
-        $articleSR['publishTimeFormativeCh'] = date('Y年m月d日 - H时i分s秒', $articleSR['publishTime']);
+        if($articleSR){
+            $articleSR['publishTimeFormativeCh'] = date('Y年m月d日 - H时i分s秒', $articleSR['publishTime']);
+            $articleContentService = new ArticleContentService();
+            $articleContentParam['where']['article_id'] = $articleSR['id'];
+            $articleContentSR = $articleContentService->getOne($articleContentParam);
+            $articleSR['content'] = $articleContentSR['content'];
+            // 1. 文章分类信息
+            $articleCategoryService = new ArticleCategoryService();
+            $articleCategoryListSR = $articleCategoryService->getList();
+            $articleSR['articleCategoryTree'] = findParent($articleCategoryListSR, $articleSR['categoryId']);
+            // 2. 获取文章作者信息
 
-        // 1. 文章分类信息
-        $articleCategoryService = new ArticleCategoryService();
-        $articleCategoryListSR = $articleCategoryService->getList();
-        $articleSR['articleCategoryTree'] = findParent($articleCategoryListSR, $articleSR['categoryId']);
-        // 2. 获取文章作者信息
+            // 3. 获取文章标签信息
+            $articleTagParam['where']['article_id'] = $requestId;
+            $articleTagService = new ArticleTagService();
+            $articleTagSR = $articleTagService->getList($articleTagParam);
+            $articleTagList = [];
+            if($articleTagSR){
+                $articleTagIdList = [];
+                foreach ($articleTagSR as $index => $item) {
+                    $articleTagIdList[] = $item['tagId'];
+                }
+                $articleTagLibParam['where']['id'] = ['in', $articleTagIdList];
+                $articleTagLibService = new ArticleTagLibService();
+                $articleTagLibSR = $articleTagLibService->getList($articleTagLibParam);
+                if($articleTagLibSR){
+                    foreach ($articleTagLibSR as $index => $item) {
+                        $articleTagList[] = ['id' => $item['id'], 'name' => $item['name']];
+                    }
+                }
+            }
 
-        // 3. 获取文章标签信息
-        $articleTagService = new ArticleTagService();
-        $articleTagSR = $articleTagService->getList();
-        $articleSR['articleTagList'] = $articleTagSR;
+            $articleSR['articleTagList'] = $articleTagList;
+        }else{
+            throw new Exception('没有这篇文章！');
+        }
 
         $output['id'] = $requestId;
         $output['data'] = $articleSR;

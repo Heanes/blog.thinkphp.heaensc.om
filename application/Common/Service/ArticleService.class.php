@@ -41,13 +41,18 @@ class ArticleService extends BaseService{
         // 0. 查询文章基本数据
         $articleListRaw = $this->articleModel->getList($param);
 
+        $articleListDataRaw = $articleListRaw;
+        if(isset($param['page'])){
+            $articleListDataRaw = $articleListRaw['items'];
+        }
+
         // 遍历一次得到相关备查数据
-        if(empty($articleListRaw)){
+        if(empty($articleListDataRaw)){
             return [];
         }
 
         $articleCategoryIdList = [];
-        foreach ($articleListRaw['items'] ?: $articleListRaw as $index => $item) {
+        foreach ($articleListDataRaw as $index => $item) {
             $articleCategoryIdList[] = $item['category_id'];
         }
         $articleCategoryIdList = array_unique($articleCategoryIdList);
@@ -62,7 +67,7 @@ class ArticleService extends BaseService{
         // 2. 查询文章标签信息
 
         // ---- 数据后续加工处理
-        foreach ($articleListRaw['items'] ?: $articleListRaw as $index => &$item) {
+        foreach ($articleListDataRaw as $index => &$item) {
             $item['articleCategory'] = $articleCategoryListIBId[$item['category_id']];
         }
 

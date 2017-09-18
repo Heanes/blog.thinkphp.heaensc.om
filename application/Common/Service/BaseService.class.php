@@ -49,27 +49,34 @@ class BaseService{
     /**
      * @doc 根据参数获取列表
      * @param array $param
+     * @param string $resultStyle 结果风格
      * @return array|null|string
      * @author Heanes
      * @time 2017-09-15 10:47:27 周一
      */
-    public function getList($param = []) {
+    public function getList($param = [], $resultStyle = RESULT_STYLE_CAMEL) {
         $dataListRaw = $this->model->getList($param);
-        $dataListCamelStyle = convertToCamelStyle($dataListRaw);
-        return $dataListCamelStyle;
+        //echo $this->model->getLastSql();
+        if($resultStyle == RESULT_STYLE_CAMEL){
+            $dataListRaw = convertToCamelStyle($dataListRaw);
+        }
+        return $dataListRaw;
     }
 
     /**
      * @doc 根据参数获取一个结果
      * @param array $param
+     * @param string $resultStyle 结果风格
      * @return array|null|string
      * @author Heanes
      * @time 2017-09-12 10:47:10 周一
      */
-    public function getOne($param = []) {
+    public function getOne($param = [], $resultStyle = RESULT_STYLE_CAMEL) {
         $dataRaw = $this->model->getOne($param);
-        $dataCamelStyle = convertToCamelStyle($dataRaw);
-        return $dataCamelStyle;
+        if($resultStyle == RESULT_STYLE_CAMEL){
+            $dataRaw = convertToCamelStyle($dataRaw);
+        }
+        return $dataRaw;
     }
 
     /**
