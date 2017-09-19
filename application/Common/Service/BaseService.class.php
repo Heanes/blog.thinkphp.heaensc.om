@@ -57,10 +57,8 @@ class BaseService{
     public function getList($param = [], $resultStyle = RESULT_STYLE_CAMEL) {
         $dataListRaw = $this->model->getList($param);
         //echo $this->model->getLastSql();
-        if($resultStyle == RESULT_STYLE_CAMEL){
-            $dataListRaw = convertToCamelStyle($dataListRaw);
-        }
-        return $dataListRaw;
+        $dataListResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($dataListRaw) : $dataListRaw;
+        return $dataListResult;
     }
 
     /**
@@ -73,10 +71,23 @@ class BaseService{
      */
     public function getOne($param = [], $resultStyle = RESULT_STYLE_CAMEL) {
         $dataRaw = $this->model->getOne($param);
-        if($resultStyle == RESULT_STYLE_CAMEL){
-            $dataRaw = convertToCamelStyle($dataRaw);
-        }
-        return $dataRaw;
+        //echo $this->model->getLastSql();
+        $dataResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($dataRaw) : $dataRaw;
+        return $dataResult;
+    }
+
+    /**
+     * @doc 根据id获取一个结果
+     * @param array $param
+     * @param string $resultStyle 结果风格
+     * @return array|null|string
+     * @author Heanes
+     * @time 2017-09-18 19:41:29 周一
+     */
+    public function getById($id, $param = [], $resultStyle = RESULT_STYLE_CAMEL) {
+        $dataRaw = $this->model->getById($id, $param);
+        $dataResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($dataRaw) : $dataRaw;
+        return $dataResult;
     }
 
     /**

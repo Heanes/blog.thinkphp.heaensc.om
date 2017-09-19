@@ -25,7 +25,7 @@ defined('InHeanes') or die('Access denied!');
                         </div>
                         <?php foreach ($output['data']['articleCategoryTree'] as $key => $item){?>
                             <div class="breadcrumb-cell breadcrumb-node">
-                                <span class="breadcrumb-text"><a href="javascript:void(0);"><?php echo $item['name'];?></a></span>
+                                <span class="breadcrumb-text"><a href="<?php echo $item['url'];?>"><?php echo $item['name'];?></a></span>
                             </div>
                             <?php if(($key + 1) < count($output['data']['articleCategoryTree'])){?>
                             <div class="breadcrumb-cell breadcrumb-delimiter">
@@ -75,7 +75,7 @@ defined('InHeanes') or die('Access denied!');
                         <p class="article-tags">本文关键词：
                             <strong>
                                 <?php foreach ($output['data']['articleTagList'] as $key => $item){?>
-                                    <a href="javascript:;"><?php echo $item['name'];?><?php if(($key + 1) < count($output['data']['articleTagList'])){?>，<?php }?></a>
+                                    <a href="<?php echo $item['url'];?>"><?php echo $item['name'];?><?php if(($key + 1) < count($output['data']['articleTagList'])){?>，<?php }?></a>
                                 <?php }?>
                             </strong></p>
                     </div>
@@ -109,7 +109,7 @@ defined('InHeanes') or die('Access denied!');
                     <dl class="meta-define-list">
                         <dt>本文分类：</dt>
                         <?php foreach ($output['data']['articleCategoryTree'] as $item){?>
-                                <dd><a href="javascript:void(0);"><?php echo $item['name'];?></a></dd>
+                                <dd><a href="<?php echo $item['url'];?>"><?php echo $item['name'];?></a></dd>
                             <?php if($key == count($output['data']['articleCategoryTree'])){?>
                                 <span class="separator"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                             <?php } ?>
@@ -118,7 +118,7 @@ defined('InHeanes') or die('Access denied!');
                     <dl class="meta-define-list">
                         <dt>本文标签：</dt>
                         <?php foreach ($output['data']['articleTagList'] as $key => $item){?>
-                            <dd><a href="javascript:;"><?php echo $item['name'];?><?php if(count($output['data']['articleTagList']) < $key){?>，<?php }?></a></dd>
+                            <dd><a href="<?php echo $item['url'];?>"><?php echo $item['name'];?><?php if(count($output['data']['articleTagList']) < $key){?>，<?php }?></a></dd>
                         <?php }?>
                     </dl>
                     <dl class="meta-define-list">

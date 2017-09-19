@@ -6,12 +6,9 @@
  */
 defined('InHeanes') or die('Access denied!');
 ?>
-<!-- 左侧区域 -->
-<div class="left-block left-wrap fl"></div>
-<!-- 中心区域 -->
-<div class="center-block center-wrap fl">
+<div class="center-block center-wrap float-block">
     <!-- 文章列表 -->
-    <div class="article-list-block">
+    <div class="article-list-block" id="indexArticleList">
         <?php foreach ($output['data']['article']['items'] as $key => $article){?>
         <div class="article-list-row">
             <div class="article-title">
@@ -27,7 +24,7 @@ defined('InHeanes') or die('Access denied!');
                     <dd><?php echo $article['publishTimeFormative'];?></dd>
                 </dl>
                 <dl>
-                    <dt>点击:</dt>
+                    <dt>人气:</dt>
                     <dd><?php echo $article['clickCount'];?></dd>
                 </dl>
                 <dl>
@@ -36,7 +33,8 @@ defined('InHeanes') or die('Access denied!');
                 </dl>
                 <dl class="article-tags">
                     <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>
-                    <dd><?php foreach ($article['articleTagList'] as $index => $tag){?><a href="<?php echo $tag['url']?>"><?php echo $tag['name']?></a><?php }?></dd>
+                    <dd><a href="javascript:">前端</a></dd>
+                    <dd><a href="javascript:">CSS</a></dd>
                 </dl>
             </div>
         </div>
@@ -45,19 +43,13 @@ defined('InHeanes') or die('Access denied!');
     <!-- 文章分页 -->
     <?php echo $page;?>
 </div>
-<!-- 右侧区域 -->
-<div class="right-block right-wrap float-block"></div>
 <cite>
     <!-- S js S -->
     <include file="layout/commonJs"/>
     <script type="text/javascript">
         $(function () {
-            var pathName = window.location.pathname;
-            var API = {
-                'articleList':'/api/article/list'
-            };
 
         });
     </script>
-<!-- E js E -->
+    <!-- E js E -->
 </cite>

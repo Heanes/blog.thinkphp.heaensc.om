@@ -37,8 +37,7 @@ defined('InHeanes') or die('Access denied!');
                         </dl>
                         <dl class="article-tags">
                             <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>
-                            <dd><a href="javascript:">前端</a></dd>
-                            <dd><a href="javascript:">CSS</a></dd>
+                            <dd><?php foreach ($article['articleTagList'] as $index => $tag){?><a href="<?php echo $tag['url']?>"><?php echo $tag['name']?></a><?php }?></dd>
                         </dl>
                     </div>
                 </div>

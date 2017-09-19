@@ -51,10 +51,7 @@ class ArticleService extends BaseService{
             return [];
         }
 
-        $articleCategoryIdList = [];
-        foreach ($articleListDataRaw as $index => $item) {
-            $articleCategoryIdList[] = $item['category_id'];
-        }
+        $articleCategoryIdList[] = array_column($articleListDataRaw, 'category_id');
         $articleCategoryIdList = array_unique($articleCategoryIdList);
 
         // 1. 查询文章分类信息
@@ -68,8 +65,10 @@ class ArticleService extends BaseService{
 
         // ---- 数据后续加工处理
         foreach ($articleListDataRaw as $index => &$item) {
+            $item['publishTimeFormative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['publish_time']);
             $item['articleCategory'] = $articleCategoryListIBId[$item['category_id']];
         }
+        $articleListRaw['items'] = $articleListDataRaw;
 
         // 如果是驼峰格式
         $articleListResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleListRaw) : $articleListRaw;

@@ -6,6 +6,8 @@
  */
 namespace Index\Controller;
 use Common\Service\ArticleService;
+use Common\Service\ArticleTagLibService;
+use Common\Service\ArticleTagService;
 use Think\Page;
 
 class IndexController extends BaseIndexController {
@@ -32,8 +34,7 @@ class IndexController extends BaseIndexController {
 
         // 1. 文章数据
         $articlePageList = $this->getArticleData();
-        $output['data']['article'] = $articlePageList['articleList'];
-        $this->assign('articlePage', $articlePageList['articlePageShow']);
+        $output['data']['article'] = $articlePageList;
 
         $output['common']['title'] = '首页';
         $this->assign('output', $output);
@@ -50,13 +51,41 @@ class IndexController extends BaseIndexController {
         // 显示文章列表信息
         $articleParam = [];
         $articleParam['where'] = $this->getCommonShowDataSelectParam();
-        // 1.2.分页参数
+        // 0.1. 分页参数
         $articleParam['page'] = $this->getPageParamArray();
-        // 查询数据
+        // 1. 查询数据
         $articleService = new ArticleService();
-        $articlePageList['articleList'] = $articleService->getList($articleParam);
+        $articlePageList = $articleService->getList($articleParam);
+        // 2. 处理文章其他数据
+        if($articlePageList['items']){
+            $articleIdList = array_column($articlePageList['items'], 'id');
 
-        // 分页显示
+            // 2.1. 获取文章标签数据
+            $articleTagParam['where']['article_id'] = ['in', $articleIdList];
+            $articleTagService = new ArticleTagService();
+            $articleTagSR = $articleTagService->getList($articleTagParam);
+            $articleTagGBArticleId = [];
+            if($articleTagSR){
+                $articleTagIdList = array_column($articleTagSR, 'tagId');
+                $articleTagLibParam['where']['id'] = ['in', $articleTagIdList];
+                $articleTagLibService = new ArticleTagLibService();
+                $articleTagLibSR = $articleTagLibService->getList($articleTagLibParam);
+                if($articleTagLibSR){
+                    $articleTagLibDataIBId = arrayToKeyIndex($articleTagLibSR, 'id');
+                    foreach ($articleTagSR as $index => $item) {
+                        $tag = $articleTagLibDataIBId[$item['tagId']];
+                        $articleTagGBArticleId[$item['articleId']][] = ['id' => $tag['id'], 'name' => $tag['name'], 'url' => U('articleTag/' . urlencode($tag['name']))];
+                    }
+                }
+            }
+
+            // 3. 装入其他数据
+            foreach ($articlePageList['items'] as $index => &$item) {
+                $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
+            }
+        }
+
+        // 文章分页显示
         $articlePageList['articlePager'] = $articlePager = new Page($articlePageList['page']['totalPage'], $articleParam['page']['pageSize']);
         $articlePageList['articlePageShow'] = $articlePageShow = $articlePager->show();
 

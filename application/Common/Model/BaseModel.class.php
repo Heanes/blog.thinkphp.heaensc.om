@@ -43,7 +43,7 @@ class BaseModel extends Model {
             return null;
         }
 
-        // 如果有分页，则转换数据格式
+        // 如果有分页，则装入分页
         if(isset($param['page']) && isset($page)){
             $dataListRaw = ['items' => $dataListRaw, 'page' => $page];
         }

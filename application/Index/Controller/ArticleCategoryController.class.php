@@ -7,17 +7,22 @@
 namespace Index\Controller;
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
+use Common\Service\ArticleCategoryService;
+use Common\Service\ArticleService;
+use Think\Exception;
+
 class ArticleCategoryController extends BaseIndexController {
 
     /**
-     * @var ArticleCategoryModel 文章分类模型
+     * @var ArticleCategoryService 文章分类模型
      */
-    private $articleCategoryModel;
+    private $articleCategoryService;
 
-    /**
-     * @var ArticleModel 文章模型
-     */
-    private $articleModel;
+    function __construct() {
+        parent::__construct();
+
+        $this->articleCategoryService = new ArticleCategoryService();
+    }
 
     /**
      * @doc 默认页面
@@ -72,5 +77,49 @@ class ArticleCategoryController extends BaseIndexController {
         $output['common']['title'] = $articleCategoryDetail['title']. ' - 文章详情';
         $this->assign('output', $output);
         $this->display('detail');
+    }
+
+    /**
+     * @doc 标签详情，显示具有该标签的所有文章
+     * @return $this
+     * @author Heanes
+     * @time 2017-09-19 13:07:24 周二
+     */
+    public function articleListOp() {
+        // 0. 获取查询参数，id或者name
+        $requestId = I('request.id', null, 'int');
+        $requestCode = I('request.code', null, 'string');
+        if(!isset($requestId) && !isset($requestCode)){
+            $this->error('参数不对');
+        }
+        $output = $this->commonOutput;
+
+        // 0.1 先查询标签自身信息
+        $articleCategoryParam = $this->getCommonShowDataSelectParam();
+        if(isset($requestId)){
+            $articleCategoryParam['where']['id'] = $requestId;
+        }
+        if(isset($requestCode)){
+            $articleCategoryParam['where']['name'] = $requestCode;
+            $articleCategoryParam['where']['_logic'] = 'OR';
+            $articleCategoryParam['where']['code'] = $requestCode;
+        }
+        $articleCategorySR = $this->articleCategoryService->getOne($articleCategoryParam);
+        if(!$articleCategorySR){
+            throw new Exception('文章分类不存在！');
+        }
+        // 0.2. 文章分页参数
+        $articleParam['page'] = $this->getPageParamArray();
+        $articleParam['where']['category_id'] = $articleCategorySR['id'];
+        // 1. 查询文章列表，按发布时间降序
+        $articleParam['order'] = ['publish_time desc'];
+        $articleService = new ArticleService();
+        $articleList = $articleService->getList($articleParam);
+        $output['data']['article'] = $articleList;
+
+        $output['common']['title'] .= $articleCategorySR['name'] . ' - 标签';
+        $this->assign('output', $output);
+        $this->display('articleList');
+        return $this;
     }
 }
