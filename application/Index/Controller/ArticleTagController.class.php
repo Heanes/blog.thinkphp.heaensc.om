@@ -8,11 +8,13 @@ namespace Index\Controller;
 
 use Common\Service\ArticleTagLibService;
 use Common\Service\ArticleTagService;
+use Index\Controller\Article\ArticleWebService;
 use Think\Exception;
 
 require_once(APP_PATH.'Common/utils/func/utils.php');
 class ArticleTagController extends BaseIndexController{
-    
+    use ArticleWebService;
+
     /**
      * @var ArticleTagLibService 文章标签模型
      */
@@ -74,8 +76,7 @@ class ArticleTagController extends BaseIndexController{
         if ($articlePageList['items']) {
             $articleIdList = array_column($articlePageList['items'], 'id');
             // 2.1. 获取文章标签数据
-            $articleController = new ArticleController();
-            $articleTagGBArticleId = $articleController->getArticleTagMapListByArticleIdList($articleIdList);
+            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
                 $item['articleTagList'] = $articleTagGBArticleId[$item['id']];

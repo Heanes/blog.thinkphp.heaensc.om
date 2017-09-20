@@ -5,13 +5,14 @@
  * @time 2016-06-21 14:44:18 周二
  */
 namespace Index\Controller;
-use Common\Model\ArticleModel;
-use Common\Model\ArticleCategoryModel;
 use Common\Service\ArticleCategoryService;
 use Common\Service\ArticleService;
+use Index\Controller\Article\ArticleWebService;
 use Think\Exception;
 
 class ArticleCategoryController extends BaseIndexController {
+
+    use ArticleWebService;
 
     /**
      * @var ArticleCategoryService 文章分类模型
@@ -119,8 +120,7 @@ class ArticleCategoryController extends BaseIndexController {
         if ($articlePageList['items']) {
             $articleIdList = array_column($articlePageList['items'], 'id');
             // 2.1. 获取文章标签数据
-            $articleController = new ArticleController();
-            $articleTagGBArticleId = $articleController->getArticleTagMapListByArticleIdList($articleIdList);
+            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
                 $item['articleTagList'] = $articleTagGBArticleId[$item['id']];

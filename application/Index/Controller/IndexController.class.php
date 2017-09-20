@@ -8,9 +8,13 @@ namespace Index\Controller;
 use Common\Service\ArticleService;
 use Common\Service\ArticleTagLibService;
 use Common\Service\ArticleTagService;
+use Index\Controller\Article\ArticleWebService;
 use Think\Page;
 
 class IndexController extends BaseIndexController {
+
+    use ArticleWebService;
+
 
     /**
      * @var array
@@ -61,23 +65,7 @@ class IndexController extends BaseIndexController {
             $articleIdList = array_column($articlePageList['items'], 'id');
 
             // 2.1. 获取文章标签数据
-            $articleTagParam['where']['article_id'] = ['in', $articleIdList];
-            $articleTagService = new ArticleTagService();
-            $articleTagSR = $articleTagService->getList($articleTagParam);
-            $articleTagGBArticleId = [];
-            if($articleTagSR){
-                $articleTagIdList = array_column($articleTagSR, 'tagId');
-                $articleTagLibParam['where']['id'] = ['in', $articleTagIdList];
-                $articleTagLibService = new ArticleTagLibService();
-                $articleTagLibSR = $articleTagLibService->getList($articleTagLibParam);
-                if($articleTagLibSR){
-                    $articleTagLibDataIBId = arrayToKeyIndex($articleTagLibSR, 'id');
-                    foreach ($articleTagSR as $index => $item) {
-                        $tag = $articleTagLibDataIBId[$item['tagId']];
-                        $articleTagGBArticleId[$item['articleId']][] = ['id' => $tag['id'], 'name' => $tag['name'], 'url' => U('articleTag/' . urlencode($tag['name']))];
-                    }
-                }
-            }
+            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
 
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
