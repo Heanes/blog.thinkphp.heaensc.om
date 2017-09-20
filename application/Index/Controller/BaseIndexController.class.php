@@ -53,7 +53,7 @@ class BaseIndexController extends Controller {
         // 获取友情链接
         $this->commonOutput['common']['friendLinkList'] = $this->getFriendlyLink();
         // 通用标题后缀
-        $this->commonOutput['common']['titleCommonSuffix'] = ' - Heanes的博客';
+        $this->commonOutput['common']['titleCommonSuffix'] = $this->commonOutput['common']['settingCommon']['webTitle'];
 
 
         // 其他数据
@@ -61,6 +61,8 @@ class BaseIndexController extends Controller {
 
         // 分页
         $this->initPager();
+
+        //print_r($_SERVER);
     }
 
     /**
@@ -84,8 +86,7 @@ class BaseIndexController extends Controller {
      */
     public function getSettingCommon() {
         $this->settingCommonService = new SettingCommonService();
-        $settingCommonList = $this->settingCommonService->getSettingCommon();
-        $settingCommonListCamelStyle = convertToCamelStyle($settingCommonList);
+        $settingCommonListCamelStyle = $this->settingCommonService->getSettingCommon();
         // 日期格式化
         define('DATE_FORMATIVE', $settingCommonListCamelStyle['dateTimeFormative'] ?: DATE_FORMATIVE_DEFAULT);
         // 时间格式化

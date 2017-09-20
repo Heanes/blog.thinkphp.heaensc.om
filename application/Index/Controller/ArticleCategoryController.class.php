@@ -114,10 +114,22 @@ class ArticleCategoryController extends BaseIndexController {
         // 1. 查询文章列表，按发布时间降序
         $articleParam['order'] = ['publish_time desc'];
         $articleService = new ArticleService();
-        $articleList = $articleService->getList($articleParam);
-        $output['data']['article'] = $articleList;
+        $articlePageList = $articleService->getList($articleParam);
+        // 2. 处理文章其他数据
+        if ($articlePageList['items']) {
+            $articleIdList = array_column($articlePageList['items'], 'id');
+            // 2.1. 获取文章标签数据
+            $articleController = new ArticleController();
+            $articleTagGBArticleId = $articleController->getArticleTagMapListByArticleIdList($articleIdList);
+            // 3. 装入其他数据
+            foreach ($articlePageList['items'] as $index => &$item) {
+                $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
+            }
+        }
 
-        $output['common']['title'] .= $articleCategorySR['name'] . ' - 标签';
+        $output['data']['article'] = $articlePageList;
+
+        $output['common']['title'] .= $articleCategorySR['name'] . ' - 文章分类';
         $this->assign('output', $output);
         $this->display('articleList');
         return $this;

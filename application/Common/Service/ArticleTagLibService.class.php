@@ -9,4 +9,8 @@ namespace Common\Service;
 
 class ArticleTagLibService extends BaseService {
 
+    function __construct() {
+        parent::__construct();
+    }
+
 }

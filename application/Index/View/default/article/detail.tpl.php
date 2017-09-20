@@ -132,7 +132,7 @@ defined('InHeanes') or die('Access denied!');
                     <dl class="meta-define-list">
                         <dt>文章链接：</dt>
                         <dd>
-                            <strong class="url"><a href="<?php echo $output['currentUrl'];?>"><?php echo $output['currentUrl'];?></a></strong>
+                            <strong class="url"><a href="<?php echo $output['data']['url'];?>"><?php echo $output['data']['url'];?></a></strong>
                             <span class="copy-link">[<a href="javascript:;" id="copyUrl">复制</a>]</span>
                             <span>(转载时请注明本文出处及文章链接)</span>
                         </dd>

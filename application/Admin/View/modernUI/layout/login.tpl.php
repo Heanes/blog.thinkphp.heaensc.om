@@ -96,7 +96,7 @@ defined('InHeanes') or exit('Access Invalid!');
 </div>
 <cite>
     <!-- S js S -->
-    <script type="text/javascript" src="/public/static/libs/js/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/libs/js/jquery/2.1.4/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/public/static/libs/js/jquery.spritely/0.6.8/jquery.spritely-0.6.8.js"></script><!-- 云层效果 -->
     <script type="text/javascript" src="<?php echo TPL;?>/js/common/common.js"></script>
     <script type="text/javascript" src="<?php echo TPL;?>/js/chur.min.js"></script><!-- 蒲公英漂浮效果 -->

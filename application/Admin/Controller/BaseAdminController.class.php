@@ -98,7 +98,9 @@ class BaseAdminController extends Controller{
      */
     public function checkLogin() {
         if(!isset($_SESSION['isLoginAdmin']) && $_SESSION['isLoginAdmin'] != SYS_ADMIN_LOGIN_IN_FLAG){
-            $this->redirect('adminUser/login');
+            var_dump($_SESSION);
+            var_dump('ss');exit;
+            $this->redirect('login');
         }
     }
 }

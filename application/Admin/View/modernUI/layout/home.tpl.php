@@ -141,7 +141,7 @@
 </div>
 <cite>
     <!-- S js S -->
-    <script type="text/javascript" src="/public/static/libs/js/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/libs/js/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="/public/static/libs/js/jquery.cookie/1.4.1/jquery.cookie.js"></script>
     <script type="text/javascript" src="<?php echo TPL;?>/js/layout.js"></script>
     <script type="text/javascript" src="<?php echo TPL;?>/js/common/common.js"></script>

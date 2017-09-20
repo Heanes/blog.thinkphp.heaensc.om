@@ -52,8 +52,8 @@ class ArticleController extends BaseIndexController {
             $paramArticleCategory['where'][] = [
                 'code' => $requestArticleCategory,
             ];
-            $articleCategoryService = new ArticleCategoryService($paramArticleCategory);
-            $articleCategoryRaw = $articleCategoryService->getOne();
+            $articleCategoryService = new ArticleCategoryService();
+            $articleCategoryRaw = $articleCategoryService->getOne($paramArticleCategory);
             if($articleCategoryRaw && $articleCategoryRaw != null && count($articleCategoryRaw)){
                 $articleParam['where'][] = [
                     'category_id' => $articleCategoryRaw['id']
@@ -64,6 +64,7 @@ class ArticleController extends BaseIndexController {
 
         // 0.2.分页参数
         $articleParam['page'] = $this->getPageParamArray();
+        $articleParam['order'] = ['publish_time desc'];
         // 1. 查询数据
         $articlePageList = $this->articleService->getList($articleParam);
         // 2. 处理文章其他数据
@@ -71,23 +72,7 @@ class ArticleController extends BaseIndexController {
             $articleIdList = array_column($articlePageList['items'], 'id');
 
             // 2.1. 获取文章标签数据
-            $articleTagParam['where']['article_id'] = ['in', $articleIdList];
-            $articleTagService = new ArticleTagService();
-            $articleTagSR = $articleTagService->getList($articleTagParam);
-            $articleTagGBArticleId = [];
-            if($articleTagSR){
-                $articleTagIdList = array_column($articleTagSR, 'tagId');
-                $articleTagLibParam['where']['id'] = ['in', $articleTagIdList];
-                $articleTagLibService = new ArticleTagLibService();
-                $articleTagLibSR = $articleTagLibService->getList($articleTagLibParam);
-                if($articleTagLibSR){
-                    $articleTagLibDataIBId = arrayToKeyIndex($articleTagLibSR, 'id');
-                    foreach ($articleTagSR as $index => $item) {
-                        $tag = $articleTagLibDataIBId[$item['tagId']];
-                        $articleTagGBArticleId[$item['articleId']][] = ['id' => $tag['id'], 'name' => $tag['name'], 'url' => U('articleTag/' . urlencode($tag['name']))];
-                    }
-                }
-            }
+            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
 
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
@@ -135,30 +120,16 @@ class ArticleController extends BaseIndexController {
             $articleCategoryListSR = $articleCategoryService->getList();
             $articleCategoryTree = findParent($articleCategoryListSR, $articleSR['categoryId']);
             foreach ($articleCategoryTree as $index => &$item) {
-                $item['url'] = U('articleCategory/' . $item['id']);
+                $item['url'] = U('articleCategory/' . $item['code']);
             }
             $articleSR['articleCategoryTree'] = $articleCategoryTree;
             // 2. 获取文章作者信息
 
             // 3. 获取文章标签信息
-            $articleTagParam['where']['article_id'] = $requestId;
-            $articleTagService = new ArticleTagService();
-            $articleTagSR = $articleTagService->getList($articleTagParam);
-            $articleTagList = [];
-            if($articleTagSR){
-                $articleTagIdList = array_column($articleTagSR, 'tagId');
-
-                $articleTagLibParam['where']['id'] = ['in', $articleTagIdList];
-                $articleTagLibService = new ArticleTagLibService();
-                $articleTagLibSR = $articleTagLibService->getList($articleTagLibParam);
-                if($articleTagLibSR){
-                    foreach ($articleTagLibSR as $index => &$item) {
-                        $articleTagList[] = ['id' => $item['id'], 'name' => $item['name'], 'url' => U('articleTag/' . urlencode($item['name']))];
-                    }
-                }
-            }
+            $articleTagList = $this->getArticleTagMapListByArticleIdList([$requestId])[$requestId];
 
             $articleSR['articleTagList'] = $articleTagList;
+            $articleSR['url'] = U('article/' . $requestId);
         }else{
             throw new Exception('没有这篇文章！');
         }
@@ -187,5 +158,35 @@ class ArticleController extends BaseIndexController {
 
         // 3. 用户阅读历史记录
         return $this;
+    }
+
+
+    /**
+     * @doc
+     * @param $articleIdList
+     * @return array
+     * @author Heanes
+     * @time 2017-09-20 09:56:11 周三
+     */
+    public function getArticleTagMapListByArticleIdList($articleIdList) {
+        // 2.1. 获取文章标签数据
+        $articleTagParam['where']['article_id'] = ['in', $articleIdList];
+        $articleTagService = new ArticleTagService();
+        $articleTagSR = $articleTagService->getList($articleTagParam);
+        $articleTagGBArticleId = [];
+        if($articleTagSR){
+            $articleTagIdList = array_column($articleTagSR, 'tagId');
+            $articleTagLibParam['where']['id'] = ['in', $articleTagIdList];
+            $articleTagLibService = new ArticleTagLibService();
+            $articleTagLibSR = $articleTagLibService->getList($articleTagLibParam);
+            if($articleTagLibSR){
+                $articleTagLibDataIBId = arrayToKeyIndex($articleTagLibSR, 'id');
+                foreach ($articleTagSR as $index => $item) {
+                    $tag = $articleTagLibDataIBId[$item['tagId']];
+                    $articleTagGBArticleId[$item['articleId']][] = ['id' => $tag['id'], 'name' => $tag['name'], 'url' => U('articleTag/' . urlencode($tag['name']))];
+                }
+            }
+        }
+        return $articleTagGBArticleId;
     }
 }

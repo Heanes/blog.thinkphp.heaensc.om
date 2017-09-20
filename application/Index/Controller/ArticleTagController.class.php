@@ -69,8 +69,20 @@ class ArticleTagController extends BaseIndexController{
         // 1. 查询文章列表，按发布时间降序
         $articleTagParam['order'] = ['publish_time desc'];
         $articleTagService = new ArticleTagService();
-        $articleList = $articleTagService->getArticleList($articleTagParam);
-        $output['data']['article'] = $articleList;
+        $articlePageList = $articleTagService->getArticleList($articleTagParam);
+        // 2. 处理文章其他数据
+        if ($articlePageList['items']) {
+            $articleIdList = array_column($articlePageList['items'], 'id');
+            // 2.1. 获取文章标签数据
+            $articleController = new ArticleController();
+            $articleTagGBArticleId = $articleController->getArticleTagMapListByArticleIdList($articleIdList);
+            // 3. 装入其他数据
+            foreach ($articlePageList['items'] as $index => &$item) {
+                $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
+            }
+        }
+
+        $output['data']['article'] = $articlePageList;
 
         $output['common']['title'] .= $articleTagLibSR['name'] . ' - 标签';
         $this->assign('output', $output);
