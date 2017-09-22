@@ -7,8 +7,8 @@
 
 namespace Index\Controller;
 
-use Common\Model\FriendLinkModel;
-use Common\Model\NavigationModel;
+use Common\Service\FriendLinkService;
+use Common\Service\NavigationService;
 use Common\Service\SettingCommonService;
 use Common\utils\Server;
 use Think\Controller;
@@ -33,14 +33,14 @@ class BaseIndexController extends Controller {
     private $settingCommonService;
 
     /**
-     * @var NavigationModel 导航模型
+     * @var NavigationService 导航服务
      */
-    private $navigationModel;
+    private $navigationService;
 
     /**
-     * @var FriendLinkModel 友情链接模型
+     * @var FriendLinkService 友情链接服务
      */
-    private $friendLinkModel;
+    private $friendLinkService;
 
     function __construct() {
         parent::__construct();
@@ -71,12 +71,10 @@ class BaseIndexController extends Controller {
      * @time 2016-06-21 14:17:45 周二
      */
     public function getNavigation() {
-        $this->navigationModel = new NavigationModel();
-        $navigationListRaw = $this->navigationModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->select();
-        $navigationListCamelStyle = convertToCamelStyle($navigationListRaw);
-        return $navigationListCamelStyle;
+        $this->navigationService = new NavigationService();
+        $param['where'] = $this->getCommonShowDataSelectParam();
+        $navigationList = $this->navigationService->getList($param);
+        return $navigationList;
     }
 
     /**
@@ -86,18 +84,19 @@ class BaseIndexController extends Controller {
      */
     public function getSettingCommon() {
         $this->settingCommonService = new SettingCommonService();
-        $settingCommonListCamelStyle = $this->settingCommonService->getSettingCommon();
+        $param['where'] = $this->getCommonShowDataSelectParam();
+        $settingCommonList = $this->settingCommonService->getSettingCommon($param);
         // 日期格式化
-        define('DATE_FORMATIVE', $settingCommonListCamelStyle['dateTimeFormative'] ?: DATE_FORMATIVE_DEFAULT);
+        define('DATE_FORMATIVE', $settingCommonList['dateTimeFormative'] ?: DATE_FORMATIVE_DEFAULT);
         // 时间格式化
-        define('DATE_TIME_FORMATIVE', $settingCommonListCamelStyle['dateTimeFormative'] ?: DATE_TIME_FORMATIVE_DEFAULT);
+        define('DATE_TIME_FORMATIVE', $settingCommonList['dateTimeFormative'] ?: DATE_TIME_FORMATIVE_DEFAULT);
         // 首页显示文章条数
-        define('HOME_ARTICLE_NUM', $settingCommonListCamelStyle['homeArticleNum'] != null ?: HOME_ARTICLE_NUM_DEFAULT);
+        define('HOME_ARTICLE_NUM', $settingCommonList['homeArticleNum'] != null ?: HOME_ARTICLE_NUM_DEFAULT);
         // 文章分页大小
-        define('ARTICLE_LIST_PAGE_SIZE', $settingCommonListCamelStyle['articleListPageSize'] != null ?: ARTICLE_LIST_PAGE_SIZE_DEFAULT);
+        define('ARTICLE_LIST_PAGE_SIZE', $settingCommonList['articleListPageSize'] != null ?: ARTICLE_LIST_PAGE_SIZE_DEFAULT);
         // 分页参数名
-        define('REQUEST_PAGE_PARAM_NAME', $settingCommonListCamelStyle['requestPageParamName'] != null ?: REQUEST_PAGE_PARAM_NAME_DEFAULT);
-        return $settingCommonListCamelStyle;
+        define('REQUEST_PAGE_PARAM_NAME', $settingCommonList['requestPageParamName'] != null ?: REQUEST_PAGE_PARAM_NAME_DEFAULT);
+        return $settingCommonList;
     }
 
     /**
@@ -145,12 +144,11 @@ class BaseIndexController extends Controller {
      * @time 2016-06-21 14:18:33 周二
      */
     public function getFriendlyLink() {
-        $this->friendLinkModel = new FriendLinkModel();
-        $friendLinkList = $this->friendLinkModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->select();
-        $friendLinkListCamelStyle = convertToCamelStyle($friendLinkList);
-        return $friendLinkListCamelStyle;
+        $this->friendLinkService = new FriendLinkService();
+        $param['where'] = $this->getCommonShowDataSelectParam();
+        $friendLinkList = $this->friendLinkService->getList($param);
+
+        return $friendLinkList;
     }
 
     /**

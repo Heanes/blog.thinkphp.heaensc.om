@@ -29,15 +29,11 @@ class NavigationService extends BaseService {
      * @author Heanes
      * @time 2017-09-12 17:09:27 周二
      */
-    public function getList($param, $resultStyle = RESULT_STYLE_CAMEL){
+    public function getList($param = [], $resultStyle = RESULT_STYLE_CAMEL){
         $navigationListRaw = $this->navigationModel->getList($param);
 
         // 如果是驼峰格式
-        if($resultStyle == RESULT_STYLE_CAMEL){
-            $navigationListResult = convertToCamelStyle($navigationListRaw);
-        }else {
-            $navigationListResult = $navigationListRaw;
-        }
+        $navigationListResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($navigationListRaw) : $navigationListRaw;
         return $navigationListResult;
     }
 

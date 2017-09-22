@@ -6,8 +6,9 @@
  */
 namespace Admin\Controller;
 defined('InHeanes') or die('Access denied!');
+
+use Common\Service\SettingCommonService;
 use Think\Controller;
-use Common\Model\SettingCommonModel;
 use Common\Component\Page;
 
 require_once(APP_PATH.'Common/utils/func/utils.php');
@@ -29,9 +30,9 @@ class BaseAdminController extends Controller{
     protected $secretFields = 'access_password,pwd,password';
 
     /**
-     * @var SettingCommonModel 公共设置模型
+     * @var SettingCommonService 公共设置模型
      */
-    protected $settingCommonModel;
+    protected $settingCommonService;
 
     function __construct() {
         parent::__construct();
@@ -41,7 +42,7 @@ class BaseAdminController extends Controller{
         // 定义主题
         $this->getTheme();
         // 通用标题后缀
-        $this->commonOutput['common']['titleCommonSuffix'] = ' - 管理后台 - Heanes的博客';
+        $this->commonOutput['common']['titleCommonSuffix'] = '管理后台 - ' . $this->commonOutput['common']['settingCommon']['webTitle'];
     }
 
     /**
@@ -50,21 +51,20 @@ class BaseAdminController extends Controller{
      * @time 2016-06-23 12:26:07 周四
      */
     protected function getSettingCommon() {
-        $this->settingCommonModel = new SettingCommonModel();
-        $settingCommonList = $this->settingCommonModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->select();
-        $settingCommonListCamelStyle = convertToCamelStyle($settingCommonList);
+        $this->settingCommonService = new SettingCommonService();
+        $param['where'] = $this->getCommonShowDataSelectParam();
+        $settingCommonList = $this->settingCommonService->getSettingCommon($param);
         // 日期格式化
-        define('DATE_FORMATIVE', $settingCommonListCamelStyle['dateTimeFormative'] ? $settingCommonListCamelStyle['dateTimeFormative'] : DATE_FORMATIVE_DEFAULT);
+        define('DATE_FORMATIVE', $settingCommonList['dateTimeFormative'] ?: DATE_FORMATIVE_DEFAULT);
         // 时间格式化
-        define('DATE_TIME_FORMATIVE', $settingCommonListCamelStyle['dateTimeFormative'] ? $settingCommonListCamelStyle['dateTimeFormative'] : DATE_TIME_FORMATIVE_DEFAULT);
+        define('DATE_TIME_FORMATIVE', $settingCommonList['dateTimeFormative'] ?: DATE_TIME_FORMATIVE_DEFAULT);
         // 首页显示文章条数
-        define('HOME_ARTICLE_NUM', $settingCommonListCamelStyle['homeArticleNum'] != null ? $settingCommonListCamelStyle['homeArticleNum'] : HOME_ARTICLE_NUM_DEFAULT);
-        // 数据分页大小
-        define('DATA_LIST_PAGE_SIZE', $settingCommonListCamelStyle['articleListPageSize'] != null ? $settingCommonListCamelStyle['articleListPageSize'] : ARTICLE_LIST_PAGE_SIZE_DEFAULT);
-        // 定义主题
-        return $settingCommonListCamelStyle;
+        define('HOME_ARTICLE_NUM', $settingCommonList['homeArticleNum'] != null ?: HOME_ARTICLE_NUM_DEFAULT);
+        // 文章分页大小
+        define('ARTICLE_LIST_PAGE_SIZE', $settingCommonList['articleListPageSize'] != null ?: ARTICLE_LIST_PAGE_SIZE_DEFAULT);
+        // 分页参数名
+        define('REQUEST_PAGE_PARAM_NAME', $settingCommonList['requestPageParamName'] != null ?: REQUEST_PAGE_PARAM_NAME_DEFAULT);
+        return $settingCommonList;
     }
     
     /**
@@ -98,9 +98,27 @@ class BaseAdminController extends Controller{
      */
     public function checkLogin() {
         if(!isset($_SESSION['isLoginAdmin']) && $_SESSION['isLoginAdmin'] != SYS_ADMIN_LOGIN_IN_FLAG){
-            var_dump($_SESSION);
-            var_dump('ss');exit;
+            return false;
+        }
+        return true;
+    }
+
+    public function handleLoginStatus() {
+        if(!$this->checkLogin()){
             $this->redirect('login');
         }
+    }
+
+    /**
+     * @doc 获取公共的查询条件
+     * @return array
+     * @author Heanes
+     * @time 2016-11-13 16:09:36 周日
+     */
+    public function getCommonShowDataSelectParam() {
+        return [
+            'is_enable'  => 1,
+            'is_deleted' => 0,
+        ];
     }
 }
