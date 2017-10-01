@@ -10,40 +10,42 @@ defined('InHeanes') or die('Access denied!');
 <div class="left-block left-wrap fl"></div>
 <!-- 中心区域 -->
 <div class="center-block center-wrap fl">
-    <!-- 文章列表 -->
-    <div class="article-list-block">
-        <?php foreach ($output['data']['article']['items'] as $key => $article){?>
-        <div class="article-list-row">
-            <div class="article-title">
-                <h1 class="title"><a href="/article/<?php echo $article['id'];?>.html"><?php echo $article['title'];?></a></h1>
+    <div class="center-content">
+        <!-- 文章列表 -->
+        <div class="article-list-block">
+            <?php foreach ($output['data']['article']['items'] as $key => $article){?>
+            <div class="article-list-row">
+                <div class="article-title">
+                    <h1 class="title"><a href="/article/<?php echo $article['id'];?>.html"><?php echo $article['title'];?></a></h1>
+                </div>
+                <div class="article-info">
+                    <dl>
+                        <dt>作者:</dt>
+                        <dd><?php echo $article['author'];?></dd>
+                    </dl>
+                    <dl>
+                        <dt>日期:</dt>
+                        <dd><?php echo $article['publishTimeFormative'];?></dd>
+                    </dl>
+                    <dl>
+                        <dt>点击:</dt>
+                        <dd><?php echo $article['clickCount'];?></dd>
+                    </dl>
+                    <dl>
+                        <dt>评论:</dt>
+                        <dd><?php echo $article['commentCount'];?></dd>
+                    </dl>
+                    <dl class="article-tags">
+                        <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>
+                        <dd><?php foreach ($article['articleTagList'] as $index => $tag){?><a href="<?php echo $tag['url']?>"><?php echo $tag['name']?></a><?php }?></dd>
+                    </dl>
+                </div>
             </div>
-            <div class="article-info">
-                <dl>
-                    <dt>作者:</dt>
-                    <dd><?php echo $article['author'];?></dd>
-                </dl>
-                <dl>
-                    <dt>日期:</dt>
-                    <dd><?php echo $article['publishTimeFormative'];?></dd>
-                </dl>
-                <dl>
-                    <dt>点击:</dt>
-                    <dd><?php echo $article['clickCount'];?></dd>
-                </dl>
-                <dl>
-                    <dt>评论:</dt>
-                    <dd><?php echo $article['commentCount'];?></dd>
-                </dl>
-                <dl class="article-tags">
-                    <dt><i class="fa fa-tags" aria-hidden="true"></i><span class="tags">标签:</span></dt>
-                    <dd><?php foreach ($article['articleTagList'] as $index => $tag){?><a href="<?php echo $tag['url']?>"><?php echo $tag['name']?></a><?php }?></dd>
-                </dl>
-            </div>
+            <?php }?>
         </div>
-        <?php }?>
+        <!-- 文章分页 -->
+        <?php echo $page;?>
     </div>
-    <!-- 文章分页 -->
-    <?php echo $page;?>
 </div>
 <!-- 右侧区域 -->
 <div class="right-block right-wrap float-block"></div>

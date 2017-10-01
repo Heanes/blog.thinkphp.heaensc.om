@@ -1,14 +1,15 @@
 <?php
 /**
- * @doc 通用布局文件
+ * @doc 公用布局文件
  * @author Heanes
- * @time 2016-07-15 10:32:28
+ * @time 2017-09-29 16:40:52 周五
  */
 defined('InHeanes') or die('Access denied!');
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
+    <!-- meta -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta charset="UTF-8"/>
     <!-- responsive -->
@@ -18,11 +19,11 @@ defined('InHeanes') or die('Access denied!');
     <meta name="author" content="Heanes heanes.com email(heanes@163.com)"/>
     <meta name="keywords" content="软件,商务,HTML,tutorials,source codes"/>
     <meta name="description" content="描述，不超过150个字符"/>
-    <!-- Favicon -->
+    <!-- favicon -->
     <link rel="shortcut icon" href="/public/static/image/favicon/favicon.ico"/>
     <link rel="bookmark" href="/public/static/image/favicon/favicon.ico"/>
     <!-- css -->
-    <include file="layout/commonCss"/>
+    <include file="layout/css.inset"/>
     <title><?php echo $output['common']['title'].$output['common']['titleCommonSuffix'];?></title>
 </head>
 <body>
@@ -43,6 +44,7 @@ defined('InHeanes') or die('Access denied!');
     <!-- S 脚部 S -->
     <include file="layout/footer"/>
     <!-- E 脚部 E -->
+    <include file="layout/js.inset"/>
 </div>
 </body>
 </html>

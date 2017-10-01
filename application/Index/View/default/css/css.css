@@ -5,6 +5,253 @@
  * @time 2017-09-07 19:45:24 周四
  */
 /**
+ * @doc responsive
+ */
+/**
+ * @doc 前台响应式样式
+ * @author Heanes
+ * @time 2017-05-12 10:56:46 周五
+ */
+/* Responsive */
+/* extra widely screen */
+/*@media screen and (min-width:1921px){
+    .main-wrap{width:1840px;}
+    .center-wrap{width:1300px;}
+    .right-fix-block .right-corner{margin-left:679px;}
+}*/
+/* PC */
+/* 此模式下左右工具栏展现 */
+@media screen and (min-width: 1367px) {
+  .main-wrap {
+    width: 90%;
+    max-width: 1740px; }
+
+  .main-content .left-wrap {
+    position: relative;
+    width: 260px;
+    margin-right: -260px;
+    z-index: 2; }
+
+  .main-content .right-wrap {
+    position: relative;
+    width: 260px;
+    margin-left: -260px; }
+
+  .center-wrap {
+    width: 100%;
+    position: relative; }
+
+  .center-wrap .center-content {
+    position: relative;
+    margin-left: 260px;
+    margin-right: 260px; }
+
+  .right-fix-block .right-corner {
+    margin-left: 679px; } }
+/* NoteBook */
+/* 此宽度下不显示侧栏 */
+@media screen and (max-width: 1366px) {
+  .main-wrap {
+    width: 1200px; }
+
+  .center-wrap {
+    width: 100%;
+    position: relative; }
+
+  .center-wrap .center-content {
+    position: relative;
+    margin-right: 260px; }
+
+  .main-content .right-wrap {
+    position: relative;
+    width: 260px;
+    margin-left: -260px; }
+
+  .left-wrap, .left-bar, .right-bar {
+    display: none; } }
+@media screen and (max-width: 1200px) {
+  .main-wrap {
+    width: 96%;
+    float: none; }
+
+  .center-wrap {
+    width: 100%; } }
+@media screen and (max-width: 767px) {
+  .center-wrap .center-content {
+    position: relative;
+    margin-right: 0; }
+
+  .right-wrap {
+    display: none; } }
+/* ipad */
+/* iPhone 6plus */
+/* iPhone 6 */
+/* iPhone 3 4 5 */
+/* Android and + */
+/* Android and + */
+/* 设备分辨率媒体查询 */
+/**
+ * @doc 页面框架样式
+ * @author Heanes
+ * @time 2015-11-21 22:11:30
+ */
+/* S 页面框架结构 S */
+/* 页面框架示例布局 */
+.full-frame-example .header {
+  height: 30px;
+  background-color: #f4f4f4; }
+.full-frame-example .footer {
+  height: 100px;
+  background-color: #686b6c; }
+
+/* S 中间主体 S */
+/* 中心主体上下全宽内容 */
+.main .main-top-block {
+  background: #fff;
+  margin-bottom: 12px; }
+
+.main .main-bottom-block {
+  background: #fff;
+  margin-bottom: 12px; }
+
+.full-frame-example .main .main-top-block,
+.full-frame-example .main .main-bottom-block {
+  height: 120px; }
+
+/* 中心主体上下主宽内容 */
+.main .main-top-content {
+  background: #fff;
+  margin-bottom: 12px; }
+
+.main .main-bottom-content {
+  background: #fff;
+  margin-bottom: 12px; }
+
+.full-frame-example {
+  /* 全宽区域 */ }
+  .full-frame-example .main .main-top-content,
+  .full-frame-example .main .main-bottom-content {
+    height: 140px; }
+
+/* 中心主体内容 */
+.full-frame-example .main .main-content {
+  margin-bottom: 12px;
+  background-color: #e9e9e9; }
+
+.main .main-content .center-block .center-content {
+  background-color: #fff; }
+
+.full-frame-example .main .main-content .center-block {
+  height: 600px; }
+.full-frame-example .main .main-content .center-block .center-content {
+  height: 100%; }
+
+.full-frame-example {
+  /* 左侧工具栏 */
+  /* 右侧工具栏 */ }
+  .full-frame-example .main .main-content .left-block {
+    height: 600px;
+    padding-right: 10px; }
+  .full-frame-example .main .main-content .left-block .left-content {
+    background: #fff;
+    height: 100%; }
+  .full-frame-example .main .main-content .right-block {
+    height: 600px;
+    padding-left: 10px; }
+  .full-frame-example .main .main-content .right-block .right-content {
+    background: #fff;
+    height: 100%; }
+
+.full-frame-example {
+  /* 左侧盯住栏 */
+  /* 右侧盯住栏 */ }
+  .full-frame-example .left-bar,
+  .full-frame-example .right-bar {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    height: 100%; }
+  .full-frame-example .left-bar {
+    left: 0;
+    width: 50px;
+    background: rgba(215, 230, 233, 0.5); }
+  .full-frame-example .right-bar {
+    right: 0;
+    width: 35px;
+    background: rgba(0, 0, 0, 0.5); }
+
+/* E 页面框架结构 E */
+.full-frame-example.marked .header:before,
+.full-frame-example.marked .footer:before {
+  display: inline-block;
+  width: 100%;
+  text-align: center; }
+.full-frame-example.marked .header:before {
+  content: "头部"; }
+.full-frame-example.marked .footer:before {
+  content: "脚部";
+  color: #fff; }
+.full-frame-example.marked .main .main-top-block:before,
+.full-frame-example.marked .main .main-bottom-block:before,
+.full-frame-example.marked .main .main-top-content:before,
+.full-frame-example.marked .main .main-bottom-content:before {
+  display: inline-block;
+  width: 100%;
+  text-align: center; }
+.full-frame-example.marked .main .main-top-block:before {
+  content: "顶部全宽"; }
+.full-frame-example.marked .main .main-bottom-block:before {
+  content: "底部全宽"; }
+.full-frame-example.marked .main .main-top-content:before {
+  content: "主体顶部主体宽"; }
+.full-frame-example.marked .main .main-bottom-content:before {
+  content: "主体底部主体宽"; }
+.full-frame-example.marked .main .main-content {
+  position: relative; }
+.full-frame-example.marked .main .main-content:before,
+.full-frame-example.marked .main .main-content .center-block:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 2; }
+.full-frame-example.marked .main .main-content:before {
+  content: "中心主体内容大区块"; }
+.full-frame-example.marked .main .main-content .center-block:before {
+  content: "中心主体内容中心";
+  top: 50%; }
+.full-frame-example.marked .main .main-content .left-block,
+.full-frame-example.marked .main .main-content .right-block {
+  height: 600px; }
+.full-frame-example.marked .main .main-content .left-block,
+.full-frame-example.marked .main .main-content .right-block {
+  position: relative; }
+.full-frame-example.marked .main .main-content .left-block:before,
+.full-frame-example.marked .main .main-content .right-block:before,
+.full-frame-example.marked .left-bar:before, .full-frame-example.marked .right-bar:before {
+  position: absolute;
+  margin: auto;
+  top: 50%;
+  width: 1em;
+  transform: translateY(-50%);
+  display: inline-block; }
+.full-frame-example.marked .main .main-content .left-block:before {
+  content: "左侧工具栏";
+  left: 2px; }
+.full-frame-example.marked .main .main-content .right-block:before {
+  content: "右侧工具栏";
+  right: 2px; }
+.full-frame-example.marked .left-bar:before {
+  content: "左侧钉住工具栏";
+  color: #98618b;
+  left: 2px; }
+.full-frame-example.marked .right-bar:before {
+  content: "右侧钉住工具栏";
+  color: #fff;
+  right: 2px; }
+
+/**
  * @doc common
  */
 /**
@@ -17,6 +264,80 @@
  * @author Heanes
  * @time 2017-09-10 19:42:53 周日
  */
+/**
+ * @doc 前台公共样式
+ * @author Heanes
+ * @time 2015-11-21 22:11:30
+ */
+/* 常用及简写样式 */
+.fixed {
+  position: fixed;
+  z-index: 100; }
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+.clear {
+  clear: both;
+  content: " ";
+  display: block; }
+
+.clear-left {
+  clear: left;
+  content: " ";
+  display: block; }
+
+.clear-right {
+  clear: right;
+  content: " ";
+  display: block; }
+
+.text-center {
+  text-align: center; }
+
+.text-right {
+  text-align: right; }
+
+.for-eye-protect {
+  background: #e3edcd; }
+
+.none {
+  display: none; }
+
+.relative {
+  position: relative; }
+
+/* iframe */
+iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0; }
+
+/* 通用命名下的样式 */
+.wrap {
+  width: 100%; }
+
+.wrap,
+.main-wrap,
+.header,
+.main,
+.footer,
+.center-wrap,
+.left-wrap,
+.right-wrap {
+  margin: 0 auto; }
+
+[class*="-wrap"] {
+  margin: 0 auto; }
+
+.fl {
+  float: left; }
+
 /**
  * @doc article 文章
  */

@@ -5,6 +5,7 @@
  * @time 2016-07-04 19:42:23 周一
  */
 namespace Admin\Controller;
+use Common\Service\AdminUserService;
 use Think\Verify;
 
 defined('InHeanes') or die('Access denied!');
@@ -30,7 +31,8 @@ class IndexController extends BaseAdminController {
         }
         $output['title'] = '后台管理起始页';
         $this->assign('output', $output);
-        $this->display('layout/home');
+        $this->display('layout/adminLayout');
+        return $this;
     }
 
     /**
@@ -47,27 +49,7 @@ class IndexController extends BaseAdminController {
         $output['title'] = '登陆';
         $this->assign('output', $output);
         $this->display('layout/login');
-    }
-
-    /**
-     * @doc 退出登录
-     * @author Heanes
-     * @time 2016-10-31 18:34:26 周一
-     */
-    public function loginOutOp() {
-        if($this->doLoginOut()){
-            $this->display('login/loginOut');
-        }
-    }
-
-    /**
-     * @doc 退出登录
-     * @author Heanes
-     * @time 2016.11.03日11:09:08 周四
-     */
-    private function doLoginOut() {
-        unset($_SESSION['isLoginAdmin']);
-        return true;
+        return $this;
     }
 
     /**
@@ -75,7 +57,7 @@ class IndexController extends BaseAdminController {
      * @author Heanes
      * @time 2016-10-31 16:39:03 周一
      */
-    private function doLoginOp() {
+    public function doLoginOp() {
         $postAdminName = I('request.adminName', '', 'string');
         $postAdminPassword = I('request.adminPassword', '', 'string');
         $postAdminCaptcha = I('request.adminCaptcha', '', 'string');
@@ -93,9 +75,34 @@ class IndexController extends BaseAdminController {
             }
         }
 
-        $this->adminLogin($result, $postAdminName, $postAdminPassword);
-        //returnJson($result);
-        $this->redirect('index/index', null, 5, '登陆成功，正在跳转。。。');
+        $loginResult = $this->adminLogin($result, $postAdminName, $postAdminPassword);
+        if($loginResult['success']){
+            $this->redirect('index/index', null, 5, '登陆成功，正在跳转。。。');
+        }else{
+            echo $loginResult['message'];
+        }
+        return $this;
+    }
+
+    /**
+     * @doc 退出登录
+     * @author Heanes
+     * @time 2016-10-31 18:34:26 周一
+     */
+    public function loginOutOp() {
+        if($this->doLoginOut()){
+            $this->display('login/loginOut');
+        }
+        return $this;
+    }
+
+    /**
+     * @doc 退出登录
+     * @author Heanes
+     * @time 2016.11.03日11:09:08 周四
+     */
+    private function doLoginOut() {
+        unset($_SESSION['isLoginAdmin']);
         return true;
     }
 
@@ -108,18 +115,18 @@ class IndexController extends BaseAdminController {
         $result['message'] = '';
         $result['success'] = false;
         $adminUserService = new AdminUserService();
-        $adminUserRaw = $adminUserService
-            ->where("user_name = '${adminName}' and is_deleted = 0")
-            ->find();
+        $adminUserParam['where'] = $this->getCommonShowDataSelectParam();
+        $adminUserParam['where']['user_name'] = $adminName;
+        $adminUserRaw = $adminUserService->getOne($adminUserParam);
         if($adminUserRaw == null || $adminUserRaw == [] || $adminUserRaw == ''){
             $result['message'] = "用户${adminName}不存在";
             return $result;
         }
-        if($adminUserRaw['user_pwd'] != encryptPassword($adminPassword)){
+        if($adminUserRaw['userPwd'] != encryptPassword($adminPassword)){
             $result['message'] = "密码不正确";
             return $result;
         }
-        if($adminUserRaw['is_enable'] != 1){
+        if($adminUserRaw['isEnable'] != 1){
             $result['message'] = "用户${adminName}已被禁用";
             return $result;
         }
