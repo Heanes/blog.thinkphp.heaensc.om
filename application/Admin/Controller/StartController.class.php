@@ -8,11 +8,8 @@ namespace Admin\Controller;
 defined('InHeanes') or die('Access denied!');
 class StartController extends BaseAdminController {
     
-    private $output;
-    
     function __construct(){
         parent::__construct();
-        $this->output = $this->commonOutput;
         $this->checkLogin();
     }
     

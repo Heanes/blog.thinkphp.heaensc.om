@@ -24,7 +24,7 @@ defined('InHeanes') or die('Access denied!');
     <link rel="bookmark" href="/public/static/image/favicon/favicon.ico"/>
     <!-- css -->
     <include file="layout/css.inset"/>
-    <title><?php echo $output['common']['title'].$output['common']['titleCommonSuffix'];?></title>
+    <title><?php echo $output['title'].$output['common']['titleCommonSuffix'];?></title>
 </head>
 <body>
 <div class="center wrap clearfix">
@@ -35,9 +35,7 @@ defined('InHeanes') or die('Access denied!');
     <div class="main">
         <!-- 主体内容 -->
         <div class="main-content main-wrap clearfix">
-            <!-- 模版文件内容开始 -->
             {__CONTENT__}
-            <!-- 模版文件内容结束 -->
         </div>
     </div>
     <!-- E 主要内容 E -->

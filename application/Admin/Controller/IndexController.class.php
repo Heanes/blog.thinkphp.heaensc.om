@@ -26,10 +26,11 @@ class IndexController extends BaseAdminController {
      */
     public function indexOp(){
         if(!$this->checkLogin()){
-            $this->loginOp();
+            $this->redirect('login');
             return $this;
         }
         $output['title'] = '后台管理起始页';
+        layout(false);
         $this->assign('output', $output);
         $this->display('layout/adminLayout');
         return $this;
@@ -42,13 +43,14 @@ class IndexController extends BaseAdminController {
      */
     public function loginOp() {
         if($this->checkLogin()){
-            $this->indexOp();
+            $this->redirect('admin');
             return $this;
         }
         $output = $this->commonOutput;
         $output['title'] = '登陆';
+        layout(false);
         $this->assign('output', $output);
-        $this->display('layout/login');
+        $this->display('login/login');
         return $this;
     }
 
@@ -62,22 +64,18 @@ class IndexController extends BaseAdminController {
         $postAdminPassword = I('request.adminPassword', '', 'string');
         $postAdminCaptcha = I('request.adminCaptcha', '', 'string');
         $result = [];
+
+        // 检查登录提交的数据
         $needCaptcha = $this->commonOutput['common']['settingCommon']['adminLoginNeedCaptcha'] ?: false;
         if(!($this->checkLoginParam($result, $postAdminName, $postAdminPassword, $postAdminCaptcha, $needCaptcha))){
             returnJson($result);
             return false;
         }
-        // 检查验证码
-        if($needCaptcha){
-            if(!($this->checkAdminCaptcha($postAdminCaptcha))){
-                returnJson($result);
-                return false;
-            }
-        }
 
-        $loginResult = $this->adminLogin($result, $postAdminName, $postAdminPassword);
+        // 检查登录信息是否正确
+        $loginResult = $this->checkAdminLogin($result, $postAdminName, $postAdminPassword);
         if($loginResult['success']){
-            $this->redirect('index/index', null, 5, '登陆成功，正在跳转。。。');
+            $this->redirect('index/index', null, 2, '登陆成功，正在跳转。。。');
         }else{
             echo $loginResult['message'];
         }
@@ -85,78 +83,47 @@ class IndexController extends BaseAdminController {
     }
 
     /**
-     * @doc 退出登录
-     * @author Heanes
-     * @time 2016-10-31 18:34:26 周一
-     */
-    public function loginOutOp() {
-        if($this->doLoginOut()){
-            $this->display('login/loginOut');
-        }
-        return $this;
-    }
-
-    /**
-     * @doc 退出登录
-     * @author Heanes
-     * @time 2016.11.03日11:09:08 周四
-     */
-    private function doLoginOut() {
-        unset($_SESSION['isLoginAdmin']);
-        return true;
-    }
-
-    /**
-     * @doc 管理员登录
+     * @doc 检查管理员登录
      * @author Heanes
      * @time 2016-10-31 16:56:13 周一
      */
-    private function adminLogin(&$result, $adminName, $adminPassword) {
+    private function checkAdminLogin(&$result, $adminName, $adminPassword) {
         $result['message'] = '';
         $result['success'] = false;
         $adminUserService = new AdminUserService();
         $adminUserParam['where'] = $this->getCommonShowDataSelectParam();
         $adminUserParam['where']['user_name'] = $adminName;
-        $adminUserRaw = $adminUserService->getOne($adminUserParam);
-        if($adminUserRaw == null || $adminUserRaw == [] || $adminUserRaw == ''){
+        $adminUser = $adminUserService->getOne($adminUserParam);
+        if($adminUser == null || $adminUser == [] || $adminUser == ''){
             $result['message'] = "用户${adminName}不存在";
             return $result;
         }
-        if($adminUserRaw['userPwd'] != encryptPassword($adminPassword)){
+        if($adminUser['userPwd'] != encryptPassword($adminPassword)){
             $result['message'] = "密码不正确";
             return $result;
         }
-        if($adminUserRaw['isEnable'] != 1){
+        if($adminUser['isEnable'] != 1){
             $result['message'] = "用户${adminName}已被禁用";
             return $result;
         }
-        $adminUserCamelStyle = convertToCamelStyle($adminUserRaw);
-        $_SESSION['isLoginAdmin']['flag'] = SYS_ADMIN_LOGIN_IN_FLAG;
-        $_SESSION['isLoginAdmin']['admin'] = $adminUserCamelStyle;
-        $result['body'] = $adminUserCamelStyle;
+
+        $result['body'] = $adminUser;
         $result['success'] = true;
+        $this->adminLoginIn($adminUser);
         return $result;
     }
 
     /**
      * @doc 管理员登陆后的连带更新及附加操作
      * @param $loginUser array 登录成功的用户
+     * @return $this
      * @author Heanes
      * @time 2016年11月04日00:04:14
      */
     private function adminLoginIn($loginUser){
-        ;
-    }
-
-    /**
-     * @doc 检查登录验证码
-     * @return bool
-     * @author Heanes
-     * @time 2016-10-31 17:36:09 周一
-     */
-    private function checkAdminCaptcha($code, $id = '') {
-        $verify = new Verify();
-        return $verify->check($code, $id);
+        $_SESSION['isLoginAdmin']['flag'] = SYS_ADMIN_LOGIN_IN_FLAG;
+        $_SESSION['isLoginAdmin']['admin'] = $loginUser;
+        return $this;
     }
 
     /**
@@ -187,9 +154,25 @@ class IndexController extends BaseAdminController {
                 $messageArray[] = '验证码为空！';
                 $checkResult = false;
             }
+            // 验证验证码
+            if(!($this->checkAdminCaptcha($adminCaptcha))){
+                $messageArray[] = '验证码错误！';
+                $checkResult = false;
+            }
         }
         $result['message'] = implode(',', $messageArray);
         return $checkResult;
+    }
+
+    /**
+     * @doc 检查登录验证码
+     * @return bool
+     * @author Heanes
+     * @time 2016-10-31 17:36:09 周一
+     */
+    private function checkAdminCaptcha($code, $id = '') {
+        $verify = new Verify();
+        return $verify->check($code, $id);
     }
 
     /**
@@ -214,5 +197,28 @@ class IndexController extends BaseAdminController {
     private function verifyCaptcha($code, $id = '') {
         $verify = new Verify();
         return $verify->check($code, $id);
+    }
+
+
+    /**
+     * @doc 退出登录
+     * @author Heanes
+     * @time 2016-10-31 18:34:26 周一
+     */
+    public function loginOutOp() {
+        if($this->doLoginOut()){
+            $this->display('login/loginOut');
+        }
+        return $this;
+    }
+
+    /**
+     * @doc 退出登录
+     * @author Heanes
+     * @time 2016.11.03日11:09:08 周四
+     */
+    private function doLoginOut() {
+        unset($_SESSION['isLoginAdmin']);
+        return true;
     }
 }

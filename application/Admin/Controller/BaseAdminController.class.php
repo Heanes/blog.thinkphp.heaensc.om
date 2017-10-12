@@ -42,7 +42,10 @@ class BaseAdminController extends Controller{
         // 定义主题
         $this->getTheme();
         // 通用标题后缀
-        $this->commonOutput['common']['titleCommonSuffix'] = '管理后台 - ' . $this->commonOutput['common']['settingCommon']['webTitle'];
+        $this->commonOutput['common']['titleCommonSuffix'] = ' - 管理后台 - ' . $this->commonOutput['common']['settingCommon']['webTitle'];
+
+        // 分页
+        $this->initPager();
     }
 
     /**
@@ -66,6 +69,31 @@ class BaseAdminController extends Controller{
         define('REQUEST_PAGE_PARAM_NAME', $settingCommonList['requestPageParamName'] != null ?: REQUEST_PAGE_PARAM_NAME_DEFAULT);
         return $settingCommonList;
     }
+
+    /**
+     * @doc 初始化分页相关数据
+     */
+    private function initPager() {
+        $this->pager = [
+            'pagePramName'     => $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT,
+            'pageSizePramName' => $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT,
+            'pageSizeDefault'  => $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT,
+        ];
+    }
+
+    /**
+     * @doc 获取分页参数数组
+     * @author Heanes
+     * @time 2017-09-11 13:08:32 周一
+     */
+    public function getPageParamArray() {
+        $pageNumber = I('request.' . $this->pager['pagePramName'], 1, 'int');
+        $pageSize = I('request.' . $this->pager['pageSizePramName'], $this->pager['pageSizeDefault'], 'int');
+        return [
+            'pageNumber' => $pageNumber,
+            'pageSize'   => $pageSize,
+        ];
+    }
     
     /**
      * @doc 获取数据库设置的主题功能
@@ -82,22 +110,12 @@ class BaseAdminController extends Controller{
     }
     
     /**
-     * @doc 获取设置里的分页大小
-     * @author Heanes fang <heanes@163.com>
-     * @time 2016-06-23 10:30:33 周四
-     */
-    protected function getPageCondition() {
-        $settingOriginResult = $this->getSettingCommon();
-        $page = new Page();
-    }
-    
-    /**
      * @doc 检查登录
      * @author Heanes
      * @time 2016-10-30 23:35:44 周日
      */
     public function checkLogin() {
-        if(!isset($_SESSION['isLoginAdmin']) && $_SESSION['isLoginAdmin'] != SYS_ADMIN_LOGIN_IN_FLAG){
+        if(!isset($_SESSION['isLoginAdmin']) && $_SESSION['isLoginAdmin']['flag'] != SYS_ADMIN_LOGIN_IN_FLAG){
             return false;
         }
         return true;

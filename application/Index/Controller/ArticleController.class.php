@@ -7,12 +7,10 @@
 namespace Index\Controller;
 defined('InHeanes') or die('Access denied!');
 
+use Index\Controller\Article\ArticleWebService;
 use Common\Service\ArticleCategoryService;
 use Common\Service\ArticleContentService;
 use Common\Service\ArticleService;
-use Common\Service\ArticleTagLibService;
-use Common\Service\ArticleTagService;
-use Index\Controller\Article\ArticleWebService;
 use Think\Exception;
 use Think\Page;
 

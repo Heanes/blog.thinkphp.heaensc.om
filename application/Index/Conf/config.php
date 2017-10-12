@@ -7,7 +7,4 @@ return array(
     
     // 额外配置
     'load_ext_config'       => 'defaultCommonConstants,router.config,template.config,autoLoad.config',
-    'AUTOLOAD_NAMESPACE' => array(
-        'Common' => APP_PATH . 'Common',
-    ),
 );

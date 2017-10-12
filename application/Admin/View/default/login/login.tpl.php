@@ -26,18 +26,17 @@ defined('InHeanes') or exit('Access Invalid!');
     <link rel="bookmark" href="/public/static/image/favicon/favicon.ico"/>
     <!-- css -->
     <include file="layout/css.inset"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/login.css"/>
     <title><?php echo $output['common']['title'].$output['common']['titleCommonSuffix'];?></title>
 </head>
-<body class="admin-login green-sky background-image">
+<body>
 <div class="wrap">
     <!-- S 主要内容 S -->
     <div class="main">
         <!-- 主体内容 -->
         <div class="main-content main-wrap clearfix">
             <!-- 中心区域 -->
-            <div class="center-block center-wrap right-content">
-                <div id="clouds" class="admin-login cloud-stage"></div>
+            <div class="center-block center-wrap">
+                <div class="admin-login background-image"></div>
                 <div class="admin-login-box-background"></div>
                 <div class="admin-login-box login-block">
                     <h1>后台管理系统登录</h1>
@@ -103,8 +102,6 @@ defined('InHeanes') or exit('Access Invalid!');
     <!-- S js S -->
     <script type="text/javascript" src="/public/static/libs/js/jquery/2.1.4/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/public/static/libs/js/jquery.spritely/0.6.8/jquery.spritely-0.6.8.js"></script><!-- 云层效果 -->
-    <script type="text/javascript" src="<?php echo TPL;?>/js/common/common.js"></script>
-    <script type="text/javascript" src="<?php echo TPL;?>/js/chur.min.js"></script><!-- 蒲公英漂浮效果 -->
     <script type="text/javascript">
         $(function () {
             var tplPath = '<?php echo TPL;?>';
@@ -161,6 +158,34 @@ defined('InHeanes') or exit('Access Invalid!');
                 });
                 return false;
             });
+
+
+            var $adminLoginBG = $('.admin-login.background-image');
+            var $bgArr = [
+                '<?php echo TPL;?>/image/login/login-bg-1.jpg',
+                '<?php echo TPL;?>/image/login/login-bg-2.jpg',
+                '<?php echo TPL;?>/image/login/login-bg-3.jpg',
+                '<?php echo TPL;?><?php echo TPL;?>/image/login/login-bg-4.jpg',
+                '<?php echo TPL;?>/image/login/login-bg-5.jpg',
+                '<?php echo TPL;?>/image/login/login-bg-6.jpg',
+                '<?php echo TPL;?>/image/login/login-bg-7.jpg',
+                '<?php echo TPL;?>/image/login/login-bg-8.jpg',
+                '<?php echo TPL;?>/image/login/login-bg-9.jpg'
+            ];
+
+            /**
+             * @doc 随机更换背景
+             * @param $dom
+             * @param $bgArr
+             * @author Heanes
+             * @time 2017-10-01 08:25:23 周天
+             */
+            function setRandomAdminLoginBg($dom, $bgArr) {
+                var total = $bgArr.length;
+                var choseNumber = Math.floor(Math.random() * total);
+                $dom.css('background-image', 'url(' + $bgArr[choseNumber] + ')');
+            }
+            setRandomAdminLoginBg($adminLoginBG, $bgArr);
         });
     </script>
     <!-- E js E -->

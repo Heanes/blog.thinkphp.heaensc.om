@@ -5,6 +5,6 @@
  * @time 2016-11-04 17:48:02 周五
  */
 return array(
-    'layout_on'             => false,                   // 开启布局
+    'layout_on'             => true,                    // 开启布局
     'layout_name'           => 'layout/layoutCommon',   // 默认布局名称
 );
