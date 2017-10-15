@@ -7,4 +7,5 @@
 defined('InHeanes') or die('Access denied!');
 ?>
 <link rel="stylesheet" type="text/css" href="//ui.heanes.com/dist/css/heanesUI.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/css.css"/>
+<!--<link rel="stylesheet" type="text/css" href="<?php /*echo TPL;*/?>/css/css.css"/>-->
+<link rel="stylesheet" type="text/css" href="http://html.blog.heanes.com/html/admin/css/css.css"/>

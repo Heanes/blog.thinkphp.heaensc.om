@@ -8,6 +8,7 @@
 namespace Common\Service;
 defined('InHeanes') or die('Access denied!');
 
+use Common\Constants\ArticleConstants;
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
 
@@ -66,7 +67,16 @@ class ArticleService extends BaseService{
         // ---- 数据后续加工处理
         foreach ($articleListDataRaw as $index => &$item) {
             $item['publishTimeFormative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['publish_time']);
+            $item['createTimeFormative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['create_time']);
+            // 文章分类
             $item['articleCategory'] = $articleCategoryListIBId[$item['category_id']];
+            // 置顶、新发布、热门
+            $item['isTop'] = $item['is_top'] == ArticleConstants::IS_TOP ? true : false;
+            $item['isNew'] = $item['is_new'] == ArticleConstants::IS_NEW ? true : false;
+            $item['isHot'] = $item['is_hot'] == ArticleConstants::IS_HOT ? true : false;
+            $item['isGreat'] = $item['is_great'] == ArticleConstants::IS_GREAT ? true : false;
+            $item['isEnable'] = $item['is_enable'] == ArticleConstants::IS_ENABLE ? true : false;
+            $item['isDeleted'] = $item['is_deleted'] == ArticleConstants::IS_DELETED ? true : false;
         }
         $articleListRaw['items'] = $articleListDataRaw;
 

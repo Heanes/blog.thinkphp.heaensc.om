@@ -39,7 +39,7 @@
           },
           {
             "text": "文章评论",
-            "href": "color/color.html",
+            "href": "articleComment/index.html",
             "nodeIcon": "fa fa-dashboard",
             "iconSelected": "",
             "selectable": true,
@@ -53,7 +53,7 @@
           },
           {
             "text": "文章标签",
-            "href": "color/color.html",
+            "href": "articleTag/index.html",
             "nodeIcon": "fa fa-dashboard",
             "iconSelected": "",
             "selectable": true,
@@ -67,7 +67,7 @@
           },
           {
             "text": "文章分类",
-            "href": "color/color.html",
+            "href": "articleCategory/index.html",
             "nodeIcon": "fa fa-dashboard",
             "iconSelected": "",
             "selectable": true,
@@ -83,7 +83,7 @@
       },
       {
         "text": "网站设置",
-        "href": "layout/guide.html",
+        "href": "",
         "nodeIcon": "fa fa-balance-scale",
         "iconSelected": "",
         "selectable": true,
@@ -95,7 +95,7 @@
         "nodes": [
           {
             "text": "网站导航",
-            "href": "color/color.html",
+            "href": "navigation/index.html",
             "nodeIcon": "fa fa-dashboard",
             "iconSelected": "",
             "selectable": true,
@@ -109,7 +109,7 @@
           },
           {
             "text": "友情链接",
-            "href": "color/color.html",
+            "href": "friendLink/index.html",
             "nodeIcon": "fa fa-dashboard",
             "iconSelected": "",
             "selectable": true,
@@ -123,7 +123,7 @@
           },
           {
             "text": "基础设置",
-            "href": "color/color.html",
+            "href": "setting/index.html",
             "nodeIcon": "fa fa-dashboard",
             "iconSelected": "",
             "selectable": true,

@@ -72,6 +72,7 @@ class ArticleController extends BaseAdminController {
         $this->assign('page',$pageShow);
 
         $output['title'] = '文章列表';
+        $output['data']['article'] = $articlePageList;
         $this->assign('output', $output);
         $this->display('article/list');
         return $this;
