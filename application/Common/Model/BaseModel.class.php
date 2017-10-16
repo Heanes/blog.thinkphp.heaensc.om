@@ -91,7 +91,7 @@ class BaseModel extends Model {
      * @author Heanes
      * @time 2017-09-13 15:00:52 周三
      */
-    public function getById($id, $param) {
+    public function getById($id, $param = []) {
         if($param != null){
             if(is_array($param['where'])){
                 $param['where'] = array_merge($param['where'], ['id' => $id]);
@@ -110,7 +110,7 @@ class BaseModel extends Model {
         return $dataRaw;
     }
 
-    public function insert($param){
+    public function insert($param = []){
         return 1;
     }
 

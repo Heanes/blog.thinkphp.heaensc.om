@@ -9,6 +9,7 @@ namespace Common\Service;
 defined('InHeanes') or die('Access denied!');
 
 use Common\Constants\ArticleConstants;
+use Common\Model\ArticleContentModel;
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
 
@@ -18,6 +19,11 @@ class ArticleService extends BaseService{
      * @var ArticleModel 文章模型
      */
     private $articleModel;
+
+    /**
+     * @var ArticleContentModel 文章模型
+     */
+    private $articleContentModel;
 
     /**
      * @var ArticleCategoryModel 文章分类模型
@@ -86,7 +92,7 @@ class ArticleService extends BaseService{
     }
 
     /**
-     * @doc 列表页
+     * @doc 文章数据详情
      * @param array $param 查询参数
      * @param string $resultStyle 结果风格，驼峰或者原生
      * @author Heanes fang <heanes@163.com>
@@ -99,12 +105,18 @@ class ArticleService extends BaseService{
         if($articleRaw == null || count($articleRaw) == 0){
             return [];
         }
+        // 0. 查询文章内容信息
+        $articleContentModel = new ArticleContentModel();
+        $articleContentRaw = $articleContentModel->getById($articleRaw['id']);
+        $articleRaw['content'] = $articleContentRaw['content'] ?: '';
+
         // 1. 查询文章分类信息
         /*$articleCategoryService = new ArticleCategoryService();
         $articleCategoryListSR = $articleCategoryService->getList();
         $articleRaw['articleCategoryTree'] = findParent($articleCategoryListSR, $articleRaw['category_id']);*/
         // 数据后续加工处理
         $articleRaw['publish_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $articleRaw['publish_time']);
+        $articleRaw['create_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $articleRaw['create_time']);
 
         $articleResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleRaw) : $articleRaw;
         return $articleResult;

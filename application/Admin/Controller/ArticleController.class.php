@@ -99,13 +99,18 @@ class ArticleController extends BaseAdminController {
         }
         $output = $this->commonOutput;
         $articleParam['where'] = $this->getCommonShowDataSelectParam();
-        $id = 1;
 
         // 1. 查询数据
         $articleService = new ArticleService();
-        $article = $articleService->getDetailById($id, $articleParam);
+        $article = $articleService->getDetailById($requestId, $articleParam);
+
+        // 1.1 查询所有文章分类数据
+        
+        // 1.1 查询所有文章标签数据
+
         // 2. 处理文章其他数据
         if($article){
+            // 2.0 获取文章分类数据
 
             // 2.1. 获取文章标签数据
             $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList([$article['id']]);

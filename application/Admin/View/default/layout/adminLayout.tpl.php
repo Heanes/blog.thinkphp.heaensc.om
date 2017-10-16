@@ -88,7 +88,7 @@
         <!-- 主体内容 -->
         <div class="main-content main-wrap clearfix">
             <!-- 左侧区域 -->
-            <div class="left-block left-wrap left-width scrollbar"></div>
+            <div class="left-block left-wrap left-width scrollbar scrollbar-mini"></div>
             <!-- 中心区域 -->
             <div class="center-block center-wrap iframe-container">
                 <!-- tabs相关操作 -->
