@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="//ui.heanes.com/dist/css/heanesUI.css"/>
     <link rel="stylesheet" type="text/css" href="//r.html.heanes.com/work/heanes.com/treeView.js/css/treeView.css">
     <link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/css.css"/>
-    <title>首页-后台管理-modernUI</title>
+    <title><?php echo $output['title'].$output['common']['titleCommonSuffix'];?></title>
 </head>
 <body>
 <div class="center wrap layout">

@@ -11,12 +11,8 @@ use Think\Verify;
 defined('InHeanes') or die('Access denied!');
 class IndexController extends BaseAdminController {
     
-    private $output;
-    
     function __construct(){
         parent::__construct();
-        $this->output = $this->commonOutput;
-
     }
 
     /**
@@ -29,7 +25,8 @@ class IndexController extends BaseAdminController {
             $this->redirect('login');
             return $this;
         }
-        $output['title'] = '后台管理起始页';
+        $output = $this->commonOutput;
+        $output['title'] = '首页';
         layout(false);
         $this->assign('output', $output);
         $this->display('layout/adminLayout');

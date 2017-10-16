@@ -7,8 +7,13 @@
 return array(
     // 路由相关
     'url_route_rules'   =>array(
+        // 登录
         '/^login$/' => 'index/login',
         '/^doLogin$/' => 'index/doLogin',
+        // 登出
+
+        // 文章 - 编辑
+        'article/edit/:id\d$'                 => 'admin/article/edit',
     ),
     'url_router_on'        => true,        // 开启路由
     'url_model'            => 2,           // URL模式

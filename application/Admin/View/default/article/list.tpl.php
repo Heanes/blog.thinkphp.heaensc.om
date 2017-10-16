@@ -83,7 +83,7 @@ defined('InHeanes') or die('Access denied!');
         <div class="global-message hide" id="globalMessage">
         </div>
         <!-- 数据相关信息显示区域 -->
-        <div class="data-info box-normal">
+        <div class="data-info box-normal hide">
         </div>
         <!-- 数据操作区域 -->
         <div class="date-handle">
@@ -135,9 +135,8 @@ defined('InHeanes') or die('Access denied!');
                             </a>
                         </td>
                         <td>
-                            <a href="javascript:;" class="op-btn btn btn-primary btn-mini"><i class="op-icon fa fa-edit" aria-hidden="true"></i><span class="btn-text">编辑</span></a>
+                            <a href="edit/<?php echo $article['id']?>.html" class="op-btn btn btn-primary btn-mini"><i class="op-icon fa fa-edit" aria-hidden="true"></i><span class="btn-text">编辑</span></a>
                             <a href="javascript:;" class="op-btn btn btn-info btn-mini"><i class="op-icon fa fa-search-plus" aria-hidden="true"></i><span class="btn-text">查看</span></a>
-                            <a href="javascript:;" class="op-btn btn btn-success btn-mini"><i class="op-icon fa fa-clock-o" aria-hidden="true"></i><span class="btn-text">历史</span></a>
                             <a href="javascript:;" class="op-btn btn btn-danger btn-mini"><i class="op-icon fa fa-trash" aria-hidden="true"></i><span class="btn-text">删除</span></a>
                         </td>
                     </tr>

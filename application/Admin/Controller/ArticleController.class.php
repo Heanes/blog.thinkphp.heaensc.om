@@ -39,7 +39,7 @@ class ArticleController extends BaseAdminController {
     }
     
     /**
-     * @doc 文章模块起始页面
+     * @doc 文章数据[页面]
      * @author Heanes
      * @time 2016-11-06 18:31:40 周日
      */
@@ -79,20 +79,44 @@ class ArticleController extends BaseAdminController {
     }
     
     /**
-     * @doc 文章分页列表
+     * @doc 文章分页列表数据[接口]
      * @author Heanes
      * @time 2016-11-06 18:34:51 周日
      */
     public function pageList() {
         ;
     }
-    
+
     /**
-     * @doc 文章列表获取
+     * @doc 编辑[页面]
      * @author Heanes
-     * @time 2016-11-06 18:34:24 周日
+     * @time 2017-10-15 22:23:45 周天
      */
-    public function listAll() {
-        ;
+    public function editOp() {
+        $requestId = I('request.id', null, 'int');
+        if(!isset($requestId)){
+            $this->error('参数不对');
+        }
+        $output = $this->commonOutput;
+        $articleParam['where'] = $this->getCommonShowDataSelectParam();
+        $id = 1;
+
+        // 1. 查询数据
+        $articleService = new ArticleService();
+        $article = $articleService->getDetailById($id, $articleParam);
+        // 2. 处理文章其他数据
+        if($article){
+
+            // 2.1. 获取文章标签数据
+            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList([$article['id']]);
+
+            // 3. 装入其他数据
+        }
+
+        $output['title'] = '编辑文章';
+        $output['data']['article'] = $article;
+        $this->assign('output', $output);
+        $this->display('article/edit');
+        return $this;
     }
 }
