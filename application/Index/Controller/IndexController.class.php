@@ -57,6 +57,7 @@ class IndexController extends BaseIndexController {
         $articleParam['where'] = $this->getCommonShowDataSelectParam();
         // 0.1. 分页参数
         $articleParam['page'] = $this->getPageParamArray();
+        $articleParam['order'] = 'publish_time desc, id desc';
         // 1. 查询数据
         $articleService = new ArticleService();
         $articlePageList = $articleService->getList($articleParam);
@@ -74,7 +75,7 @@ class IndexController extends BaseIndexController {
         }
 
         // 文章分页显示
-        $articlePageList['articlePager'] = $articlePager = new Page($articlePageList['page']['totalPage'], $articleParam['page']['pageSize']);
+        $articlePageList['articlePager'] = $articlePager = new Page($articlePageList['page']['totalItem'], $articleParam['page']['pageSize']);
         $articlePageList['articlePageShow'] = $articlePageShow = $articlePager->show();
 
         return $articlePageList;

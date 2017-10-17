@@ -107,7 +107,8 @@ class ArticleService extends BaseService{
         }
         // 0. 查询文章内容信息
         $articleContentModel = new ArticleContentModel();
-        $articleContentRaw = $articleContentModel->getById($articleRaw['id']);
+        $articleContentParam['where']['article_id'] = $articleRaw['id'];
+        $articleContentRaw = $articleContentModel->getOne($articleContentParam);
         $articleRaw['content'] = $articleContentRaw['content'] ?: '';
 
         // 1. 查询文章分类信息

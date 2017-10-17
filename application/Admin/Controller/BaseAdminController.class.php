@@ -75,10 +75,12 @@ class BaseAdminController extends Controller{
      */
     private function initPager() {
         $this->pager = [
-            'pagePramName'     => $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT,
-            'pageSizePramName' => $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT,
-            'pageSizeDefault'  => $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT,
+            'pagePramName'     => $this->commonOutput['common']['settingCommon']['requestPageParamName'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT,
+            'pageSizePramName' => $this->commonOutput['common']['settingCommon']['requestPageSizeParamName'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT,
+            'pageSizeDefault'  => $this->commonOutput['common']['settingCommon']['dataListPageSize'] ?: DATA_LIST_PAGE_SIZE_DEFAULT,
         ];
+        // 配置分页参数
+        C('VAR_PAGE', $this->pager['pagePramName']);
     }
 
     /**

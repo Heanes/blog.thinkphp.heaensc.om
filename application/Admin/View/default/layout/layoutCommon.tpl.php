@@ -24,6 +24,7 @@ defined('InHeanes') or die('Access denied!');
     <link rel="bookmark" href="/public/static/image/favicon/favicon.ico"/>
     <!-- css -->
     <include file="layout/css.inset"/>
+    <include file="layout/js.inset"/>
     <title><?php echo $output['title'].$output['common']['titleCommonSuffix'];?></title>
 </head>
 <body>
@@ -42,7 +43,6 @@ defined('InHeanes') or die('Access denied!');
     <!-- S 脚部 S -->
     <include file="layout/footer"/>
     <!-- E 脚部 E -->
-    <include file="layout/js.inset"/>
 </div>
 </body>
 </html>

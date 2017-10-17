@@ -49,7 +49,7 @@ class ArticleController extends BaseAdminController {
 
         // 0.2.分页参数
         $articleParam['page'] = $this->getPageParamArray();
-        $articleParam['order'] = ['publish_time desc'];
+        $articleParam['order'] = 'publish_time desc, id desc';
         // 1. 查询数据
         $articleService = new ArticleService();
         $articlePageList = $articleService->getList($articleParam);
@@ -67,12 +67,12 @@ class ArticleController extends BaseAdminController {
         }
 
         // 分页显示
-        $pager = new Page($articlePageList['page']['totalPage'], $articleParam['page']['pageSize']);
-        $pageShow = $pager->show();
-        $this->assign('page',$pageShow);
+        $articlePager = new Page($articlePageList['page']['totalItem'], $articleParam['page']['pageSize']);
+        $articlePageShow = $articlePager->show();
 
         $output['title'] = '文章列表';
         $output['data']['article'] = $articlePageList;
+        $output['data']['article']['articlePageShow'] = $articlePageShow;
         $this->assign('output', $output);
         $this->display('article/list');
         return $this;
@@ -105,7 +105,7 @@ class ArticleController extends BaseAdminController {
         $article = $articleService->getDetailById($requestId, $articleParam);
 
         // 1.1 查询所有文章分类数据
-        
+
         // 1.1 查询所有文章标签数据
 
         // 2. 处理文章其他数据

@@ -44,7 +44,7 @@ defined('InHeanes') or die('Access denied!');
             <?php }?>
         </div>
         <!-- 文章分页 -->
-        <?php echo $page;?>
+        <?php echo $output['data']['article']['articlePageShow'];?>
     </div>
 </div>
 <!-- 右侧区域 -->

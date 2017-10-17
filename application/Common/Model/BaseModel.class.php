@@ -30,10 +30,12 @@ class BaseModel extends Model {
             $dataListRaw = $this
                 ->page($this->generatePagePram($param['page']))
                 ->where($param['where'])
+                ->order($param['order'])
                 ->select();
         }else{
             $dataListRaw = $this
                 ->where($param['where'])
+                ->order($param['order'])
                 ->select();
         }
         if($dataListRaw == null || count($dataListRaw) <= 0){
@@ -99,6 +101,8 @@ class BaseModel extends Model {
             if(is_string($param['where'])){
                 $param['where'] .= ' and `id` = ' . $id;
             }
+        }else{
+            $param['where'] = '`id` = ' . $id;
         }
         $dataRaw = $this
             ->where($param['where'])
@@ -158,8 +162,8 @@ class BaseModel extends Model {
             $page = [
                 'pageSize'      => $pageSize,
                 'pageNumber'    => $pageNumber,
-                'hasNextPage'   => $pageNumber > 1,
-                'hasPrevPage'   => ($totalPage - $pageNumber) > 1,
+                'hasPrevPage'   => $pageNumber > 1,
+                'hasNextPage'   => ($totalPage - $pageNumber) > 1,
                 'totalPage'     => $totalPage,
                 'totalItem'     => $totalItem,
             ];
