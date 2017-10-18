@@ -33,7 +33,7 @@ defined('InHeanes') or die('Access denied!');
                 <div class="line-group">
                     <div class="form-group inline">
                         <label class="control-label" for="id">ID：</label>
-                        <input type="text" name="id" class="form-control" id="id" placeholder="请输入ID" value="<?php echo $output['data']['article']['id']?>" readonly disabled>
+                        <input type="text" name="id" class="form-control" id="id" placeholder="请输入ID" value="<?php echo $output['data']['article']['id']?>" readonly>
                     </div>
                 </div>
                 <div class="line-group">
@@ -105,12 +105,12 @@ defined('InHeanes') or die('Access denied!');
                         </p>
                     </div>
                 </div>
-                <div class="line-group">
+                <!--<div class="line-group">
                     <div class="form-group inline">
                         <label class="control-label" for="articleContentByUEditor">内容：</label>
-                        <textarea class="form-control textarea-content uEditor" name="articleContentByUEditor" id="articleContentByUEditor"><?php echo $output['data']['article']['content']?></textarea>
+                        <textarea class="form-control textarea-content uEditor" name="articleContentByUEditor" id="articleContentByUEditor"><?php /*echo $output['data']['article']['content']*/?></textarea>
                     </div>
-                </div>
+                </div>-->
                 <div class="form-handle">
                     <div class="handle-group line-group text-center">
                         <button type="button" class="handle btn">放弃</button>
@@ -171,7 +171,8 @@ defined('InHeanes') or die('Access denied!');
                     'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                     'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
                     'insertunorderedlist', '|', 'emoticons', '|', 'source', '|', 'undo', 'redo',],
-                cssData: 'body {font-size:14px}'
+                cssData: 'body {font-size:14px}',
+                filterMode: false
             };
             // 文章内容部分
             var kindEditorContentOption = {
@@ -183,11 +184,13 @@ defined('InHeanes') or die('Access denied!');
                 afterChange : function() {
                     $('.word-count1').html(this.count());
                     $('.word-count2').html(this.count('text'));
-                }
+                },
+                filterMode: false
             };
+            var articleTitleKE, articleContentKE;
             KindEditor.ready(function(K) {
-                K.create('textarea[name="articleTitle"]', kindEditorTitleOption);
-                K.create('textarea[name="articleContent"]', kindEditorContentOption);
+                articleTitleKE = K.create('textarea[name="articleTitle"]', kindEditorTitleOption);
+                articleContentKE = K.create('textarea[name="articleContent"]', kindEditorContentOption);
             });
 
             /**
@@ -197,10 +200,15 @@ defined('InHeanes') or die('Access denied!');
              */
             //实例化编辑器
             //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-            var ue = UE.getEditor('articleContentByUEditor');
+            //var ue = UE.getEditor('articleContentByUEditor');
 
 
             // ---------------- 数据处理 ----------------
+
+            var B_API = JSON.parse('<?php echo $output['data']['pageApi']?>');
+            var API = {
+                update: B_API.update
+            };
             var $articleForm = $('.article-form');
             var $articleDataSubmitBtn = $('#articleDataSubmitBtn');
             /**
@@ -209,7 +217,21 @@ defined('InHeanes') or die('Access denied!');
              * @time 2017-10-17 14:22:24 周二
              */
             $articleDataSubmitBtn.on('click', function () {
-                console.log($articleForm.serializeArray());
+                // 非原生form表单方式提交数据，需要调用kindEditor的sync方法来同步数据到原始textarea
+                articleTitleKE.sync();
+                articleContentKE.sync();
+                var $articlePostDataObj = $articleForm.serializeArray();
+                $.ajax({
+                    url: API.update,
+                    data: $articlePostDataObj,
+                    type : 'POST',
+                    success : function(result) {
+                        console.log(result);
+                    },
+                    error : function() {
+                        console.log('接口错误');
+                    }
+                });
                 return false;
             });
         });

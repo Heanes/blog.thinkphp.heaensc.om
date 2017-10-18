@@ -140,4 +140,33 @@ class ArticleService extends BaseService{
         return $updateCount;
     }
 
+    public function update($param) {
+        $updateCount = 0;
+        // 1. 先更新文章数据
+        $articleParam = [
+            'data' => [
+                'title' => $param['data']['title'],
+                'create_time' => strtotime($param['data']['createTimeFormative']),
+            ],
+            'where' => [
+                'id' => $param['where']['id'],
+            ],
+        ];
+        $updateArticleCount = $this->articleModel->update($articleParam);
+        // 2. 再更新文章内容数据
+        $articleContentModel = new ArticleContentModel();
+        $articleContentParam = [
+            'data' => [
+                'content' => $param['data']['content'],
+            ],
+            'where' => [
+                'article_id' => $param['where']['id'],
+            ],
+        ];
+        $updateArticleContentCount = $articleContentModel->update($articleContentParam);
+        // 3. 再更新文章标签数据
+
+        return $updateArticleContentCount;
+    }
+
 }

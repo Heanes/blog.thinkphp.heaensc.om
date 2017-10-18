@@ -8,7 +8,8 @@ return array(
     // 路由相关
     'url_route_rules' => array(
         // index页面文章路由
-        'page/:page\d$'                     => 'index/index/index',
+        'p/:p\d$'                     => 'index/index/index',
+        'index/p/:p\d$'                     => 'index/index/index',
         // 文章路由
         'article/p/:p\d$'                => 'index/article/index',
         'article/:id\d$'                    => 'index/article/detail',

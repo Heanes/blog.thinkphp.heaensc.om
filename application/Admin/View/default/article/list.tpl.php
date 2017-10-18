@@ -135,7 +135,7 @@ defined('InHeanes') or die('Access denied!');
                             </a>
                         </td>
                         <td>
-                            <a href="edit/<?php echo $article['id']?>.html" class="op-btn btn btn-primary btn-mini"><i class="op-icon fa fa-edit" aria-hidden="true"></i><span class="btn-text">编辑</span></a>
+                            <a href="<?php echo $article['articleEditUrl']?>" class="op-btn btn btn-primary btn-mini"><i class="op-icon fa fa-edit" aria-hidden="true"></i><span class="btn-text">编辑</span></a>
                             <a href="javascript:;" class="op-btn btn btn-info btn-mini"><i class="op-icon fa fa-search-plus" aria-hidden="true"></i><span class="btn-text">查看</span></a>
                             <a href="javascript:;" class="op-btn btn btn-danger btn-mini"><i class="op-icon fa fa-trash" aria-hidden="true"></i><span class="btn-text">删除</span></a>
                         </td>
@@ -155,6 +155,8 @@ defined('InHeanes') or die('Access denied!');
         <div class="data-list-footer">
             <!-- 分页 -->
             <div class="data-pager clearfix">
+                <!-- 文章分页 -->
+                <?php echo $output['data']['article']['articlePageShow'];?>
                 <div class="pagination-wrap pull-right">
                     <ul class="pagination">
                         <li class="page-item prev-page">

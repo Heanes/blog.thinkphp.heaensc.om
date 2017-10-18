@@ -91,6 +91,19 @@ class BaseService{
     }
 
     /**
+     * @doc 更新
+     * @param array $param param
+     * @return mixed bool
+     * @author Heanes
+     * @time 2017-10-17 19:39:14 卓尔
+     */
+    public function update($param) {
+        $updateCount = $this->model->update($param);
+        return $updateCount;
+    }
+
+
+    /**
      * @doc 初始化
      * @return $this
      * @author Heanes

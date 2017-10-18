@@ -62,6 +62,7 @@ class ArticleController extends BaseAdminController {
 
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
+                $item['articleEditUrl'] = U('admin/article/edit/' . $item['id']);
                 $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
             }
         }
@@ -120,8 +121,55 @@ class ArticleController extends BaseAdminController {
 
         $output['title'] = '编辑文章';
         $output['data']['article'] = $article;
+        $output['data']['pageApi'] = json_encode([
+            'update' => U('admin/article/update'),
+        ]);
         $this->assign('output', $output);
         $this->display('article/edit');
         return $this;
+    }
+
+    /**
+     * @doc 文章分页列表数据[接口]
+     * @author Heanes
+     * @time 2016-11-06 18:34:51 周日
+     */
+    public function updateOp() {
+        $requestArticle = $this->handelUpdateParam();
+        if($requestArticle){
+            $articleService = new ArticleService();
+            $articleUpdateParam = [
+                'data' => $requestArticle,
+                'where' => [
+                    'id' => $requestArticle['id']
+                ],
+            ];
+            $updateCount = $articleService->update($articleUpdateParam);
+            if($updateCount != false){
+                $this->success('更新成功');
+            }else{
+                $this->error('更新失败。');
+            }
+        }else{
+            $this->error('更新失败，参数错误');
+        }
+    }
+
+    private function handelUpdateParam() {
+        $requestId = I('request.id', null, 'int');
+        if($requestId == null){
+            return false;
+        }
+        $requestArticleTitle = $_POST['articleTitle'];//I('request.articleTitle', null, 'string');
+        $requestCreateTime = I('request.createTime', null, 'string');
+        $requestContent =  $_POST['articleContent'];//I('request.articleContent', null, 'string');
+
+        $requestArticle = [
+            'id'         => $requestId,
+            'title'      => $requestArticleTitle,
+            'content'    => $requestContent,
+            'createTimeFormative' => $requestCreateTime,
+        ];
+        return $requestArticle;
     }
 }
