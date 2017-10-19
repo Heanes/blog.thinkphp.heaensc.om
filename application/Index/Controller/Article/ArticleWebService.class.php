@@ -17,17 +17,20 @@ trait ArticleWebService {
 
     /**
      * @doc 查询文章列表信息
+     * @param array $articleParam 查询参数
      * @return array
      * @author Heanes
      * @time 2017-10-19 17:26:48 周四
      */
-    public function getArticleList() {
-        // 显示文章列表信息
-        $articleParam = [];
-        $articleParam['where'] = $this->getCommonShowDataSelectParam();
-        // 0.1. 分页参数
-        $articleParam['page'] = $this->getPageParamArray();
-        $articleParam['order'] = 'publish_time desc, id desc';
+    public function getArticleList($articleParam = []) {
+        // 默认参数
+        if($articleParam == []){
+            $articleParam['where'] = $this->getCommonShowDataSelectParam();
+            // 0.1. 分页参数
+            $articleParam['page'] = $this->getPageParamArray();
+            $articleParam['order'] = 'publish_time desc, id desc';
+        }
+
         // 1. 查询数据
         $articleService = new ArticleService();
         $articlePageList = $articleService->getList($articleParam);
@@ -41,10 +44,19 @@ trait ArticleWebService {
             // 2.2. 获取文章分类数据
             $articleCategoryGBArticleId = $this->getArticleCategoryMapListByArticleCategoryIdList($articleCatIdList);
 
+            // 2. 获取文章作者信息
+            $articleAuthorList = [];
+            $articleAuthor = [
+                'id' => 1,
+                'name' => 'Heanes',
+                'url' => U('articleAuthor/' . 1),
+            ];
+
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
                 $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
                 $item['articleCategory'] = $articleCategoryGBArticleId[$item['categoryId']];
+                $item['author'] = $articleAuthor;
             }
         }
 

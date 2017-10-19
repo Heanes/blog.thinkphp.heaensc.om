@@ -23,7 +23,7 @@ defined('InHeanes') or die('Access denied!');
                             <div class="article-attribute-info">
                                 <dl>
                                     <dt>作者:</dt>
-                                    <dd><?php echo $article['author'];?></dd>
+                                    <dd><a href="<?php echo $article['author']['url'];?>"><?php echo $article['author']['name'];?></a></dd>
                                 </dl>
                                 <dl>
                                     <dt>日期:</dt>

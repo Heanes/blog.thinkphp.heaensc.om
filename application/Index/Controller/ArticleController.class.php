@@ -66,31 +66,10 @@ class ArticleController extends BaseIndexController {
         $articleParam['page'] = $this->getPageParamArray();
         $articleParam['order'] = 'publish_time desc, id desc';
         // 1. 查询数据
-        $articlePageList = $this->articleService->getList($articleParam);
-        // 2. 处理文章其他数据
-        if($articlePageList['items']){
-            $articleIdList = array_unique(array_column($articlePageList['items'], 'id'));
-            $articleCatIdList = array_unique(array_column($articlePageList['items'], 'categoryId'));
-
-            // 2.1. 获取文章标签数据
-            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
-            // 2.2. 获取文章分类数据
-            $articleCategoryGBArticleId = $this->getArticleCategoryMapListByArticleCategoryIdList($articleCatIdList);
-
-            // 3. 装入其他数据
-            foreach ($articlePageList['items'] as $index => &$item) {
-                $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
-                $item['articleCategory'] = $articleCategoryGBArticleId[$item['categoryId']];
-            }
-        }
-
-        // 分页显示
-        $articlePager = new Page($articlePageList['page']['totalItem'], $articleParam['page']['pageSize']);
-        $articlePageShow = $articlePager->show();
+        $articlePageList = $this->getArticleList($articleParam);
 
         $output['common']['title'] .= '文章列表';
         $output['data']['article'] = $articlePageList;
-        $output['data']['article']['articlePageShow'] = $articlePageShow;
         $this->assign('output', $output);
         $this->display('list');
         return $this;
@@ -128,6 +107,11 @@ class ArticleController extends BaseIndexController {
             }
             $articleSR['articleCategoryTree'] = $articleCategoryTree;
             // 2. 获取文章作者信息
+            $articleSR['author'] = [
+                'id' => 1,
+                'name' => 'Heanes',
+                'url' => U('articleAuthor/' . 1),
+            ];
 
             // 3. 获取文章标签信息
             $articleTagList = $this->getArticleTagMapListByArticleIdList([$requestId])[$requestId];
@@ -150,11 +134,12 @@ class ArticleController extends BaseIndexController {
 
     /**
      * @doc 点击文章后的后续操作
+     * @param int $requestId 文章ID
      * @author Heanes
      * @time 2017-09-18 10:19:17 周一
+     * @return $this
      */
     private function afterDetailHandle($requestId) {
-        // TODO 更新文章相关属性，如阅读数等
         // 1. 更新文章点击数据
         $param['id'] = $requestId;
         $this->articleService->afterDetailHandle($param);

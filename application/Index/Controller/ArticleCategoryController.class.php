@@ -45,16 +45,7 @@ class ArticleCategoryController extends BaseIndexController {
         $param['where'] = $this->getCommonShowDataSelectParam();
         
         // 1.2.分页参数
-        $pagePramName = $this->commonOutput['settingCommon']['request_page_param_name'] ?: REQUEST_PAGE_PARAM_NAME_DEFAULT;
-        $pageSizePramName = $this->commonOutput['settingCommon']['request_page_size_param_name'] ?: REQUEST_PAGE_SIZE_PARAM_NAME_DEFAULT;
-        $pageSizeDefault = $this->commonOutput['settingCommon']['data_list_page_size'] ?: DATA_LIST_PAGE_SIZE_DEFAULT;
-        $pageNumber = I('request' . $pagePramName, 1, 'int');
-        $pageSize = I('request' . $pageSizePramName, $pageSizeDefault, 'int');
-        $page = [
-            'pageNumber'    => $pageNumber,
-            'pageSize'      => $pageSize,
-        ];
-        $param['page'] = $page;
+        $articleParam['page'] = $this->getPageParamArray();
 
         // 显示文章分类列表信息
         $output['data']['article'] = $this->articleModel->listAll($param);
@@ -81,7 +72,7 @@ class ArticleCategoryController extends BaseIndexController {
     }
 
     /**
-     * @doc 标签详情，显示具有该标签的所有文章
+     * @doc 分类详情，显示具有该分类的所有文章
      * @return $this
      * @author Heanes
      * @time 2017-09-19 13:07:24 周二
@@ -114,19 +105,7 @@ class ArticleCategoryController extends BaseIndexController {
         $articleParam['where']['category_id'] = $articleCategorySR['id'];
         // 1. 查询文章列表，按发布时间降序
         $articleParam['order'] = ['publish_time desc'];
-        $articleService = new ArticleService();
-        $articlePageList = $articleService->getList($articleParam);
-        // 2. 处理文章其他数据
-        if ($articlePageList['items']) {
-            $articleIdList = array_column($articlePageList['items'], 'id');
-            // 2.1. 获取文章标签数据
-            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
-            // 3. 装入其他数据
-            foreach ($articlePageList['items'] as $index => &$item) {
-                $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
-            }
-        }
-
+        $articlePageList = $this->getArticleList($articleParam);
         $output['data']['article'] = $articlePageList;
 
         $output['common']['title'] .= $articleCategorySR['name'] . ' - 文章分类';

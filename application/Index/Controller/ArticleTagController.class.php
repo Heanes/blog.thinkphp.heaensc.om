@@ -75,11 +75,25 @@ class ArticleTagController extends BaseIndexController{
         // 2. 处理文章其他数据
         if ($articlePageList['items']) {
             $articleIdList = array_column($articlePageList['items'], 'id');
+            $articleCatIdList = array_unique(array_column($articlePageList['items'], 'categoryId'));
+
             // 2.1. 获取文章标签数据
             $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
+            // 2.2. 获取文章分类数据
+            $articleCategoryGBArticleId = $this->getArticleCategoryMapListByArticleCategoryIdList($articleCatIdList);
+
+            // 2. 获取文章作者信息
+            $articleAuthorList = [];
+            $articleAuthor = [
+                'id' => 1,
+                'name' => 'Heanes',
+                'url' => U('articleAuthor/' . 1),
+            ];
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
                 $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
+                $item['articleCategory'] = $articleCategoryGBArticleId[$item['categoryId']];
+                $item['author'] = $articleAuthor;
             }
         }
 
