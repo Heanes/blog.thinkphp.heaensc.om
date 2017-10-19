@@ -25,7 +25,7 @@ defined('InHeanes') or die('Access denied!');
     <include file="layout/commonCss"/>
     <title><?php echo $output['common']['title'].$output['common']['titleCommonSuffix'];?></title>
 </head>
-<body>
+<body class="scrollbar scrollbar-mini">
 <div class="center wrap clearfix">
     <!-- S 头部 S -->
     <include file="layout/header"/>

@@ -6,12 +6,13 @@
  */
 defined('InHeanes') or die('Access denied!');
 ?>
+<link type="text/css" rel="stylesheet" href="//r.html.heanes.com/work/heanes.com/autoCatalog.js/css/autoCatalog.css">
 <!-- 文章导航目录样式 -->
 <div class="main-content main-wrap clearfix">
     <!-- 左侧区域 -->
-    <div class="left-block left-wrap float-block"></div>
+    <div class="left-block left-wrap fl"></div>
     <!-- 中心区域 -->
-    <div class="center-block center-wrap float-block">
+    <div class="center-block center-wrap fl">
         <div class="center-content">
             <div class="page-content">
                 <div class="article-detail-page">
@@ -207,11 +208,17 @@ defined('InHeanes') or die('Access denied!');
         </div>
     </div>
     <!-- 右侧区域 -->
-    <div class="right-block right-wrap fl"></div>
+    <div class="right-block right-wrap fl">
+        <div class="right-content">
+            <!-- 文章目录导航 -->
+            <div class="side-content" id="articleCatalog"></div>
+        </div>
+    </div>
 </div>
 <cite>
     <!-- S js S -->
     <include file="layout/commonJs"/>
+    <script type="text/javascript" src="//r.html.heanes.com/work/heanes.com/autoCatalog.js/js/autoCatalog.js"></script>
     <script type="text/javascript">
         $(function () {
             var API = {
@@ -230,6 +237,18 @@ defined('InHeanes') or die('Access denied!');
                 // 文章点赞
                 'articleThumbsUpAdd':'/api/articleThumbsUp/add'
             };
+
+            var $articleContent = $('#articleContent');
+            /**
+             * @doc 仿百度百科自动生成文章目录导航
+             * @author Heanes
+             * @time 2016-04-13 18:07:26
+             */
+            $articleContent.autoCatalog({
+                catalogContainer: $('#articleCatalog'),        // 放置生成目录的容器dom
+                step:90,
+                alwaysShow:true
+            });
 
             // @todo 文章关键词
             // @todo 相关文章算法

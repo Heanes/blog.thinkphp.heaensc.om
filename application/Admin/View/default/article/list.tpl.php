@@ -27,27 +27,27 @@ defined('InHeanes') or die('Access denied!');
                 <!-- 表单输入区域 -->
                 <div class="input-block">
                     <div class="line-group">
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="control-label" for="searchOrderId">订单ID：</label>
                             <input type="text" name="searchOrderId" class="form-control" id="searchOrderId" placeholder="请输入订单ID">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="control-label" for="searchShopName">店铺名称：</label>
                             <input type="text" name="searchShopName" class="form-control" id="searchShopName" placeholder="店铺名称">
                         </div>
                     </div>
                     <div class="line-group">
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="control-label" for="searchOrderTimeStart">下单时间：</label>
                             <input type="text" name="searchOrderTimeStart" class="form-control" id="searchOrderTimeStart" placeholder="请输入下单起始时间">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="control-label text-center" for="searchOrderTimeEnd">/</label>
                             <input type="text" name="searchOrderTimeEnd" class="form-control" id="searchOrderTimeEnd" placeholder="请输入下单截止时间">
                         </div>
                     </div>
                     <div class="line-group">
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="control-label" for="searchShopId">选择店铺：</label>
                             <select name="searchShopId" id="searchShopId" class="form-control select2 normal-input-width">
                                 <option value="">请选择</option>
@@ -57,7 +57,7 @@ defined('InHeanes') or die('Access denied!');
                                 <option value="4">店铺4</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="control-label" for="searchPayType">付款方式：</label>
                             <select name="searchPayType" id="searchPayType" class="form-control normal-input-width">
                                 <option value="">请选择</option>

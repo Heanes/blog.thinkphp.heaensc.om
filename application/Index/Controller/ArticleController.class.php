@@ -69,14 +69,18 @@ class ArticleController extends BaseIndexController {
         $articlePageList = $this->articleService->getList($articleParam);
         // 2. 处理文章其他数据
         if($articlePageList['items']){
-            $articleIdList = array_column($articlePageList['items'], 'id');
+            $articleIdList = array_unique(array_column($articlePageList['items'], 'id'));
+            $articleCatIdList = array_unique(array_column($articlePageList['items'], 'categoryId'));
 
             // 2.1. 获取文章标签数据
             $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
+            // 2.2. 获取文章分类数据
+            $articleCategoryGBArticleId = $this->getArticleCategoryMapListByArticleCategoryIdList($articleCatIdList);
 
             // 3. 装入其他数据
             foreach ($articlePageList['items'] as $index => &$item) {
                 $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
+                $item['articleCategory'] = $articleCategoryGBArticleId[$item['categoryId']];
             }
         }
 

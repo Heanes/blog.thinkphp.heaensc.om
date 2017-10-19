@@ -37,48 +37,12 @@ class IndexController extends BaseIndexController {
         $output = $this->commonOutput;
 
         // 1. 文章数据
-        $articlePageList = $this->getArticleData();
+        $articlePageList = $this->getArticleList();
         $output['data']['article'] = $articlePageList;
 
         $output['common']['title'] = '首页';
         $this->assign('output', $output);
         $this->display('index');
-    }
-
-    /**
-     * @doc 获取文章数据
-     * @return mixed
-     * @author Heanes
-     * @time 2017-09-13 15:14:10 周三
-     */
-    private function getArticleData() {
-        // 显示文章列表信息
-        $articleParam = [];
-        $articleParam['where'] = $this->getCommonShowDataSelectParam();
-        // 0.1. 分页参数
-        $articleParam['page'] = $this->getPageParamArray();
-        $articleParam['order'] = 'publish_time desc, id desc';
-        // 1. 查询数据
-        $articleService = new ArticleService();
-        $articlePageList = $articleService->getList($articleParam);
-        // 2. 处理文章其他数据
-        if($articlePageList['items']){
-            $articleIdList = array_column($articlePageList['items'], 'id');
-
-            // 2.1. 获取文章标签数据
-            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
-
-            // 3. 装入其他数据
-            foreach ($articlePageList['items'] as $index => &$item) {
-                $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
-            }
-        }
-
-        // 文章分页显示
-        $articlePageList['articlePager'] = $articlePager = new Page($articlePageList['page']['totalItem'], $articleParam['page']['pageSize']);
-        $articlePageList['articlePageShow'] = $articlePageShow = $articlePager->show();
-
-        return $articlePageList;
     }
 
 }

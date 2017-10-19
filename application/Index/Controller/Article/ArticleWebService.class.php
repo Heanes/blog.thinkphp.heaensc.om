@@ -7,15 +7,57 @@
 
 namespace Index\Controller\Article;
 
+use Common\Service\ArticleCategoryService;
+use Common\Service\ArticleService;
 use Common\Service\ArticleTagLibService;
 use Common\Service\ArticleTagService;
+use Think\Page;
 
 trait ArticleWebService {
 
+    /**
+     * @doc 查询文章列表信息
+     * @return array
+     * @author Heanes
+     * @time 2017-10-19 17:26:48 周四
+     */
+    public function getArticleList() {
+        // 显示文章列表信息
+        $articleParam = [];
+        $articleParam['where'] = $this->getCommonShowDataSelectParam();
+        // 0.1. 分页参数
+        $articleParam['page'] = $this->getPageParamArray();
+        $articleParam['order'] = 'publish_time desc, id desc';
+        // 1. 查询数据
+        $articleService = new ArticleService();
+        $articlePageList = $articleService->getList($articleParam);
+        // 2. 处理文章其他数据
+        if($articlePageList['items']){
+            $articleIdList = array_unique(array_column($articlePageList['items'], 'id'));
+            $articleCatIdList = array_unique(array_column($articlePageList['items'], 'categoryId'));
+
+            // 2.1. 获取文章标签数据
+            $articleTagGBArticleId = $this->getArticleTagMapListByArticleIdList($articleIdList);
+            // 2.2. 获取文章分类数据
+            $articleCategoryGBArticleId = $this->getArticleCategoryMapListByArticleCategoryIdList($articleCatIdList);
+
+            // 3. 装入其他数据
+            foreach ($articlePageList['items'] as $index => &$item) {
+                $item['articleTagList'] = $articleTagGBArticleId[$item['id']];
+                $item['articleCategory'] = $articleCategoryGBArticleId[$item['categoryId']];
+            }
+        }
+
+        // 文章分页显示
+        $articlePageList['articlePager'] = $articlePager = new Page($articlePageList['page']['totalItem'], $articleParam['page']['pageSize']);
+        $articlePageList['articlePageShow'] = $articlePageShow = $articlePager->show();
+
+        return $articlePageList;
+    }
 
 
     /**
-     * @doc
+     * @doc 根据文章id列表获取文章的标签数据(map)
      * @param $articleIdList
      * @return array
      * @author Heanes
@@ -41,6 +83,25 @@ trait ArticleWebService {
             }
         }
         return $articleTagGBArticleId;
+    }
+
+    /**
+     * @doc 根据文章id列表获取文章的分类数据，只获取一层(map)
+     * @param array $articleCategoryIdList 文章分类ID集合
+     * @return array
+     * @author Heanes
+     * @time 2017-10-19 18:30:13 周四
+     */
+    public function getArticleCategoryMapListByArticleCategoryIdList($articleCategoryIdList) {
+        // 2.1. 获取文章标签数据
+        $articleCategoryParam['where']['id'] = ['in', $articleCategoryIdList];
+        $articleCategoryService = new ArticleCategoryService();
+        $articleCategorySR = $articleCategoryService->getList($articleCategoryParam);
+        $articleCategoryGBId = [];
+        foreach ($articleCategorySR as $index => $item) {
+            $articleCategoryGBId[$item['id']] = ['id' => $item['id'], 'name' => $item['name'], 'url' => U('articleCategory/' . urlencode($item['name']))];
+        }
+        return $articleCategoryGBId;
     }
 
 }
