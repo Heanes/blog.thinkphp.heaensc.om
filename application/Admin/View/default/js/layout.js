@@ -100,11 +100,13 @@ $(function () {
                 data: data,
                 iconCollapse: 'triangle-right', // 合上时的图标
                 iconExpand: 'triangle-down',    // 展开时的图标
-                enableIndentLeft: false,        // 允许向左缩进
                 enableLink: true,               // 开启链接
                 enableTopSwitch: true,          // 开启顶部切换标识
+                enableIndentLeft: true,         // 允许向左缩进
+                enableTreeSearch: true,         // 开启树菜单搜索
+                treeSearchPlaceholder: '搜索(名称及链接)',// 树菜单搜索的提示字符
                 showTopNavIcon: false,          // 顶部导航是否显示图标
-                topSwitcherTarget: '.menu-top', // 开启了顶部切换后，根节点展示在此处(填写jQuery选择器支持的字符)
+                topSwitcherTarget: $('.menu-top'),// 开启了顶部切换后，根节点展示在此处，根节点展示在此处(填写jQuery Dom)
                 showSingleNodeIcon: true,       // 无子树节点是否显示图标
                 style: {
                     topActive: {
@@ -134,7 +136,7 @@ $(function () {
                 },                              // 样式相关
 
                 onNodeClick: function (event, node) {
-                    if(node.target && node.target == '_blank'){
+                    if(node.target && node.target === '_blank'){
                         window.open(node.href);
                         return false;
                     }
@@ -143,7 +145,20 @@ $(function () {
                         .append('<span class="tab-title">' + node.text + '</span>');
                     addJqxTabFromANode($aNode);
                     return false;
-                }
+                },
+                onTopSwitch: function (event) {
+                    if(lapHandleClick){
+                        $('#lapLeftMenu').trigger('click');
+                    }
+                    if(leftTreeIndentFlag){
+                        $('.tree-list-lap').trigger('click');
+                    }
+                    //console.log('顶部被点击，左侧会切换');
+                },
+                onTreeIndentLeft: function (event) {
+                    leftTreeIndent();
+                    //console.log('左侧树缩进');
+                },
             });
 
             //@Todo url带子树路径
@@ -190,19 +205,21 @@ $(function () {
      * @time 2016-12-21 16:39:46 周三
      * @type {*}
      */
-    var lapHandleClick = false;
     var $leftWith = $('.left-width');
-    var leftWidth = $leftWith.css('width');
+    var $leftWrap = $('.left-wrap');
+    var leftWrapWidth = $leftWrap.css('width');
+    var lapHandleClick = false;
     $('#lapLeftMenu').on('click', function () {
         if(lapHandleClick){
             $leftBlock.animate({
-                'width': leftWidth
+                'width': leftWrapWidth
             });
             $centerBlock.animate({
-                'padding-left': leftWidth
+                'padding-left': leftWrapWidth
             });
             lapHandleClick = false;
         }else{
+            leftWrapWidth = $leftWrap.css('width');
             $leftBlock.animate({
                 'width': '0'
             });
@@ -212,5 +229,27 @@ $(function () {
             lapHandleClick = true;
         }
     });
+
+    var leftTreeIndentFlag = false;
+    var leftWidth = $leftWith.css('width');
+    function leftTreeIndent() {
+        if(leftTreeIndentFlag){
+            $leftBlock.animate({
+                'width': leftWidth
+            });
+            $centerBlock.animate({
+                'padding-left': leftWidth
+            });
+            leftTreeIndentFlag = false;
+        }else{
+            $leftBlock.animate({
+                'width': '40px'
+            });
+            $centerBlock.animate({
+                'padding-left': '40px'
+            });
+            leftTreeIndentFlag = true;
+        }
+    }
 
 });

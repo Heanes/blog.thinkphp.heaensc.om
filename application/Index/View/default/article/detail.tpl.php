@@ -52,7 +52,7 @@ defined('InHeanes') or die('Access denied!');
                                     <dt><a href="#comment-list" class="comment-count">评论:</a></dt>
                                     <dd><a href="#comment-list" class="comment-count"><?php echo $output['data']['commentCount'];?></a></dd>
                                     <dt>作者:</dt>
-                                    <dd><?php echo $output['data']['author'];?></dd>
+                                    <dd><a href="<?php echo $output['data']['author']['url'];?>"><?php echo $output['data']['author']['name'];?></a></dd>
                                     <dt>责编:</dt>
                                     <dd><?php echo $output['data']['editor'];?></dd>
                                     <dt>时间:</dt>

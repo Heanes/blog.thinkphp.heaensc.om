@@ -20,12 +20,279 @@
   border-radius: 4px; }
 
 /**
- * @doc layout-布局样式
- */
-/**
- * @doc admin布局
+ * @doc 全局快速公用样式
  * @author Heanes
- * @time 2017-09-29 18:57:28 周五
+ * @time 2017-10-12 17:46:28 周四
+ */
+.pull-right {
+  float: right; }
+
+.hide {
+  display: none; }
+
+[disabled="disabled"], .disabled {
+  pointer-events: none; }
+
+/**
+ * @doc 页面面包屑导航
+ * @author Heanes
+ * @time 2017-10-12 17:02:07 周四
+ */
+.page-breadcrumb {
+  margin: 14px;
+  padding: 8px;
+  background-color: #f5f5f5; }
+
+.page-breadcrumb.bg-normal {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd; }
+
+/**
+ * @doc 页面框架
+ * @author Heanes
+ * @time 2017-10-12 17:11:53 周四
+ */
+.page-content {
+  padding: 16px; }
+
+/**
+ * @doc 查询表单
+ * @author Heanes
+ * @time 2017-10-12 17:11:53 周四
+ */
+.search-form-wrap {
+  position: relative;
+  margin-bottom: 20px;
+  background-color: #f5f5f5; }
+
+.search-form-wrap.bg-normal {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd; }
+
+.search-form-wrap.bg-normal .search-form {
+  padding: 20px; }
+
+.search-form .input-block,
+.search-form .form-handle {
+  display: table-cell; }
+
+.search-form .line-group.last,
+.search-form .line-group:last-child {
+  margin-bottom: 0; }
+
+.search-form .line-group .form-group {
+  margin-bottom: 20px; }
+
+.search-form .line-group .control-label {
+  min-width: 84px;
+  text-align: right; }
+
+.search-form .line-group .control-label.text-center {
+  text-align: center; }
+
+.search-form .line-group .form-control {
+  min-width: 178px; }
+
+.search-form .line-group .normal-input-width,
+.search-form .line-group .select2-container {
+  min-width: 178px; }
+
+.search-form .form-handle {
+  vertical-align: middle;
+  padding: 0 50px 0; }
+
+.search-form .form-handle .handle-inline {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 20px; }
+
+.search-form .form-handle .handle-inline:last-child {
+  margin-right: 0; }
+
+.search-form .form-handle .handle-inline input[type="reset"],
+.search-form .form-handle .handle-inline button[type="reset"] {
+  margin-left: 40px; }
+
+/**
+ * @doc 全局消息
+ * @author Heanes
+ * @time 2016-09-08 18:36:48 周四
+ */
+.global-message {
+  margin: 20px 0; }
+
+/**
+ * @doc 数据列表统计区域
+ * @author Heanes
+ * @time 2016-09-08 18:36:38 周四
+ */
+.data-info {
+  margin: 20px 0; }
+
+.data-info .data-statistics {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px; }
+
+.data-info .data-statistics p {
+  margin: 0; }
+
+/**
+ * @doc 数据操作区域
+ * @author Heanes
+ * @time 2016-09-08 19:15:09 周四
+ */
+.date-handle {
+  display: table;
+  width: 100%;
+  padding: 10px 0; }
+
+.date-handle .table-cell {
+  display: table-cell;
+  vertical-align: bottom; }
+
+.date-handle .handle-right {
+  text-align: right; }
+
+.date-handle .handle-right .handle:hover {
+  text-decoration: none; }
+
+.date-handle .handle-right .handle.disabled {
+  color: #ddd;
+  pointer-events: none;
+  cursor: not-allowed; }
+
+.date-handle .handle-right .handle-inline {
+  margin: 0 10px; }
+
+/**
+ * @doc 数据列表区域
+ * @author Heanes
+ * @time 2017-10-12 18:19:33 周四
+ */
+.data-list {
+  margin: 10px auto; }
+
+.data-list .table .select-row {
+  width: 60px;
+  text-align: center; }
+
+.data-list .bg-normal,
+.table.thead-tr-bg-normal thead tr {
+  background-color: #ededed; }
+
+i.fa.on {
+  color: #008000; }
+
+i.fa.off {
+  color: #f00; }
+
+/**
+ * @doc 选中后的数据的批量操作
+ * @author Heanes
+ * @time 2016-09-11 17:35:39
+ */
+.data-selected-handle {
+  margin: 20px 0 0 20px; }
+
+.data-selected-handle .handle-one {
+  margin-right: 20px; }
+
+.data-selected-handle .inline-block {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0; }
+
+.data-selected-handle input.inline-block {
+  margin-right: 6px; }
+
+.data-selected-handle .selected-count {
+  color: #ff0000;
+  margin: 0 4px; }
+
+/**
+ * @doc 数据列表脚部区域
+ * @author Heanes
+ * @time 2017-10-12 17:45:49 周四
+ */
+.data-list-footer {
+  margin: 10px auto; }
+
+/**
+ * @doc 编辑表单
+ * @author Heanes
+ * @time 2016-09-27 20:23:28 周二
+ */
+.data-edit-form {
+  padding: 0 20px; }
+
+.data-edit-form .form .form-group.inline {
+  display: inline-block; }
+
+.data-edit-form .form .form-group.inline .form-control {
+  width: auto;
+  display: inline-block;
+  vertical-align: middle; }
+
+.data-edit-form .form .form-group .control-label {
+  width: 120px;
+  text-align: right;
+  vertical-align: middle;
+  margin-bottom: 0; }
+
+.data-edit-form .form .form-group .control-label.input-show-value-text {
+  width: auto;
+  font-weight: normal;
+  min-width: 0;
+  margin: 0 10px 0 4px; }
+
+.data-edit-form .form .form-group .control-icon {
+  margin-left: -30px;
+  z-index: -1;
+  vertical-align: middle; }
+
+.data-edit-form .form .form-group .form-control.textarea-title {
+  width: 740px;
+  height: 60px; }
+
+.data-edit-form .form .form-group .form-control.textarea-content {
+  width: 740px;
+  height: 740px; }
+
+.data-edit-form .form .form-group .kindEditor-count {
+  padding-left: 134px;
+  font-size: 13px;
+  color: #5a5a5a; }
+
+.data-edit-form .form .form-group .form-control.textarea-content.uEditor {
+  padding: 0;
+  border: 0;
+  margin-bottom: 130px; }
+
+.data-edit-form .form .form-group .form-control.textarea-content.uEditor.eui-default {
+  height: auto; }
+
+.data-edit-form .form .form-group input[type="checkbox"],
+.data-edit-form .form .form-group input[type="radio"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0; }
+
+.ke-container {
+  display: inline-block !important;
+  vertical-align: top; }
+
+.data-edit-form .form .form-handle {
+  margin: 20px auto; }
+
+.data-edit-form .form .form-handle .handle-group.text-center {
+  text-align: center; }
+
+.data-edit-form .form .form-handle .handle-group .handle {
+  margin: 0 20px; }
+
+/**
+ * @doc layout-布局样式
  */
 /**
  * @doc 框架样式
@@ -249,6 +516,27 @@ iframe {
 /* 防止菜单文字被选中 */
 .tree-list-wrap {
   user-select: none; }
+
+/**
+ * @doc 树的样式覆写
+ * @author Heanes
+ * @time 2017-10-20 19:33:13 周六
+*/
+.tree-left-wrap.lapped .tree-list-wrap > .tree-group > .tree-node:hover {
+  width: 300px;
+  height: 32px; }
+  .tree-left-wrap.lapped .tree-list-wrap > .tree-group > .tree-node:hover > .node-wrap {
+    position: fixed;
+    width: 300px; }
+
+.tree-left-wrap.lapped .tree-list-wrap > .tree-group > .tree-node:hover > .tree-group {
+  position: fixed;
+  margin-top: 32px; }
+
+.tree-search .tree-search-input {
+  width: 200px;
+  height: 30px;
+  line-height: 30px; }
 
 /************************ 右侧样式 ************************/
 .iframe-container {
@@ -565,10 +853,6 @@ iframe {
  */
 body.start {
   background-color: #ecf0f5; }
-
-.box-normal {
-  box-shadow: 0 0 2px 2px rgba(225, 225, 225, 0.5);
-  border-radius: 4px; }
 
 .report-count-block {
   font-size: 0;
