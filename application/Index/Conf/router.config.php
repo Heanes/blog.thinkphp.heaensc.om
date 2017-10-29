@@ -8,10 +8,11 @@ return array(
     // 路由相关
     'url_route_rules' => array(
         // index页面文章路由
-        'p/:p\d$'                     => 'index/index/index',
-        'index/p/:p\d$'                     => 'index/index/index',
+        'p/:p\d$'                           => 'index/index',
+        'index/p/:p\d$'                     => 'index/index',
         // 文章路由
-        'article/p/:p\d$'                => 'index/article/index',
+        'article/index/p/:p\d$'             => 'article/index',
+        'article/p/:p\d$'                   => 'article/index',
         'article/:id\d$'                    => 'index/article/detail',
         'article/:articleCategory/list$'    => 'index/article/list',
         // 文章分类路由
