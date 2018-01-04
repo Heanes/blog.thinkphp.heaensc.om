@@ -13,7 +13,8 @@ defined('InHeanes') or die('Access denied!');
     <div class="center-content">
     <!-- 首页文章列表模块 -->
         <div class="index-article-list-block">
-            <div class="article-list-block" id="indexArticleList">
+            <div class="article-list-wrap" id="indexArticleList">
+                <div class="article-list">
                 <?php foreach ($output['data']['article']['items'] as $key => $article){?>
                     <div class="article-list-row">
                         <div class="article-title">
@@ -53,9 +54,12 @@ defined('InHeanes') or die('Access denied!');
                         </div>
                     </div>
                 <?php }?>
+                </div>
+                <!-- 文章分页 -->
+                <div class="article-pager">
+                    <?php echo $output['data']['article']['articlePageShow'];?>
+                </div>
             </div>
-            <!-- 文章分页 -->
-            <?php echo $output['data']['article']['articlePageShow'];?>
         </div>
     </div>
 </div>

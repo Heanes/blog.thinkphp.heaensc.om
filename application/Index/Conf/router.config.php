@@ -22,6 +22,10 @@ return array(
         'articleTag/:id\d$'                 => 'index/articleTag/articleList',
         'articleTag/:name$'                 => 'index/articleTag/articleList',
 
+        // 文章作者路由
+        'articleAuthor/:id\d$'              => 'index/articleAuthor/articleList',
+        'articleAuthor/:name$'              => 'index/articleAuthor/articleList',
+
     ),
 
     'url_router_on'        => true,        // 开启路由
