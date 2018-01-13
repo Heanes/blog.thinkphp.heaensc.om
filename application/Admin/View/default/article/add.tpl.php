@@ -32,38 +32,32 @@ defined('InHeanes') or die('Access denied!');
             <form class="form normal article-form">
                 <div class="line-group">
                     <div class="form-group inline">
-                        <label class="control-label" for="id">ID：</label>
-                        <input type="text" name="id" class="form-control" id="id" placeholder="请输入ID" value="<?php echo $output['data']['article']['id']?>" readonly>
-                    </div>
-                </div>
-                <div class="line-group">
-                    <div class="form-group inline">
                         <label class="control-label" for="order">排序：</label>
-                        <input type="text" name="order" class="form-control" id="order" placeholder="请输入序号" value="<?php echo $output['data']['article']['order']?>">
+                        <input type="text" name="order" class="form-control" id="order" placeholder="请输入序号" value="">
                     </div>
                 </div>
                 <div class="line-group">
                     <div class="form-group inline">
                         <label class="control-label" for="articleTitle">标题：</label>
-                        <textarea class="form-control textarea-title" name="articleTitle" id="articleTitle"><?php echo $output['data']['article']['title']?></textarea>
+                        <textarea class="form-control textarea-title" name="articleTitle" id="articleTitle"></textarea>
                     </div>
                 </div>
                 <div class="line-group">
                     <div class="form-group inline">
                         <label class="control-label" for="publishTime">发布时间：</label>
-                        <input type="text" name="publishTime" value="<?php echo $output['data']['article']['publishTimeFormative']?>" class="form-control" id="publishTime" placeholder="请选择创建时间">
+                        <input type="text" name="publishTime" value="" class="form-control" id="publishTime" placeholder="请选择创建时间">
                         <i class="fa fa-calendar control-icon" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div class="line-group">
                     <div class="form-group inline">
                         <label class="control-label" for="createTime">创建时间：</label>
-                        <input type="text" name="createTime" value="<?php echo $output['data']['article']['createTimeFormative']?>" class="form-control" id="createTime" placeholder="请选择创建时间">
+                        <input type="text" name="createTime" value="" class="form-control" id="createTime" placeholder="请选择创建时间">
                         <i class="fa fa-calendar control-icon" aria-hidden="true"></i>
                     </div>
                     <div class="form-group inline">
                         <label class="control-label" for="updateTime">更新时间：</label>
-                        <input type="text" name="updateTime" value="<?php echo $output['data']['article']['updateTimeFormative']?>" class="form-control" id="updateTime" placeholder="请选择更新时间">
+                        <input type="text" name="updateTime" value="" class="form-control" id="updateTime" placeholder="请选择更新时间">
                         <i class="fa fa-calendar control-icon" aria-hidden="true"></i>
                     </div>
                 </div>
@@ -98,19 +92,13 @@ defined('InHeanes') or die('Access denied!');
                 <div class="line-group">
                     <div class="form-group inline">
                         <label class="control-label" for="articleContent">内容：</label>
-                        <textarea class="form-control textarea-content" name="articleContent" id="articleContent"><?php echo $output['data']['article']['content']?></textarea>
+                        <textarea class="form-control textarea-content" name="articleContent" id="articleContent"></textarea>
                         <p class="kindEditor-count">
                             您当前输入了 <span class="word-count1">0</span> 个文字。（字数统计包含HTML代码。）<br />
                             您当前输入了 <span class="word-count2">0</span> 个文字。（字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字。）
                         </p>
                     </div>
                 </div>
-                <!--<div class="line-group">
-                    <div class="form-group inline">
-                        <label class="control-label" for="articleContentByUEditor">内容：</label>
-                        <textarea class="form-control textarea-content uEditor" name="articleContentByUEditor" id="articleContentByUEditor"><?php /*echo $output['data']['article']['content']*/?></textarea>
-                    </div>
-                </div>-->
                 <div class="form-handle">
                     <div class="handle-group line-group text-center">
                         <button type="button" class="handle btn">放弃</button>
@@ -138,12 +126,12 @@ defined('InHeanes') or die('Access denied!');
         $(function () {
             /* 日期时间选择器 */
             // datetimepicker
-            $('#publishTime, #createTime, #updateTime').on('click', function () {
+            $('#publishTime, #updateTime, #createTime').on('click', function () {
                 WdatePicker({
                     // 选择完毕后自动打开后一个选择器
                     doubleCalendar:true,
                     skin: 'bootstrap',
-                    dateFmt:"yyyy-MM-dd HH:mm:ss",
+                    dateFmt:"yyyy-MM-dd",
                     firstDayOfWeek: 1
                 });
             });
@@ -201,7 +189,7 @@ defined('InHeanes') or die('Access denied!');
 
             var B_API = JSON.parse('<?php echo $output['data']['pageApi']?>');
             var API = {
-                update: B_API.update
+                create: B_API.create
             };
             var $articleForm = $('.article-form');
             var $articleDataSubmitBtn = $('#articleDataSubmitBtn');
@@ -216,7 +204,7 @@ defined('InHeanes') or die('Access denied!');
                 articleContentKE.sync();
                 var $articlePostDataObj = $articleForm.serializeArray();
                 $.ajax({
-                    url: API.update,
+                    url: API.create,
                     data: $articlePostDataObj,
                     type : 'POST',
                     success : function(result) {

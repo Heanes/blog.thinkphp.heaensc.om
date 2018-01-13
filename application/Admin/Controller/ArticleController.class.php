@@ -89,6 +89,68 @@ class ArticleController extends BaseAdminController {
     }
 
     /**
+     * @doc 添加[页面]
+     * @author Heanes
+     * @time 2018-01-13 20:58:34 周六
+     */
+    public function addOp() {
+        $output = $this->commonOutput;
+
+        $output['title'] = '添加文章';
+        $output['data']['pageApi'] = json_encode([
+            'create' => U('admin/article/create'),
+        ]);
+        $this->assign('output', $output);
+        $this->display('article/add');
+        return $this;
+    }
+
+    /**
+     * @doc 添加[接口]
+     * @author Heanes
+     * @time 2018-01-13 21:00:10 周六
+     */
+    public function createOp() {
+        $requestArticle = $this->handelAddParam();
+
+        if(!$requestArticle){
+            $this->error('添加失败，参数错误');
+        }
+        $articleService = new ArticleService();
+        $articleUpdateParam = [
+            'data' => $requestArticle,
+        ];
+        $updateCount = $articleService->insert($articleUpdateParam);
+        if($updateCount != false){
+            $this->success('添加成功');
+        }else{
+            $this->error('添加失败。');
+        }
+    }
+
+    /**
+     * @doc 处理添加参数
+     * @author Heanes
+     * @time 2018-01-13 20:58:46 周六
+     */
+    private function handelAddParam() {
+        $requestArticleTitle = $_POST['articleTitle'];//I('request.articleTitle', null, 'string');
+        $requestCreateTime = I('request.createTime', null, 'string');
+        $requestUpdateTime = I('request.updateTime', null, 'string');
+        $requestPublishTime = I('request.publishTime', null, 'string');
+        $requestContent =  $_POST['articleContent'];//I('request.articleContent', null, 'string');
+
+        $requestArticle = [
+            'title'      => $requestArticleTitle,
+            'content'    => $requestContent,
+            'createTimeFormative' => $requestCreateTime,
+            'updateTimeFormative' => $requestUpdateTime,
+            'publishTimeFormative' => $requestPublishTime,
+        ];
+        return $requestArticle;
+    }
+
+    /**
      * @doc 编辑[页面]
      * @author Heanes
      * @time 2017-10-15 22:23:45 周天
@@ -130,7 +192,7 @@ class ArticleController extends BaseAdminController {
     }
 
     /**
-     * @doc 文章分页列表数据[接口]
+     * @doc 更新[接口]
      * @author Heanes
      * @time 2016-11-06 18:34:51 周日
      */
@@ -155,12 +217,18 @@ class ArticleController extends BaseAdminController {
         }
     }
 
+    /**
+     * @doc 处理更新参数
+     * @author Heanes
+     * @time 2016-11-06 18:34:51 周日
+     */
     private function handelUpdateParam() {
         $requestId = I('request.id', null, 'int');
         if($requestId == null){
             return false;
         }
         $requestArticleTitle = $_POST['articleTitle'];//I('request.articleTitle', null, 'string');
+        $requestPublishTime = I('request.publishTime', null, 'string');
         $requestCreateTime = I('request.createTime', null, 'string');
         $requestContent =  $_POST['articleContent'];//I('request.articleContent', null, 'string');
 
@@ -169,6 +237,7 @@ class ArticleController extends BaseAdminController {
             'title'      => $requestArticleTitle,
             'content'    => $requestContent,
             'createTimeFormative' => $requestCreateTime,
+            'publishTimeFormative' => $requestPublishTime,
         ];
         return $requestArticle;
     }

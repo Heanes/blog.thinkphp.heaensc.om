@@ -115,7 +115,9 @@ class BaseModel extends Model {
     }
 
     public function insert($param = []){
-        return 1;
+        $data = $param['data'];
+        $insertCount = $this->add($data);
+        return $insertCount;
     }
 
     public function update($param){

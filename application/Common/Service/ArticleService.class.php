@@ -140,6 +140,13 @@ class ArticleService extends BaseService{
         return $updateCount;
     }
 
+    /**
+     * @doc 更新文章
+     * @param array $param
+     * @return bool|mixed
+     * @author Heanes
+     * @time 2017-09-18 11:29:43 周一
+     */
     public function update($param) {
         $updateCount = 0;
         // 1. 先更新文章数据
@@ -147,6 +154,7 @@ class ArticleService extends BaseService{
             'data' => [
                 'title' => $param['data']['title'],
                 'create_time' => strtotime($param['data']['createTimeFormative']),
+                'publish_time' => strtotime($param['data']['publishTimeFormative']),
             ],
             'where' => [
                 'id' => $param['where']['id'],
@@ -167,6 +175,37 @@ class ArticleService extends BaseService{
         // 3. 再更新文章标签数据
 
         return $updateArticleContentCount;
+    }
+
+    /**
+     * @doc 添加文章
+     * @param array $param
+     * @return bool|mixed
+     * @author Heanes
+     * @time 2018-01-13 21:26:02 周六
+     */
+    public function insert($param) {
+        $insertCount = 0;
+        // 1. 先更新文章数据
+        $articleParam = [
+            'data' => [
+                'title' => $param['data']['title'],
+                'create_time' => time(),
+                'content' => $param['data']['content'],
+            ]
+        ];
+        $lastId = $this->articleModel->insert($articleParam);
+        // 2. 再更新文章内容数据
+        $articleContentModel = new ArticleContentModel();
+        $articleContentParam = [
+            'data' => [
+                'content' => $param['data']['content'],
+                'article_id' => $lastId,
+                'create_time' => time(),
+            ]
+        ];
+        $insertArticleContentLastId = $articleContentModel->insert($articleContentParam);
+        return $insertArticleContentLastId;
     }
 
 }

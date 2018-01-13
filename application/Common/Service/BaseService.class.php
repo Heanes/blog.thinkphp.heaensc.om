@@ -95,10 +95,22 @@ class BaseService{
      * @param array $param param
      * @return mixed bool
      * @author Heanes
-     * @time 2017-10-17 19:39:14 卓尔
+     * @time 2017-10-17 19:39:14 周二
      */
     public function update($param) {
         $updateCount = $this->model->update($param);
+        return $updateCount;
+    }
+
+    /**
+     * @doc 添加
+     * @param array $param param
+     * @return mixed bool
+     * @author Heanes
+     * @time 2017-10-17 19:39:14 周二
+     */
+    public function insert($param) {
+        $updateCount = $this->model->insert($param);
         return $updateCount;
     }
 

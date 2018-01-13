@@ -14,6 +14,7 @@ return array(
 
         // 文章 - 编辑
         'article/edit/:id\d$'                 => 'admin/article/edit',
+        'article/create$'                 => 'admin/article/create',
     ),
     'url_router_on'        => true,        // 开启路由
     'url_model'            => 2,           // URL模式
