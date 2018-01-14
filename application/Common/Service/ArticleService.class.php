@@ -153,8 +153,9 @@ class ArticleService extends BaseService{
         $articleParam = [
             'data' => [
                 'title' => $param['data']['title'],
-                'create_time' => strtotime($param['data']['createTimeFormative']),
-                'publish_time' => strtotime($param['data']['publishTimeFormative']),
+                'create_time' => strtotime($param['data']['publishTimeFormative']),
+                'publish_time' => strtotime($param['data']['createTimeFormative']),
+                'update_time' => strtotime($param['data']['updateTimeFormative']),
             ],
             'where' => [
                 'id' => $param['where']['id'],
@@ -190,7 +191,9 @@ class ArticleService extends BaseService{
         $articleParam = [
             'data' => [
                 'title' => $param['data']['title'],
-                'create_time' => time(),
+                'create_time' => strtotime($param['data']['publishTimeFormative']),
+                'publish_time' => strtotime($param['data']['createTimeFormative']),
+                'update_time' => strtotime($param['data']['updateTimeFormative']),
                 'content' => $param['data']['content'],
             ]
         ];

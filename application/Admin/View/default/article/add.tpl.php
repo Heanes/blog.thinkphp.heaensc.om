@@ -131,7 +131,7 @@ defined('InHeanes') or die('Access denied!');
                     // 选择完毕后自动打开后一个选择器
                     doubleCalendar:true,
                     skin: 'bootstrap',
-                    dateFmt:"yyyy-MM-dd",
+                    dateFmt:"yyyy-MM-dd HH:mm:ss",
                     firstDayOfWeek: 1
                 });
             });
