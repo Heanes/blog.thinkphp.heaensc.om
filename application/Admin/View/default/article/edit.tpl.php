@@ -51,7 +51,7 @@ defined('InHeanes') or die('Access denied!');
                 <div class="line-group">
                     <div class="form-group inline">
                         <label class="control-label" for="publishTime">发布时间：</label>
-                        <input type="text" name="publishTime" value="<?php echo $output['data']['article']['publishTimeFormative']?>" class="form-control" id="publishTime" placeholder="请选择创建时间">
+                        <input type="text" name="publishTime" value="<?php echo $output['data']['article']['publishTimeFormative']?>" class="form-control" id="publishTime" placeholder="请选择发布时间">
                         <i class="fa fa-calendar control-icon" aria-hidden="true"></i>
                     </div>
                 </div>
