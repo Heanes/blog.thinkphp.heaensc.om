@@ -161,7 +161,7 @@ defined('InHeanes') or die('Access denied!');
                                 <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣"></a>
                                 <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
                                 <a class="bds_more" data-cmd="more"></a>
-                                <a class="bds_count" data-cmd="count"></a>
+                                <!--<a class="bds_count" data-cmd="count"></a>-->
                             </div>
                             <script>
                                 window._bd_share_config = {
@@ -169,7 +169,7 @@ defined('InHeanes') or die('Access denied!');
                                     "share": {}
                                 };
                                 with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
-                                    'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                                    '//sharebaidu.heanes.com/static/api/js/share.js?v=89860593.js?cdnversion']; //=' + ~(-new Date() / 36e5)];
                             </script>
                         </div>
                     </div>

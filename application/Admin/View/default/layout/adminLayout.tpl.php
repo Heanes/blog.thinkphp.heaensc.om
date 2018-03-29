@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/public/static/libs/js/jQWidgets/4.4.0/styles/jqx.base.css">
     <link rel="stylesheet" type="text/css" href="/public/static/libs/js/jQWidgets/4.4.0/styles/jqx.bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="//ui.heanes.com/dist/css/heanesUI.css"/>
-    <link rel="stylesheet" type="text/css" href="//r.html.heanes.com/work/heanes.com/treeView.js/css/treeView.css">
+    <link rel="stylesheet" type="text/css" href="//r.html.heanes.com/work/heanes.com/treeView.js/src/css/treeView.css">
     <link rel="stylesheet" type="text/css" href="<?php echo TPL;?>/css/css.css"/>
     <title><?php echo $output['title'].$output['common']['titleCommonSuffix'];?></title>
 </head>
@@ -126,7 +126,7 @@
     <script type="text/javascript" src="/public/static/libs/js/jQWidgets/4.4.0/jqxcore.js"></script>
     <script type="text/javascript" src="/public/static/libs/js/jQWidgets/4.4.0/jqxtabs.js"></script>
     <script type="text/javascript" src="/public/static/libs/js/jQWidgets/4.4.0/jqxbuttons.js"></script>
-    <script type="text/javascript" src="//r.html.heanes.com/work/heanes.com/treeView.js/js/treeView.js"></script>
+    <script type="text/javascript" src="//r.html.heanes.com/work/heanes.com/treeView.js/src/js/treeView.js"></script>
     <script type="application/javascript">
         /**
          * @doc 框架脚本
