@@ -1,3 +1,3 @@
-[submodule "public/static/libs"]
-	path = public/static/libs
+[submodule "public/static/vendor"]
+	path = public/static/vendor
 	url = https://github.com/Heanes/cdn.heanes.com.git

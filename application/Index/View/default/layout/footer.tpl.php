@@ -6,6 +6,7 @@
  */
 defined('InHeanes') or die('Access denied!');
 ?>
+<div class="footer"></div>
 <script type="text/javascript">
     // S 百度统计
     var _hmt = _hmt || [];

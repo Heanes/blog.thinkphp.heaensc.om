@@ -126,6 +126,7 @@ class ArticleController extends BaseIndexController {
         $output['data'] = $articleSR;
         $output['common']['title'] = $articleSR['title'] . ' - 文章详情';
         $this->assign('output', $output);
+        layout('layout/layoutArticle');
         $this->display('detail');
         // 后续操作
         $this->afterDetailHandle($requestId);

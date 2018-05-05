@@ -6,4 +6,4 @@
  */
 defined('InHeanes') or die('Access denied!');
 ?>
-
+<div class="header"></div>
