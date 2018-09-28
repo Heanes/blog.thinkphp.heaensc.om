@@ -247,7 +247,7 @@ defined('InHeanes') or die('Access denied!');
 <cite>
     <!-- S js S -->
     <include file="layout/jsCommon"/>
-    <script type="text/javascript" src="//r.html.heanes.com/work/heanes.com/autoCatalog.js/js/autoCatalog.js"></script>
+    <script type="text/javascript" src="//r.html.heanes.com/work/heanes.com/autoCatalog.js/dist/js/autoCatalog.js"></script>
     <script type="text/javascript">
         $(function () {
             var API = {
