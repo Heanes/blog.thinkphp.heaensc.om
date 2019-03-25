@@ -12,6 +12,7 @@ use Common\Constants\ArticleConstants;
 use Common\Model\ArticleContentModel;
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
+use Think\Exception;
 
 class ArticleService extends BaseService{
 
@@ -45,6 +46,13 @@ class ArticleService extends BaseService{
      * @time 2016-06-21 14:56:00 周二
      */
     public function getList($param = [], $resultStyle = RESULT_STYLE_CAMEL){
+        // 1. 打印请求参数日志
+        // 2. try catch 出错打印错误日志
+        try{
+            ;
+        } catch (Exception $ex){
+            ;
+        }
         // 0. 查询文章基本数据
         $articleListRaw = $this->articleModel->getList($param);
 
@@ -72,17 +80,10 @@ class ArticleService extends BaseService{
 
         // ---- 数据后续加工处理
         foreach ($articleListDataRaw as $index => &$item) {
-            $item['publishTimeFormative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['publish_time']);
-            $item['createTimeFormative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['create_time']);
+            $item['publish_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['publish_time']);
+            $item['create_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['create_time']);
             // 文章分类
-            $item['articleCategory'] = $articleCategoryListIBId[$item['category_id']];
-            // 置顶、新发布、热门
-            $item['isTop'] = $item['is_top'] == ArticleConstants::IS_TOP ? true : false;
-            $item['isNew'] = $item['is_new'] == ArticleConstants::IS_NEW ? true : false;
-            $item['isHot'] = $item['is_hot'] == ArticleConstants::IS_HOT ? true : false;
-            $item['isGreat'] = $item['is_great'] == ArticleConstants::IS_GREAT ? true : false;
-            $item['isEnable'] = $item['is_enable'] == ArticleConstants::IS_ENABLE ? true : false;
-            $item['isDeleted'] = $item['is_deleted'] == ArticleConstants::IS_DELETED ? true : false;
+            $item['article_category'] = $articleCategoryListIBId[$item['category_id']];
         }
         $articleListRaw['items'] = $articleListDataRaw;
 

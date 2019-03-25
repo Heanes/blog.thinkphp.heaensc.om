@@ -9,6 +9,7 @@ defined('InHeanes') or die('Access denied!');
 
 use Common\Model\ArticleModel;
 use Common\Model\ArticleCategoryModel;
+use Common\Service\ArticleService;
 
 class ArticleController extends BaseAPIController {
 
@@ -16,6 +17,11 @@ class ArticleController extends BaseAPIController {
      * @var ArticleModel 文章模型
      */
     private $articleModel;
+
+    /**
+     * @var ArticleService 文章服务
+     */
+    private $articleService;
 
     /**
      * @var ArticleCategoryModel 文章分类模型
@@ -27,6 +33,7 @@ class ArticleController extends BaseAPIController {
         parent::__construct();
         $this->articleModel = new ArticleModel();
         $this->articleCategoryModel = new ArticleCategoryModel();
+        $this->articleService = new ArticleService();
     }
 
     /**
@@ -44,22 +51,27 @@ class ArticleController extends BaseAPIController {
      * @time 2016-06-21 14:56:00 周二
      */
     public function listOp(){
-        $articleListRaw = $this->articleModel
-            ->where('is_enable = 1 and is_deleted = 0')
-            ->limit('0,20')
-            ->select();
-        foreach ($articleListRaw as $index => &$article) {
-            $article['publish_time_formative'] = date('Y-m-d H:i:s', $article['publish_time']);
-            $article['testField'] = null;
-        }
-        $articleListCamelStyle = convertToCamelStyle($articleListRaw);
-        $result = [
-            'body' => $articleListCamelStyle,
-            'message' => 'success',
-            'errorCode' => 0,
-            'success' => true
+        $param = [
+            'page'=> [
+                'pageSize'=> 10,
+                'pageNumber'=> 1
+            ]
         ];
-        returnJson($result);
+        $articleListRaw = $this->articleService->getList($param);
+        $dateTimeStr = '';
+        try {
+            $dateTime = new \DateTime();
+            $dateTimeStr = $dateTime->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            ;
+        }
+        $result = [
+            'data' => $articleListRaw,
+            'msg' => 'ok',
+            'code' => 0,
+            'responseDateTime' => $dateTimeStr
+        ];
+        return returnJson($result);
     }
 
     /**
@@ -77,11 +89,18 @@ class ArticleController extends BaseAPIController {
             ->find();
         $articleRaw['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
         $articleCamelStyle = convertToCamelStyle($articleRaw);
+        $dateTimeStr = '';
+        try {
+            $dateTime = new \DateTime();
+            $dateTimeStr = $dateTime->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            ;
+        }
         $result = [
-            'body' => $articleCamelStyle,
-            'message' => 'success',
-            'errorCode' => 0,
-            'success' => true
+            'data' => $articleCamelStyle,
+            'msg' => 'ok',
+            'code' => 0,
+            'responseDateTime' => $dateTimeStr,
         ];
         returnJson($result);
     }

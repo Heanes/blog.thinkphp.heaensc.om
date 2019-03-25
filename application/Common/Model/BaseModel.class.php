@@ -166,8 +166,8 @@ class BaseModel extends Model {
                 'pageNumber'    => $pageNumber,
                 'hasPrevPage'   => $pageNumber > 1,
                 'hasNextPage'   => ($totalPage - $pageNumber) > 1,
+                'total'         => $totalItem,
                 'totalPage'     => $totalPage,
-                'totalItem'     => $totalItem,
             ];
     }
 

@@ -17,25 +17,30 @@ function returnJson($anything, $option = JSON_UNESCAPED_SLASHES){
     echo json_encode($anything, $option);
 }
 
-function returnJsonMessage($anything, $type = 'success', $option = JSON_UNESCAPED_SLASHES ){
+function returnJsonMessage($msg, $type = 'success', $option = JSON_UNESCAPED_SLASHES ){
     switch ($type){
         case 'success':
-            $success = true;
             $errorCode = 0;
             break;
         case 'error':
-            $success = false;
             $errorCode = -1;
             break;
         default :
-            $success = false;
             $errorCode = -1;
     }
+
+    $dateTimeStr = '';
+    try {
+        $dateTime = new \DateTime();
+        $dateTimeStr = $dateTime->format('Y-m-d H:i:s');
+    } catch (\Exception $e) {
+        ;
+    }
     $result = [
-        'body' => '',
-        'message' => $anything,
-        'errorCode' => $errorCode,
-        'success' => $success,
+        'data' => '',
+        'msg' => $msg,
+        'code' => $errorCode,
+        'responseDateTime' => $dateTimeStr
     ];
     echo json_encode($result, $option);
 }
