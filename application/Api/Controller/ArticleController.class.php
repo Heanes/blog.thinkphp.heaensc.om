@@ -53,8 +53,11 @@ class ArticleController extends BaseAPIController {
     public function listOp(){
         $param = [
             'page' => [
-                'pageSize'=> 10,
-                'pageNumber'=> 1
+                'pageSize'=> intval($_REQUEST['pageSize']),
+                'pageNumber'=> intval($_REQUEST['pageNumber'])
+            ],
+            'where' => [
+                //'category_code' => $_REQUEST['pageSize']
             ],
             // 按发布时间，id降序
             'order' => [
