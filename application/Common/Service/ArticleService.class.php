@@ -78,18 +78,72 @@ class ArticleService extends BaseService{
         $articleCategoryListIBId = arrayToKeyIndex($articleCategoryListSR);
         // 2. 查询文章标签信息
 
-        // ---- 数据后续加工处理
+        // 3. 查询文章作者信息
+
+        // ---- 数据后续加工处理，输出dto
         foreach ($articleListDataRaw as $index => &$item) {
             $item['publish_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['publish_time']);
             $item['create_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $item['create_time']);
             // 文章分类
             $item['article_category'] = $articleCategoryListIBId[$item['category_id']];
+            // 链接url
+            $item = $this->getLinkCode($item);
         }
         $articleListRaw['items'] = $articleListDataRaw;
 
         // 如果是驼峰格式
         $articleListResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleListRaw) : $articleListRaw;
         return $articleListResult;
+    }
+
+    /**
+     * @doc 获取友好链接
+     * @param $item
+     * @return mixed
+     * @author Heanes
+     * @time 2019-03-26 23:57:53 周二
+     */
+    private function getLinkCode($item) {
+        if(!$item['semantic_link']){
+            $item['semantic_link'] = $item['id'];
+        }
+        return $item;
+    }
+
+    /**
+     * @doc 文章数据详情
+     * @param array $param 查询参数
+     * @param string $resultStyle 结果风格，驼峰或者原生
+     * @author Heanes fang <heanes@163.com>
+     * @time 2016-06-21 14:56:00 周二
+     * @return array|null|string
+     */
+    public function getDetailByParam($param, $resultStyle = RESULT_STYLE_CAMEL){
+        $whereOr = $param;
+        $whereOr['_logic'] = 'or';
+        $where['_complex'] = $whereOr;
+        $where['is_enable'] = 1;
+        $where['is_deleted'] = 0;
+        $articleRaw = $this->articleModel->where($where)->limit(1)->find();
+        if($articleRaw == null || count($articleRaw) == 0){
+            return [];
+        }
+        // 0. 查询文章内容信息
+        $articleContentModel = new ArticleContentModel();
+        $articleContentParam['where']['article_id'] = $articleRaw['id'];
+        $articleContentRaw = $articleContentModel->getOne($articleContentParam);
+        $articleRaw['content'] = $articleContentRaw['content'] ?: '';
+
+        // 1. 查询文章分类信息
+        /*$articleCategoryService = new ArticleCategoryService();
+        $articleCategoryListSR = $articleCategoryService->getList();
+        $articleRaw['articleCategoryTree'] = findParent($articleCategoryListSR, $articleRaw['category_id']);*/
+        // 数据后续加工处理
+        $articleRaw['publish_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $articleRaw['publish_time']);
+        $articleRaw['create_time_formative'] = date(DATE_TIME_FORMATIVE_DEFAULT, $articleRaw['create_time']);
+
+        $articleResult = $resultStyle == RESULT_STYLE_CAMEL ? convertToCamelStyle($articleRaw) : $articleRaw;
+        return $articleResult;
     }
 
     /**

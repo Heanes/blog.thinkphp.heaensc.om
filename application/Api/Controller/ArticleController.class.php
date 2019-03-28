@@ -52,9 +52,14 @@ class ArticleController extends BaseAPIController {
      */
     public function listOp(){
         $param = [
-            'page'=> [
+            'page' => [
                 'pageSize'=> 10,
                 'pageNumber'=> 1
+            ],
+            // 按发布时间，id降序
+            'order' => [
+                'publish_time' => 'desc',
+                'id' => 'desc'
             ]
         ];
         $articleListRaw = $this->articleService->getList($param);
@@ -80,29 +85,34 @@ class ArticleController extends BaseAPIController {
      * @time 2016-06-21 18:15:42 周二
      */
     public function detailOp() {
-        $id = $_REQUEST['id'];
-        if(!$id){
-            returnJsonMessage('id不能为空', 'error');
+        $param = $_REQUEST['param'];
+        if(!$param){
+            return returnJsonMessage('param不能为空', 'error');
         }
-        $articleRaw = $this->articleModel
-            ->where('id = '. $id .' and is_enable = 1 and is_deleted = 0')
-            ->find();
-        $articleRaw['publish_time_formative'] = date('Y-m-d H:i:s', $articleRaw['publish_time']);
-        $articleCamelStyle = convertToCamelStyle($articleRaw);
-        $dateTimeStr = '';
-        try {
-            $dateTime = new \DateTime();
-            $dateTimeStr = $dateTime->format('Y-m-d H:i:s');
-        } catch (\Exception $e) {
-            ;
-        }
+        $detailParam = [
+            'id' => $param,
+            'semantic_link' => $param
+        ];
+        $articleDetailResult = $this->articleService->getDetailByParam($detailParam);
         $result = [
-            'data' => $articleCamelStyle,
+            'data' => null,
             'msg' => 'ok',
             'code' => 0,
-            'responseDateTime' => $dateTimeStr,
+            'responseDateTime' => 0,
         ];
-        returnJson($result);
+        if($articleDetailResult){
+            $dateTimeStr = '';
+            try {
+                $dateTime = new \DateTime();
+                $dateTimeStr = $dateTime->format('Y-m-d H:i:s');
+            } catch (\Exception $e) {
+                ;
+            }
+            $result['data'] = $articleDetailResult;
+            $result['responseDateTime'] = $dateTimeStr;
+        }
+
+        return returnJson($result);
     }
 
     /**
