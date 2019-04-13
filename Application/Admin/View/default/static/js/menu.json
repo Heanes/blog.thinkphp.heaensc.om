@@ -1,0 +1,142 @@
+[
+  {
+    "text": "常用",
+    "href": "",
+    "nodeIcon": "",
+    "iconSelected": "",
+    "selectable": true,
+    "state": {
+      "selected": false,
+      "expanded": true,
+      "disabled": false
+    },
+    "nodes": [
+      {
+        "text": "文章模块",
+        "href": "",
+        "nodeIcon": "fa fa-file-text-o",
+        "iconSelected": "",
+        "selectable": true,
+        "state": {
+          "selected": false,
+          "expanded": true,
+          "disabled": false
+        },
+        "nodes": [
+          {
+            "text": "文章内容",
+            "href": "article/index.html",
+            "nodeIcon": "fa fa-file-word-o",
+            "iconSelected": "",
+            "selectable": true,
+            "state": {
+              "selected": false,
+              "expanded": true,
+              "disabled": false
+            },
+            "nodes": [
+            ]
+          },
+          {
+            "text": "文章评论",
+            "href": "articleComment/index.html",
+            "nodeIcon": "fa fa-comments-o",
+            "iconSelected": "",
+            "selectable": true,
+            "state": {
+              "selected": false,
+              "expanded": true,
+              "disabled": false
+            },
+            "nodes": [
+            ]
+          },
+          {
+            "text": "文章标签",
+            "href": "articleTag/index.html",
+            "nodeIcon": "fa fa-tags",
+            "iconSelected": "",
+            "selectable": true,
+            "state": {
+              "selected": false,
+              "expanded": true,
+              "disabled": false
+            },
+            "nodes": [
+            ]
+          },
+          {
+            "text": "文章分类",
+            "href": "articleCategory/index.html",
+            "nodeIcon": "fa fa-tasks",
+            "iconSelected": "",
+            "selectable": true,
+            "state": {
+              "selected": false,
+              "expanded": true,
+              "disabled": false
+            },
+            "nodes": [
+            ]
+          }
+        ]
+      },
+      {
+        "text": "网站设置",
+        "href": "",
+        "nodeIcon": "fa fa-cogs",
+        "iconSelected": "",
+        "selectable": true,
+        "state": {
+          "selected": false,
+          "expanded": true,
+          "disabled": false
+        },
+        "nodes": [
+          {
+            "text": "网站导航",
+            "href": "navigation/index.html",
+            "nodeIcon": "fa fa-navicon",
+            "iconSelected": "",
+            "selectable": true,
+            "state": {
+              "selected": false,
+              "expanded": true,
+              "disabled": false
+            },
+            "nodes": [
+            ]
+          },
+          {
+            "text": "友情链接",
+            "href": "friendlyLink/index.html",
+            "nodeIcon": "fa fa-link",
+            "iconSelected": "",
+            "selectable": true,
+            "state": {
+              "selected": false,
+              "expanded": true,
+              "disabled": false
+            },
+            "nodes": [
+            ]
+          },
+          {
+            "text": "基础设置",
+            "href": "setting/index.html",
+            "nodeIcon": "fa fa-cog",
+            "iconSelected": "",
+            "selectable": true,
+            "state": {
+              "selected": false,
+              "expanded": true,
+              "disabled": false
+            },
+            "nodes": [
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
