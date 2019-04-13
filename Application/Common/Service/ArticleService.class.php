@@ -49,10 +49,6 @@ class ArticleService extends BaseService{
         // 1. 打印请求参数日志
         // 2. try catch 出错打印错误日志
         try{
-            $redis = new \Redis();
-            $redis->connect('127.0.0.1', 6379);
-            $cacheList = $redis->get('article_list');
-
             // 0. 查询文章基本数据
             $articleListRaw = $this->articleModel->getList($param);
 
@@ -93,9 +89,6 @@ class ArticleService extends BaseService{
 
 
             $result = toStyleResult($articleListRaw, $resultStyle);
-
-            $redis->setex('article_list', 60 * 10, json_encode($result));
-            $redis->close();
 
             $return = new ServiceResult($result);
             return $return;

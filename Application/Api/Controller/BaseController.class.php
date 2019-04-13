@@ -32,14 +32,7 @@ class BaseController extends BaseAPIController {
      */
     public function commonOp() {
         try {
-            $redis = new Redis([
-                'host' => '127.0.0.1',
-                'port' => '6379'
-            ]);
-            $redis->get('navList');
-
             $navList = $this->getNavList();
-            $redis->set('navList', $navList);
             $data        = [
                 'navList'      => $navList,
                 'setting'      => [
@@ -50,7 +43,6 @@ class BaseController extends BaseAPIController {
                 'friendlyLink' => [],
             ];
             $dateTimeStr = getFormateDate();
-
 
             $result      = [
                 'data'         => $data,
