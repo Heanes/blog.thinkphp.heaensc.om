@@ -13,7 +13,7 @@ defined('InHeanes') or die('Access denied!');
  * @author Heanes fang <heanes@163.com>
  * @time 2016-06-21 14:39:45 周二
  */
-function returnJson($anything, $option = JSON_UNESCAPED_SLASHES){
+function returnJson($anything, $option = JSON_UNESCAPED_UNICODE){
     echo json_encode($anything, $option);
 }
 
