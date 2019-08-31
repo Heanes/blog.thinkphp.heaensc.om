@@ -214,7 +214,13 @@ function getKeyValueMapFromArray($array, $key, $fields = [], $convertToCamel = '
  * @time 2019-04-13 12:49:05 周六
  */
 function getRequestParam($key = null){
-    $requestAll = json_decode(file_get_contents('php://input'), true);
+    // 如果是post且content-type为json
+    $contentType = $_SERVER['CONTENT_TYPE'];
+    if(strtolower($contentType) == 'application/json'){
+        $requestAll = json_decode(file_get_contents('php://input'), true);
+    }else{
+        $requestAll = $_REQUEST;
+    }
     return $key != null ? $requestAll[$key] : $requestAll;
 }
 
