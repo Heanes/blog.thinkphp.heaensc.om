@@ -216,11 +216,12 @@ function getKeyValueMapFromArray($array, $key, $fields = [], $convertToCamel = '
 function getRequestParam($key = null){
     // 如果是post且content-type为json
     $contentType = $_SERVER['CONTENT_TYPE'];
-    if(strtolower($contentType) == 'application/json'){
+    if(stristr($contentType, 'application/json')){
         $requestAll = json_decode(file_get_contents('php://input'), true);
     }else{
         $requestAll = $_REQUEST;
     }
+    // todo 考虑同时存在get参数时，合并参数
     return $key != null ? $requestAll[$key] : $requestAll;
 }
 
